@@ -1,0 +1,21 @@
+{
+	"name": "Hanzi",
+	"options": {
+		"f2b": ["review", "mc", "typing"],
+		"b2f": ["review", "mc"]
+	},
+	"cards": [
+		{
+			"f": "有空",
+			"b": "have free time"
+		},
+		{
+			"f": "对不起",
+			"b": "sorry"
+		},
+		{
+			"f": "没关系",
+			"b": "no problem"
+		}
+	]
+}

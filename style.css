@@ -1,0 +1,179 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+article {
+	position: relative;
+
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 0 1em 1.6em 1em;
+		
+	font-size: 18px;
+	line-height: 1.6em;
+	font-family: Georgia, serif;
+}
+
+h1, h2, h3, h4, h5 {
+	line-height: 1em;
+
+	font-family: Georgia, serif;
+		
+	font-weight: normal;
+}
+
+
+h1 {
+	position: relative;
+	font-size: 1em;
+	line-height: 1.6em;
+	
+	text-transform: lowercase;
+	
+	padding: 0;
+	margin: 1.4545em 0 1.4545em;
+}
+
+h2 {
+	position: relative;
+	font-size: 1em;
+	line-height: 1.6em;
+	
+	padding: 0;
+	margin: 0;
+	
+	font-weight: bold;
+}
+
+nav {
+	background: black;
+	padding: 1.6em 1em 1.6em 1em;
+	margin: 0;
+
+	color: white;	
+}
+
+nav ul {
+
+	max-width: 800px;
+	margin: 0 auto;
+	
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+}
+
+nav ul li {
+	display: block;
+	margin: 0 1.6em 0 0;
+	padding: 0;
+}
+
+nav ul li.home {
+	order: 5;
+	flex-grow: 1;
+	margin: 0;
+	text-align: right;
+}
+
+nav h1 {
+	float: right;
+	margin: 0;
+	padding: 0;
+}
+
+#body nav a,
+#body nav a:hover  {
+	color: white;
+	border-color: white;
+}
+
+p {
+	padding: 0;
+	margin: 1.4545em 0 0;
+}
+
+aside {
+	font-size: 0.8em;
+	line-height: 2em; 
+	text-align: right;
+	
+	padding: 0 60px;
+	margin: -1.8em 0 0;
+}
+
+ul, ol {
+
+	padding: 0 60px;
+	display: block;
+	margin: 0.8em 0;
+	padding: 0;
+	
+	list-style: none;
+}
+
+a {
+
+	font-weight: 100;
+	
+	text-decoration: none;
+	color: black;
+	
+	border-bottom: dashed 2px black;
+	padding-bottom: 3px;
+}
+
+#body a:hover {
+	border-bottom: solid 2px black;
+}
+
+pre {
+	font-family: Consolas, monospace;
+	
+	white-space: pre-wrap;
+	
+	font-size: 1em;
+	line-height: 1.6em;
+	margin: 1.6em 0;
+}
+
+footer {	
+	font-size: 0.8em;
+	text-align: center;
+	
+	margin-top: 3.2em;
+}
+
+hr:before
+{
+	content: "***";
+}
+
+hr
+{
+	font-weight: 1em;
+	height: 1.4545em;
+	border: none;
+	text-align: center;
+	margin: 1.4545em 0 1.4545em 0;
+	padding: 0;
+
+}
+
+ul.stories {
+
+	margin: 0 -1.4545em 0 -1.4545em;
+}
+
+ul.stories li a {
+	display: block;
+	height: 1.55em;
+	border-bottom: solid white 1px;
+	padding: 0.725em 1.4545em 0.725em 1.4545em;
+}
+
+.galleria {
+	height: 600px;
+}
