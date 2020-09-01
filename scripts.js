@@ -11,8 +11,15 @@ var lt = { // * top-level namespace
 	init : function() 
 	{
 		let request = window.indexedDB.open('leitner', 1);
-		request.onerror   = function() {console.log('Database failed to open'); };
-		request.onsuccess = function() {console.log('Database opened successfully'); };
+		
+		request.onerror   = function() {
+			console.log('Database failed to open'); 
+		};
+		
+		request.onsuccess = function() {
+			console.log('Database opened successfully'); 
+			lt.db = request.result;
+		};
 
 		// Setup the database tables if this has not already been done
 		request.onupgradeneeded = function(e) 
@@ -22,7 +29,7 @@ var lt = { // * top-level namespace
 			// table for card-answering events
 			let store = db.createObjectStore('events', { keyPath: 'id', autoIncrement:true });
 
-			// Define what data items the objectStore will contain
+			// -- timestamp of the answering event
 			store.createIndex('timestamp', 'timestamp', { unique: false });
 			
 			// -- target card (the correct answer in the case of MC)
@@ -34,14 +41,11 @@ var lt = { // * top-level namespace
 			// -- alternative 2 (in MC questions)
   			store.createIndex('alt2', 'alt2', { unique: false });
   			
-  			// -- result of the question (positive for correct, negative for incorrect)
+  			// -- result of the answering event (positive for correct, negative for incorrect)
 			store.createIndex('result', 'result', { unique: false });
 
 			console.log('Database setup complete.');
 		};
-
-	  	lt.db = request.result;
-	  	
 	},
 	
 	templates : { mc: $.templates("#mc") },
@@ -61,7 +65,6 @@ var lt = { // * top-level namespace
 	{
 		deck.cards.forEach((card) => 
 		{		
-			console.log(card)
 			// - generate (sufficiently) unique IDs for cards that don't
 			//   have them
 			if (!( 'id' in card))
@@ -103,7 +106,13 @@ var lt = { // * top-level namespace
 
 			$("article ul#answers li button").on(
 				'click',
-				{ correct: corr },
+				{ 
+			      timestamp: Date.now(),
+				  card: sample[0].id,
+				  alt1: sample[1].id,
+				  alt2: sample[2].id,
+ 				  correct: corr
+				},
 				lt.session.processAnswer
 			)            
 		},
@@ -112,6 +121,14 @@ var lt = { // * top-level namespace
 		{
 			answered = $(e.target).data('answer')
 			correct = e.data.correct
+			
+			// * write event to db
+			let trs = lt.db.transaction(["events"], "readwrite");
+			trs.oncomplete = function(e){console.log('Event stored')};
+			trs.onerror = function(e){console.log(e)};
+			
+			let events = trs.objectStore("events");
+			let rq = events.add(e.data)
 
 			if(answered == correct)
 			{
@@ -133,7 +150,7 @@ var lt = { // * top-level namespace
 $(function() {
 
 	// - init database
-	// lt.init();
+	lt.init();
 
 	// - load decks
 	$.getJSON('./deck.json', lt.loadDeck)	
