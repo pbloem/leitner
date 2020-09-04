@@ -1,18 +1,18 @@
-html, body {
+html {
 	margin: 0;
 	padding: 0;
+	background: #ddd;
 }
 
 article {
-	position: relative;
 
-	max-width: 800px;
 	margin: 0 auto;
-	padding: 0 1em 1.6em 1em;
+	padding: 0 0 0 0;
 		
 	font-size: 18px;
 	line-height: 1.6em;
 	font-family: Georgia, serif;
+	
 }
 
 h1, h2, h3, h4, h5 {
@@ -177,3 +177,89 @@ ul.stories li a {
 .galleria {
 	height: 600px;
 }
+
+.frame {
+	position: relative;
+	padding-top: 40%;
+	
+	width: 80%;
+	min-width: 340px;
+	margin: 2em auto auto auto;
+	background: white;
+}
+
+.frame div, .frame button {
+	position: absolute;
+	
+	top: 0;
+	left: 0;
+}
+
+.frame .question {
+	width: 40%;
+	height: 80%;
+	background: #87cbe6;
+	color: #2c5768;
+	
+	top: 10%; left: 5%;
+	
+	text-align: center;
+	
+	
+	box-shadow: 5px 5px #eee;
+	transform: rotate(-2deg);
+}
+
+.frame .question.short {
+	font-size: 3.5vw;
+}
+
+.frame .question.short span {
+	top: 30%;
+}
+
+.frame .question.medium {
+	font-size: 2vw;
+}
+
+.frame .question.medium span {
+	top: 40%;
+}
+
+.frame .question {	
+	overflow: scroll;
+}
+
+.frame .question span {
+	position: absolute;
+	top: 1em;
+	left: 1em;
+	right: 1em;
+		
+	font-size: 1.8em;
+	line-height: 2em;
+}
+
+.frame button {
+	width: 40%;
+	height: 20%;
+	
+	top: 10%; right: 5%; left: auto;
+	border: none;
+	
+	font-size: 3vw;
+	box-shadow: 5px 5px #eee;
+}
+
+.frame button:disabled {
+	background: #d6e687;
+}
+
+.frame #a1 {
+	top: 40%;
+}
+
+.frame #a2 {
+	top: 70%;
+}
+

@@ -1,27 +1,21 @@
 {% raw %}
 <script id="mc" type="text/x-jsrender">
 
-    <div class="question">
-        {{:question}}
-    </div>
+	<div class="frame mc">
+		<div class="question"><span>
+			{{:question}}
+		</span></div>
 
-    <ul id="answers">
-        <li>
-            <button id="a0" data-answer="0">
-            {{:answer0}}
-            </button>
-        </li>
-        <li>
-            <button id="a1" data-answer="1">
-            {{:answer1}}
-            </button>
-        </li>
-        <li>
-            <button id="a2" data-answer="2">
-            {{:answer2}}
-            </button>
-        </li>
-    </ul>
+		<button id="a0" data-answer="0">
+		{{:answer0}}
+		</button>
+		<button id="a1" data-answer="1">
+		{{:answer1}}
+		</button>
+		<button id="a2" data-answer="2">
+		{{:answer2}}
+		</button>
+    </div>
 
 </script>
 {% endraw %}

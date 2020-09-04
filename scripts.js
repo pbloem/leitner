@@ -72,6 +72,8 @@ var lt = { // * top-level namespace
 		});
 		
 		lt.decks[deck.name] = deck
+		
+		console.log(deck.name + ' loaded')
 	},
 
 	
@@ -95,16 +97,23 @@ var lt = { // * top-level namespace
 			sample = _.sampleSize(deck.cards, 3);
 			corr = _.sample([0, 1, 2]);
 
+			q = sample[corr].sides[0];
+
 			$("article").html(
 				lt.templates.mc.render({
-					question: sample[corr].f,
-					answer0: sample[0].b,
-					answer1: sample[1].b,
-					answer2: sample[2].b
+					question: q,
+					answer0: sample[0].sides[2],
+					answer1: sample[1].sides[2],
+					answer2: sample[2].sides[2]
 				})
 			)
 
-			$("article ul#answers li button").on(
+			if (q.length < 4)
+				$(".frame .question").addClass("short")
+			else if (q.length < 10)
+				$(".frame .question").addClass("medium")
+			
+			$("article .frame button").on(
 				'click',
 				{ 
 			      timestamp: Date.now(),
@@ -132,7 +141,7 @@ var lt = { // * top-level namespace
 
 			if(answered == correct)
 			{
-				$('article').append('Correct!');
+// 				$('article').append('Correct!');
 				lt.sounds.correct.play()
 			
 				$('article button').attr('disabled', true);
@@ -140,7 +149,7 @@ var lt = { // * top-level namespace
 				setTimeout(lt.session.generate , 750)
 			} else
 			{
-				$('article').append('Incorrect!');
+// 				$('article').append('Incorrect!');
 				lt.sounds.incorrect.play()
 			}
 		},
