@@ -48,6 +48,11 @@ var lt = { // * top-level namespace
 		};
 	},
 	
+	deck_files : [
+		'../decks/hanzi01.json',
+		'../decks/capitals.json',
+	],
+	
 	templates : { mc: $.templates("#mc") },
 	
 	sounds: {
@@ -102,9 +107,9 @@ var lt = { // * top-level namespace
 			$("article").html(
 				lt.templates.mc.render({
 					question: q,
-					answer0: sample[0].sides[2],
-					answer1: sample[1].sides[2],
-					answer2: sample[2].sides[2]
+					answer0: sample[0].sides[1],
+					answer1: sample[1].sides[1],
+					answer2: sample[2].sides[1]
 				})
 			)
 
@@ -156,15 +161,26 @@ var lt = { // * top-level namespace
 	}
 }
 
-$(function() {
+$(function() 
+{
+
+	
 
 	// - init database
 	lt.init();
 
+	loaded = 0
 	// - load decks
-	$.getJSON('./deck.json', lt.loadDeck)	
-	.done(function(){
-		lt.session.startSession(lt.decks['Hanzi'])
+	var rqs = Array();
+	lt.deck_files.forEach(function(df)
+	{
+		rqs.push($.getJSON(df, lt.loadDeck));
+	});
+	
+	var defer = $.when.apply($, rqs);
+	defer.done(function() {
+		lt.session.startSession(lt.decks['Capitals']);
 	});
 
-;});
+
+});
