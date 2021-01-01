@@ -12,45 +12,6 @@ var lt = { // * top-level namespace
 	
 	init : function() 
 	{
-// 		let request = window.indexedDB.open('leitner', 2);
-// 		
-// 		request.onerror   = function() {
-// 			console.log('Database failed to open'); 
-// 		};
-// 		
-// 		request.onsuccess = function() {
-// 			console.log('Database opened successfully'); 
-// 			lt.db = request.result;
-// 		};
-// 
-// 		// Setup the database tables if this has not already been done
-// 		request.onupgradeneeded = function(e) 
-// 		{
-// 			let db = e.target.result;
-// 
-// 			// table for card-answering events
-// 			let store = db.createObjectStore('events', { keyPath: 'id', autoIncrement:true });
-// 
-// 			// the deck from which the cards came
-// 			store.createIndex('deck', 'deck', { unique: false });
-// 
-// 			// -- timestamp of the answering event
-// 			store.createIndex('timestamp', 'timestamp', { unique: false });
-// 			
-// 			// -- target card (the correct answer in the case of MC)
-// 			store.createIndex('card', 'card', { unique: false });
-// 		
-// 			// -- alternative 1 (in MC questions)
-// 			store.createIndex('alt1', 'alt1', { unique: false });
-// 			
-// 			// -- alternative 2 (in MC questions)
-//   			store.createIndex('alt2', 'alt2', { unique: false });
-//   			
-//   			// -- result of the answering event (positive for correct, negative for incorrect)
-// 			store.createIndex('result', 'result', { unique: false });
-// 
-// 			console.log('Database setup complete.');
-// 		};
 
 		lt.db = new Dexie('leitner')
 		
@@ -103,30 +64,48 @@ var lt = { // * top-level namespace
 		console.log(deck.name + ' loaded')
 	},
 
-	computeScores : function(deck)
+	computeScores : async function(deck)
 	{
-		deck.cards.forEach((card) => 
+		await deck.cards.forEach(async(card) => 
 		{
 			let cardId = card.id
 			let deckId = deck.id
 
-			let cards = lt.db.events
+			await lt.db.events // latest correct
 				.where('[deck+card+result]').equals([deckId,cardId,0]).sortBy('timestamp')
 				.then(function(events){
 					if (events.length > 0)
-						console.log(card.sides[0] + ' ' + events[0].timestamp)
+					{
+						card.timeSinceCorrect = Date.now() - events[0].timestamp
+						
+						if (card.timeSinceSeen == null || card.timeSinceSeen > card.timeSinceCorrect)
+							card.timeSinceSeen = card.timeSinceCorrect
+					}
+				});
+				
+			await lt.db.events // latest incorrect
+				.where('[deck+card+result]').anyOf([deckId,cardId, 1], [deckId,cardId, 2]).sortBy('timestamp')
+				.then(function(events){
+					if (events.length > 0)
+					{
+						card.timeSinceIncorrect = Date.now() - events[0].timestamp
+						
+						if (card.timeSinceSeen == null || card.timeSinceSeen > card.timeSinceIncorrect)
+							card.timeSinceSeen = card.timeSinceIncorrect
+					}
 				});
 		});		
+
 	},
 	
 	// * sub-namespace for the current session
 	session : {
 	
-		startSession : function(deck)
+		startSession : async function(deck)
 		{
 
 			lt.session.deck = deck
-			lt.computeScores(deck)
+			await lt.computeScores(deck)
 			
 			lt.session.generate();
 		},
@@ -175,22 +154,12 @@ var lt = { // * top-level namespace
 		{
 			let answered = $(e.target).data('answer')
 			let correct = e.data.result
-			
-			// * write event to db
-// 			let trs = lt.db.transaction(["events"], "readwrite");
-// 			
-// 			trs.oncomplete = function(e){console.log('Event stored')};
-// 			trs.onerror = function(e){console.log(e)};
-// 			
-// 			let events = trs.objectStore("events");
-// 			let rq = events.add(e.data)
 
 			console.log(e.data)
 			lt.db.events.add(e.data)
 
 			if(answered == correct)
 			{
-// 				$('article').append('Correct!');
 				lt.sounds.correct.play()
 			
 				$('article button').attr('disabled', true);
@@ -198,7 +167,7 @@ var lt = { // * top-level namespace
 				setTimeout(lt.session.generate , 750)
 			} else
 			{
-// 				$('article').append('Incorrect!');
+				lt.session.failed
 				lt.sounds.incorrect.play()
 			}
 		},
