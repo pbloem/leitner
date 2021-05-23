@@ -10,24 +10,44 @@ String.prototype.hash = function() {
 
 var lt = { // * top-level namespace
 	
-	init : function() 
+	/**
+	 * Initialize the Leitner environment by initializing the database, and loading all 
+	 * card decks. 
+	 *
+	 * Returns a defer promise (?) that concluded when the environment is properly loaded.
+	 */
+	init : async function() 
 	{
 
+		// - init database
 		lt.db = new Dexie('leitner')
 		
 		lt.db.version(1).stores({
               events: 'id++, timestamp, deck, card, alt1, alt2, result, [deck+card], [deck+card+result]'
         });
 		
+		// - load all decks
+		let rqs = Array();
+		for (let df of lt.deck_files)
+		{
+			let prm = $.getJSON(df).then(lt.loadDeck)
+			rqs.push(prm);
+		}
 		
+		await Promise.all(rqs)
 	},
 	
+	// Add new decks here
 	deck_files : [
 		'../decks/hanzi01.json',
 		'../decks/capitals.json',
 	],
 	
-	templates : { mc: $.templates("#mc") },
+	// TODO: automate this in init(). Use a query to collect all script elements with type="text/x-jsrender"
+	templates : { 
+		mc: $.templates("#mc"), 
+		decklink: $.templates("#decklink") 
+	},
 	
 	sounds: {
 		correct: new Audio('/sounds/correct.mp3'),
@@ -40,7 +60,7 @@ var lt = { // * top-level namespace
 	 * Takes a dictionary representing a deck, enriches it, and adds it to the set of 
 	 * decks in the namespace.
 	 */
-	loadDeck : function(deck) 
+	loadDeck : async function(deck) 
 	{
 		deck.cards.forEach((card) => 
 		{		
@@ -61,15 +81,20 @@ var lt = { // * top-level namespace
 		
 		lt.decks[deck.name] = deck
 		
-		console.log(deck.name + ' loaded')
+		console.log(deck.name + ' loaded');
+		
+		await lt.computeScores(deck);
+		
+		console.log(deck.name + ' scores computed');
 	},
 
 	computeScores : async function(deck)
 	{
-		await deck.cards.forEach(async(card) => 
+		for (let card of deck.cards) 
 		{
-			let cardId = card.id
-			let deckId = deck.id
+		
+			let cardId = card.id;
+			let deckId = deck.id;
 
 			await lt.db.events // latest correct
 				.where('[deck+card+result]').equals([deckId,cardId,0]).sortBy('timestamp')
@@ -80,9 +105,9 @@ var lt = { // * top-level namespace
 						
 						if (card.timeSinceSeen == null || card.timeSinceSeen > card.timeSinceCorrect)
 							card.timeSinceSeen = card.timeSinceCorrect
-					}
+					} 
 				});
-				
+								
 			await lt.db.events // latest incorrect
 				.where('[deck+card+result]').anyOf([deckId,cardId, 1], [deckId,cardId, 2]).sortBy('timestamp')
 				.then(function(events){
@@ -94,7 +119,25 @@ var lt = { // * top-level namespace
 							card.timeSinceSeen = card.timeSinceIncorrect
 					}
 				});
-		});		
+								
+// 			await lt.db.events // latest correct
+// 				.where('[deck+card]').equals([deckId,cardId]).sortBy('timestamp')
+// 				.then(function(events){
+// 				
+// 					inc = 0; tot = events.length;
+// 					events.foreach((ev) => 
+// 					{
+// 						inc += 1
+// 					
+// 						
+// 					});
+// 
+// 				});
+
+
+			card.score = [card.timeSinceSeen, card.timeSinceCorrect, card.timeSinceIncorrect];
+
+		}		
 
 	},
 	
@@ -130,7 +173,7 @@ var lt = { // * top-level namespace
 					answer2: sample[2].sides[1]
 				})
 			)
-
+			
 			if (q.length < 4)
 				$(".frame .question").addClass("short")
 			else if (q.length < 10)
@@ -176,27 +219,70 @@ var lt = { // * top-level namespace
 
 $(function() 
 {
-
-	// - init database
-	lt.init();
-
-	// - load decks
-	var rqs = Array();
-	lt.deck_files.forEach(function(df)
-	{
-		rqs.push($.getJSON(df, lt.loadDeck));
-	});
+// 
+// 	// - init environment
+// 	let defer = lt.init();
+			
+	// * Load page	
+	lt.init().then(function() {
 	
-	var defer = $.when.apply($, rqs);
-	defer.done(function() {
 		let params = new URLSearchParams(window.location.search);
 		
 		if (params.has('deck'))
 		{
-			lt.session.startSession(lt.decks[params.get('deck')]);
+			if (params.has('list'))
+			{
+				// List all cards in the deck together with any information
+
+				let deck = lt.decks[params.get('deck')]
+				
+				$("article").append($('<h1>').append(deck.name))
+
+				$("article").append($('<ul>', {id: 'cards', class: 'cards'}));
+				
+				deck.cards.forEach((card, idx) =>
+				{ 		
+					console.log(Object.keys(card), card.score);
+					
+					let li = $('<li>', {class: 'card'});
+					li.append($('<h3>').append('card ' + idx + ':'))
+					
+					let ulSides = $('<ul>', {class: 'sides'});					
+					card.sides.forEach((side, j) =>
+					{
+						ulSides.append($('<li>', {class: 'side'}).append(j+':'+side));
+					});
+										
+					li.append(ulSides);
+					li.append($('<span>', {class:'score'}).append('score: ' + card.score));
+					
+					$('ul#cards').append(li);
+				});
+				
+			} else 
+			{
+				lt.session.startSession(lt.decks[params.get('deck')]);
+			}
 		} else
 		{
-			$("article").append('<p>No deck specified.</p>')
+			// - Print the list of decks
+			$("article").append('<p>No deck specified. Available decks:</p>')
+			
+			$("article").html($('<ul>', {id: 'decks', class: 'decks'}));
+			
+			console.log(lt.templates)
+			
+			for (let [name, deck] of Object.entries(lt.decks)) 
+			{ 
+				$('ul#decks').append(
+					lt.templates.decklink.render({
+						href: '/?deck=' + name,
+						href_list: '/?deck=' + name + '&list=true',
+						text: name
+				}));
+			}
+						
+			
 		}	
 	});
 

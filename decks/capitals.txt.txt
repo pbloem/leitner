@@ -1,238 +1,238 @@
-Yamoussoukro	Ivory Coast
-Abu Dhabi	United Arab Emirates
-Abuja	Nigeria
-Accra	Ghana
-Adamstown	Pitcairn Islands
-Addis Ababa	Ethiopia
-Sana'a	Yemen
-Algiers	Algeria
-Alofi	Niue
-Amman	Jordan
-Amsterdam	Netherlands
-Andorra la Vella	Andorra
-Ankara	Turkey
-Antananarivo	Madagascar
-Apia	Samoa
-Ashgabat	Turkmenistan
-Asmara	Eritrea
-Asunción	Paraguay
-Athens	Greece
-Avarua	Cook Islands*
-Baghdad	Iraq
-Baku	Azerbaijan
-Bamako	Mali
-Bandar Seri Begawan	Brunei
-Bangkok	Thailand
-Bangui	Central African Republic
-Banjul	The Gambia
-Basseterre	Saint Kitts and Nevis
-Beijing	China
-Beirut	Lebanon
-Belgrade	Serbia
-Belmopan	Belize
-Berlin	Germany
-Bern	Switzerland
-Bishkek	Kyrgyzstan
-Bissau	Guinea-Bissau
-Bloemfontein, Cape town, Pretoria	South Africa
-Brades Estate	Montserrat*
-Brasília	Brazil
-Bratislava	Slovakia
-Brazzaville	Congo
-Bridgetown	Barbados
-Brussels	Belgium
-Bucharest	Romania
-Budapest	Hungary
-Buenos Aires	Argentina
-Cairo	Egypt
-Canberra	Australia
-Caracas	Venezuela
-Cardiff 	Wales
-Castries	Saint Lucia
-Podgorica	Montenegro
-Charlotte Amalie	United States Virgin Islands*
-Chișinău	Moldova
-Cockburn Town	Turks and Caicos Islands*
-Colombo, Sri Jayawardenepura Kotte	Sri Lanka
-Conakry	Guinea
-Copenhagen	Denmark
-Porto-Novo	Benin
-Dakar	Senegal
-Damascus	Syria
-Dodoma	Tanzania
-Dhaka	Bangladesh
-Dili	East Timor
-Djibouti	Djibouti
-Doha	Qatar
-Douglas	Isle of Man*
-Dublin	Ireland
-Dushanbe	Tajikistan
-El Aaiún, Tifariti	Western Sahara*
-Flying Fish Cove	Christmas Island*
-Freetown	Sierra Leone
-Funafuti	Tuvalu
-Gaborone	Botswana
-George Town	Cayman Islands
-Georgetown	Ascension Island
-Georgetown	Guyana
-Gibraltar	Gibraltar*
-Gitega, Bujumbura	Burundi
-Guatemala City	Guatemala
-Gustavia	Saint Barthélemy*
-Hagåtña	Guam*
-Hamilton	Bermuda*
-Hanoi	Vietnam
-Harare	Zimbabwe
-Hargeisa	Somaliland*
-Havana	Cuba
-Helsinki	Finland
-Honiara	Solomon Islands
-Islamabad	Pakistan
-Jakarta	Indonesia
-Jamestown	Saint Helena
-Jerusalem, Tel Aviv	Israel
-Jerusalem, Ramallah	Palestine
-Juba	South Sudan
-Kabul	Afghanistan
-Kampala	Uganda
-Kathmandu	Nepal
-Khartoum	Sudan
-Kiev	Ukraine
-Kigali	Rwanda
-King Edward Point	South Georgia and the South Sandwich Islands*
-Kingston	Jamaica
-Kingston	Norfolk Island*
-Kingstown	Saint Vincent and the Grenadines
-Kinshasa	DRC
-Kuala Lumpur	Malaysia
-Kuwait City	Kuwait
-La Paz, sucre	Bolivia
-Libreville	Gabon
-Lilongwe	Malawi
-Lima	Peru
-Lisbon	Portugal
-Ljubljana	Slovenia
-Lobamba, Mbabane	Eswatini
-Lomé	Togo
-London	United Kingdom
-Luanda	Angola
-Lusaka	Zambia
-Luxembourg	Luxembourg
-Madrid	Spain
-Majuro	Marshall Islands
-Malabo	Equatorial Guinea
-Malé	Maldives
-Managua	Nicaragua
-Manama	Bahrain
-Manila	Philippines
-Maputo	Mozambique
-Marigot	Saint Martin*
-Maseru	Lesotho
-Mata-Utu	Wallis and Futuna*
-Mexico City	Mexico
-Minsk	Belarus
-Mogadishu	Somalia
-Monaco	Monaco
-Monrovia	Liberia
-Montevideo	Uruguay
-Moroni	Comoros
-Moscow	Russia
-Muscat	Oman
-Nairobi	Kenya
-Nassau	Bahamas
-Nay-pyi-daw	Myanmar
-N'Djamena	Chad
-New Delhi	India
-Ngerulmud	Palau
-Niamey	Niger
-Nicosia	Cyprus
-Nouakchott	Mauritania
-Nouméa	New Caledonia*
-Nukuʻalofa	Tonga
-Nur-Sultan	Kazakhstan
-Nuuk	Greenland*
-Oranjestad	Aruba*
-Oslo	Norway
-Ottawa	Canada
-Ouagadougou	Burkina Faso
-Pago Pago	American Samoa*
-Palikir	Micronesia
-Panama City	Panama
-Papeete	French Polynesia*
-Paramaribo	Suriname
-Paris	France
-Philipsburg	Sint Maarten*
-Phnom Penh	Cambodia
-Port Louis	Mauritius
-Port Moresby	Papua New Guinea
-Port Vila	Vanuatu
-Port-au-Prince	Haiti
-Port of Spain	Trinidad and Tobago
-Prague	Czech Republic
-Praia	Cape Verde
-Pristina	Kosovo*
-Pyongyang	North Korea
-Quito	Ecuador
-Rabat	Morocco
-Reykjavík	Iceland
-Riga	Latvia
-Riyadh	Saudi Arabia
-Road Town	British Virgin Islands*
-Rome	Italy
-Roseau	Dominica
-Saipan	Northern Mariana Islands*
-San José	Costa Rica
-San Juan	Puerto Rico
-San Marino	San Marino
-San Salvador	El Salvador
-Santiago	Chile
-Santo Domingo	Dominican Republic
-São Tomé	São Tomé and Príncipe
-Sarajevo	Bosnia and Herzegovina
-Seoul	South Korea
-Singapore	Singapore
-Skopje	North Macedonia
-Sofia	Bulgaria
-St. George's	Grenada
-St. Helier	Jersey
-St. John's	Antigua and Barbuda
-St. Peter Port	Guernsey
-St. Pierre	Saint Pierre and Miquelon*
-Stanley	Falkland Islands*
-Stepanakert	Nagorno-Karabakh*
-Stockholm	Sweden
-Sukhumi	Abkhazia*
-Suva	Fiji
-Taipei	Taiwan
-Tallinn	Estonia
-Tarawa	Kiribati
-Tashkent	Uzbekistan
-Tbilisi	Georgia
-Tegucigalpa	Honduras
-Tehran	Iran
-Thimphu	Bhutan
-Tirana	Albania
-Tokyo	Japan
-Tórshavn	Faroe Islands*
-Tripoli	Libya
-Tskhinvali	South Ossetia*
-Tunis	Tunisia
-Ulaanbaatar	Mongolia
-Vaduz	Liechtenstein
-Valletta	Malta
-The Valley	Anguilla*
-Vatican City	Vatican City
-Victoria	Seychelles
-Vienna	Austria
-Vientiane	Laos
-Vilnius	Lithuania
-Warsaw	Poland
-Washington, D.C.	United States
-Wellington	New Zealand
-West Island	Cocos (Keeling) Islands*
-Willemstad	Curaçao*
-Windhoek	Namibia
-Yaoundé	Cameroon
-Yaren	Nauru
-Yerevan	Armenia
-Zagreb	Croatia
+{"sides": ["Yamoussoukro", "Ivory Coast"]},
+{"sides": ["Abu Dhabi", "United Arab Emirates"]},
+{"sides": ["Abuja", "Nigeria"]},
+{"sides": ["Accra", "Ghana"]},
+{"sides": ["Adamstown", "Pitcairn Islands"]},
+{"sides": ["Addis Ababa", "Ethiopia"]},
+{"sides": ["Sana'a", "Yemen"]},
+{"sides": ["Algiers", "Algeria"]},
+{"sides": ["Alofi", "Niue"]},
+{"sides": ["Amman", "Jordan"]},
+{"sides": ["Amsterdam", "Netherlands"]},
+{"sides": ["Andorra la Vella", "Andorra"]},
+{"sides": ["Ankara", "Turkey"]},
+{"sides": ["Antananarivo", "Madagascar"]},
+{"sides": ["Apia", "Samoa"]},
+{"sides": ["Ashgabat", "Turkmenistan"]},
+{"sides": ["Asmara", "Eritrea"]},
+{"sides": ["Asunción", "Paraguay"]},
+{"sides": ["Athens", "Greece"]},
+{"sides": ["Avarua", "Cook Islands*"]},
+{"sides": ["Baghdad", "Iraq"]},
+{"sides": ["Baku", "Azerbaijan"]},
+{"sides": ["Bamako", "Mali"]},
+{"sides": ["Bandar Seri Begawan", "Brunei"]},
+{"sides": ["Bangkok", "Thailand"]},
+{"sides": ["Bangui", "Central African Republic"]},
+{"sides": ["Banjul", "The Gambia"]},
+{"sides": ["Basseterre", "Saint Kitts and Nevis"]},
+{"sides": ["Beijing", "China"]},
+{"sides": ["Beirut", "Lebanon"]},
+{"sides": ["Belgrade", "Serbia"]},
+{"sides": ["Belmopan", "Belize"]},
+{"sides": ["Berlin", "Germany"]},
+{"sides": ["Bern", "Switzerland"]},
+{"sides": ["Bishkek", "Kyrgyzstan"]},
+{"sides": ["Bissau", "Guinea-Bissau"]},
+{"sides": ["Bloemfontein, Cape town, Pretoria", "South Africa"]},
+{"sides": ["Brades Estate", "Montserrat*"]},
+{"sides": ["Brasília", "Brazil"]},
+{"sides": ["Bratislava", "Slovakia"]},
+{"sides": ["Brazzaville", "Congo"]},
+{"sides": ["Bridgetown", "Barbados"]},
+{"sides": ["Brussels", "Belgium"]},
+{"sides": ["Bucharest", "Romania"]},
+{"sides": ["Budapest", "Hungary"]},
+{"sides": ["Buenos Aires", "Argentina"]},
+{"sides": ["Cairo", "Egypt"]},
+{"sides": ["Canberra", "Australia"]},
+{"sides": ["Caracas", "Venezuela"]},
+{"sides": ["Cardiff ", "Wales"]},
+{"sides": ["Castries", "Saint Lucia"]},
+{"sides": ["Podgorica", "Montenegro"]},
+{"sides": ["Charlotte Amalie", "United States Virgin Islands*"]},
+{"sides": ["Chișinău", "Moldova"]},
+{"sides": ["Cockburn Town", "Turks and Caicos Islands*"]},
+{"sides": ["Colombo, Sri Jayawardenepura Kotte", "Sri Lanka"]},
+{"sides": ["Conakry", "Guinea"]},
+{"sides": ["Copenhagen", "Denmark"]},
+{"sides": ["Porto-Novo", "Benin"]},
+{"sides": ["Dakar", "Senegal"]},
+{"sides": ["Damascus", "Syria"]},
+{"sides": ["Dodoma", "Tanzania"]},
+{"sides": ["Dhaka", "Bangladesh"]},
+{"sides": ["Dili", "East Timor"]},
+{"sides": ["Djibouti", "Djibouti"]},
+{"sides": ["Doha", "Qatar"]},
+{"sides": ["Douglas", "Isle of Man*"]},
+{"sides": ["Dublin", "Ireland"]},
+{"sides": ["Dushanbe", "Tajikistan"]},
+{"sides": ["El Aaiún, Tifariti", "Western Sahara*"]},
+{"sides": ["Flying Fish Cove", "Christmas Island*"]},
+{"sides": ["Freetown", "Sierra Leone"]},
+{"sides": ["Funafuti", "Tuvalu"]},
+{"sides": ["Gaborone", "Botswana"]},
+{"sides": ["George Town", "Cayman Islands"]},
+{"sides": ["Georgetown", "Ascension Island"]},
+{"sides": ["Georgetown", "Guyana"]},
+{"sides": ["Gibraltar", "Gibraltar*"]},
+{"sides": ["Gitega, Bujumbura", "Burundi"]},
+{"sides": ["Guatemala City", "Guatemala"]},
+{"sides": ["Gustavia", "Saint Barthélemy*"]},
+{"sides": ["Hagåtña", "Guam*"]},
+{"sides": ["Hamilton", "Bermuda*"]},
+{"sides": ["Hanoi", "Vietnam"]},
+{"sides": ["Harare", "Zimbabwe"]},
+{"sides": ["Hargeisa", "Somaliland*"]},
+{"sides": ["Havana", "Cuba"]},
+{"sides": ["Helsinki", "Finland"]},
+{"sides": ["Honiara", "Solomon Islands"]},
+{"sides": ["Islamabad", "Pakistan"]},
+{"sides": ["Jakarta", "Indonesia"]},
+{"sides": ["Jamestown", "Saint Helena"]},
+{"sides": ["Jerusalem, Tel Aviv", "Israel"]},
+{"sides": ["Jerusalem, Ramallah", "Palestine"]},
+{"sides": ["Juba", "South Sudan"]},
+{"sides": ["Kabul", "Afghanistan"]},
+{"sides": ["Kampala", "Uganda"]},
+{"sides": ["Kathmandu", "Nepal"]},
+{"sides": ["Khartoum", "Sudan"]},
+{"sides": ["Kiev", "Ukraine"]},
+{"sides": ["Kigali", "Rwanda"]},
+{"sides": ["King Edward Point", "South Georgia and the South Sandwich Islands*"]},
+{"sides": ["Kingston", "Jamaica"]},
+{"sides": ["Kingston", "Norfolk Island*"]},
+{"sides": ["Kingstown", "Saint Vincent and the Grenadines"]},
+{"sides": ["Kinshasa", "DRC"]},
+{"sides": ["Kuala Lumpur", "Malaysia"]},
+{"sides": ["Kuwait City", "Kuwait"]},
+{"sides": ["La Paz, sucre", "Bolivia"]},
+{"sides": ["Libreville", "Gabon"]},
+{"sides": ["Lilongwe", "Malawi"]},
+{"sides": ["Lima", "Peru"]},
+{"sides": ["Lisbon", "Portugal"]},
+{"sides": ["Ljubljana", "Slovenia"]},
+{"sides": ["Lobamba, Mbabane", "Eswatini"]},
+{"sides": ["Lomé", "Togo"]},
+{"sides": ["London", "United Kingdom"]},
+{"sides": ["Luanda", "Angola"]},
+{"sides": ["Lusaka", "Zambia"]},
+{"sides": ["Luxembourg", "Luxembourg"]},
+{"sides": ["Madrid", "Spain"]},
+{"sides": ["Majuro", "Marshall Islands"]},
+{"sides": ["Malabo", "Equatorial Guinea"]},
+{"sides": ["Malé", "Maldives"]},
+{"sides": ["Managua", "Nicaragua"]},
+{"sides": ["Manama", "Bahrain"]},
+{"sides": ["Manila", "Philippines"]},
+{"sides": ["Maputo", "Mozambique"]},
+{"sides": ["Marigot", "Saint Martin*"]},
+{"sides": ["Maseru", "Lesotho"]},
+{"sides": ["Mata-Utu", "Wallis and Futuna*"]},
+{"sides": ["Mexico City", "Mexico"]},
+{"sides": ["Minsk", "Belarus"]},
+{"sides": ["Mogadishu", "Somalia"]},
+{"sides": ["Monaco", "Monaco"]},
+{"sides": ["Monrovia", "Liberia"]},
+{"sides": ["Montevideo", "Uruguay"]},
+{"sides": ["Moroni", "Comoros"]},
+{"sides": ["Moscow", "Russia"]},
+{"sides": ["Muscat", "Oman"]},
+{"sides": ["Nairobi", "Kenya"]},
+{"sides": ["Nassau", "Bahamas"]},
+{"sides": ["Nay-pyi-daw", "Myanmar"]},
+{"sides": ["N'Djamena", "Chad"]},
+{"sides": ["New Delhi", "India"]},
+{"sides": ["Ngerulmud", "Palau"]},
+{"sides": ["Niamey", "Niger"]},
+{"sides": ["Nicosia", "Cyprus"]},
+{"sides": ["Nouakchott", "Mauritania"]},
+{"sides": ["Nouméa", "New Caledonia*"]},
+{"sides": ["Nukuʻalofa", "Tonga"]},
+{"sides": ["Nur-Sultan", "Kazakhstan"]},
+{"sides": ["Nuuk", "Greenland*"]},
+{"sides": ["Oranjestad", "Aruba*"]},
+{"sides": ["Oslo", "Norway"]},
+{"sides": ["Ottawa", "Canada"]},
+{"sides": ["Ouagadougou", "Burkina Faso"]},
+{"sides": ["Pago Pago", "American Samoa*"]},
+{"sides": ["Palikir", "Micronesia"]},
+{"sides": ["Panama City", "Panama"]},
+{"sides": ["Papeete", "French Polynesia*"]},
+{"sides": ["Paramaribo", "Suriname"]},
+{"sides": ["Paris", "France"]},
+{"sides": ["Philipsburg", "Sint Maarten*"]},
+{"sides": ["Phnom Penh", "Cambodia"]},
+{"sides": ["Port Louis", "Mauritius"]},
+{"sides": ["Port Moresby", "Papua New Guinea"]},
+{"sides": ["Port Vila", "Vanuatu"]},
+{"sides": ["Port-au-Prince", "Haiti"]},
+{"sides": ["Port of Spain", "Trinidad and Tobago"]},
+{"sides": ["Prague", "Czech Republic"]},
+{"sides": ["Praia", "Cape Verde"]},
+{"sides": ["Pristina", "Kosovo*"]},
+{"sides": ["Pyongyang", "North Korea"]},
+{"sides": ["Quito", "Ecuador"]},
+{"sides": ["Rabat", "Morocco"]},
+{"sides": ["Reykjavík", "Iceland"]},
+{"sides": ["Riga", "Latvia"]},
+{"sides": ["Riyadh", "Saudi Arabia"]},
+{"sides": ["Road Town", "British Virgin Islands*"]},
+{"sides": ["Rome", "Italy"]},
+{"sides": ["Roseau", "Dominica"]},
+{"sides": ["Saipan", "Northern Mariana Islands*"]},
+{"sides": ["San José", "Costa Rica"]},
+{"sides": ["San Juan", "Puerto Rico"]},
+{"sides": ["San Marino", "San Marino"]},
+{"sides": ["San Salvador", "El Salvador"]},
+{"sides": ["Santiago", "Chile"]},
+{"sides": ["Santo Domingo", "Dominican Republic"]},
+{"sides": ["São Tomé", "São Tomé and Príncipe"]},
+{"sides": ["Sarajevo", "Bosnia and Herzegovina"]},
+{"sides": ["Seoul", "South Korea"]},
+{"sides": ["Singapore", "Singapore"]},
+{"sides": ["Skopje", "North Macedonia"]},
+{"sides": ["Sofia", "Bulgaria"]},
+{"sides": ["St. George's", "Grenada"]},
+{"sides": ["St. Helier", "Jersey"]},
+{"sides": ["St. John's", "Antigua and Barbuda"]},
+{"sides": ["St. Peter Port", "Guernsey"]},
+{"sides": ["St. Pierre", "Saint Pierre and Miquelon*"]},
+{"sides": ["Stanley", "Falkland Islands*"]},
+{"sides": ["Stepanakert", "Nagorno-Karabakh*"]},
+{"sides": ["Stockholm", "Sweden"]},
+{"sides": ["Sukhumi", "Abkhazia*"]},
+{"sides": ["Suva", "Fiji"]},
+{"sides": ["Taipei", "Taiwan"]},
+{"sides": ["Tallinn", "Estonia"]},
+{"sides": ["Tarawa", "Kiribati"]},
+{"sides": ["Tashkent", "Uzbekistan"]},
+{"sides": ["Tbilisi", "Georgia"]},
+{"sides": ["Tegucigalpa", "Honduras"]},
+{"sides": ["Tehran", "Iran"]},
+{"sides": ["Thimphu", "Bhutan"]},
+{"sides": ["Tirana", "Albania"]},
+{"sides": ["Tokyo", "Japan"]},
+{"sides": ["Tórshavn", "Faroe Islands*"]},
+{"sides": ["Tripoli", "Libya"]},
+{"sides": ["Tskhinvali", "South Ossetia*"]},
+{"sides": ["Tunis", "Tunisia"]},
+{"sides": ["Ulaanbaatar", "Mongolia"]},
+{"sides": ["Vaduz", "Liechtenstein"]},
+{"sides": ["Valletta", "Malta"]},
+{"sides": ["The Valley", "Anguilla*"]},
+{"sides": ["Vatican City", "Vatican City"]},
+{"sides": ["Victoria", "Seychelles"]},
+{"sides": ["Vienna", "Austria"]},
+{"sides": ["Vientiane", "Laos"]},
+{"sides": ["Vilnius", "Lithuania"]},
+{"sides": ["Warsaw", "Poland"]},
+{"sides": ["Washington, D.C.", "United States"]},
+{"sides": ["Wellington", "New Zealand"]},
+{"sides": ["West Island", "Cocos (Keeling) Islands*"]},
+{"sides": ["Willemstad", "Curaçao*"]},
+{"sides": ["Windhoek", "Namibia"]},
+{"sides": ["Yaoundé", "Cameroon"]},
+{"sides": ["Yaren", "Nauru"]},
+{"sides": ["Yerevan", "Armenia"]},
+{"sides": ["Zagreb", "Croatia"]},

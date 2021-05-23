@@ -263,3 +263,43 @@ ul.stories li a {
 	top: 70%;
 }
 
+ul.decks {
+	display: flex;
+	flex-direction: row;
+}
+
+ul.decks li {
+	position: relative;
+
+	width: 200px;
+	height: 200px;
+	
+	background: white;
+	
+	margin: 10px;
+	padding: 0;
+}
+
+ul.decks li a.main {
+
+	display: block;
+	width: 100%;
+	height: 100%;
+	
+	padding: 0;
+	
+	text-align: center;
+	line-height: 150px;	
+	
+	border: none;
+}
+
+#body ul.decks li a.main:hover {
+	border: none;
+}
+
+ul.decks li a.list {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
