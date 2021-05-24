@@ -23,7 +23,7 @@ var lt = { // * top-level namespace
 		lt.db = new Dexie('leitner')
 		
 		lt.db.version(1).stores({
-              events: 'id++, timestamp, deck, card, alt1, alt2, result, [deck+card], [deck+card+result]'
+              events: 'id++, timestamp, deck, card, alt1, alt2, correct, [deck+card], [deck+card+correct]'
         });
 		
 		// - load all decks
@@ -62,22 +62,23 @@ var lt = { // * top-level namespace
 	 */
 	loadDeck : async function(deck) 
 	{
+	
+		if (!( 'id' in deck))
+			deck.id = (deck.name + '').hash()	
+			
 		deck.cards.forEach((card) => 
 		{		
 			// - generate (sufficiently) unique IDs for cards that don't
 			//   have them
 			if (!( 'id' in card))
 			{
-				let sumstr = '';
+				let sumstr = deck.id  + ': ';
 				for (var side of card.sides)
 					sumstr += side + ', ';
 					
 				card.id = sumstr.hash()		
 			}
 		});
-		
-		if (!( 'id' in deck))
-			deck.id = (deck.name + '').hash()		
 		
 		lt.decks[deck.name] = deck
 		
@@ -86,71 +87,140 @@ var lt = { // * top-level namespace
 		await lt.computeScores(deck);
 		
 		console.log(deck.name + ' scores computed');
+		
+		// Default order is by ID
+		deck.cards = _.sortBy(deck.cards, [function(card){return card.id; }])
 	},
+	
+	sigmoid : function(x) 
+	{
+		return 1.0 / (1 + Math.exp(-x))
+	},
+
+	// Parameters of first predictor
+	mean : - 538986862113.73,
+	std : 763822940584.4149 / 1e1,
 
 	computeScores : async function(deck)
 	{
+	
 		for (let card of deck.cards) 
 		{
-		
-			let cardId = card.id;
-			let deckId = deck.id;
+			
+			await lt.db.events // latest seen
+ 				.where('[deck+card]').equals([deck.id,card.id]).reverse().sortBy('timestamp')
+ 				.then(function(events)
+ 				{
+ 					if (events.length > 0)
+						card.timeSinceSeen = Date.now() - events[0].timestamp;
+ 				});
 
 			await lt.db.events // latest correct
-				.where('[deck+card+result]').equals([deckId,cardId,0]).sortBy('timestamp')
-				.then(function(events){
+				.where('[deck+card+correct]').equals([deck.id,card.id,1]).reverse()
+ 				.sortBy('timestamp').then(function(events) 
+				{				
 					if (events.length > 0)
-					{
-						card.timeSinceCorrect = Date.now() - events[0].timestamp
-						
-						if (card.timeSinceSeen == null || card.timeSinceSeen > card.timeSinceCorrect)
-							card.timeSinceSeen = card.timeSinceCorrect
-					} 
+						card.timeSinceCorrect = Date.now() - events[0].timestamp;
 				});
 								
-			await lt.db.events // latest incorrect
-				.where('[deck+card+result]').anyOf([deckId,cardId, 1], [deckId,cardId, 2]).sortBy('timestamp')
-				.then(function(events){
+			await lt.db.events // latest incorrect (this currently works only for MC)
+				.where('[deck+card+correct]').equals([deck.id,card.id,0]).reverse().sortBy('timestamp')
+				.then(function(events)
+				{
 					if (events.length > 0)
-					{
-						card.timeSinceIncorrect = Date.now() - events[0].timestamp
-						
-						if (card.timeSinceSeen == null || card.timeSinceSeen > card.timeSinceIncorrect)
-							card.timeSinceSeen = card.timeSinceIncorrect
-					}
+						card.timeSinceIncorrect = Date.now() - events[0].timestamp;
 				});
-								
-// 			await lt.db.events // latest correct
-// 				.where('[deck+card]').equals([deckId,cardId]).sortBy('timestamp')
-// 				.then(function(events){
-// 				
-// 					inc = 0; tot = events.length;
-// 					events.foreach((ev) => 
-// 					{
-// 						inc += 1
-// 					
-// 						
-// 					});
-// 
-// 				});
 
+			if (card.timeSinceSeen === undefined)
+				card.timeSinceSeen = Date.now()
 
-			card.score = [card.timeSinceSeen, card.timeSinceCorrect, card.timeSinceIncorrect];
+			// Compute score logit
+			// -- This is n unbounded value. The more negative it is, the more likely the 
+			//    user will get the card wrong.
+			card.score_logit = (- card.timeSinceSeen - lt.mean)/ lt.std
 
+			card.score = lt.sigmoid(card.score_logit)		
 		}		
-
 	},
 	
-	// * sub-namespace for the current session
+	/** 
+	 * Sub-namespace for the current session
+	 *
+	 */
 	session : {
 	
 		startSession : async function(deck)
 		{
 
 			lt.session.deck = deck
-			await lt.computeScores(deck)
-			
+						
 			lt.session.generate();
+		},
+		
+		/**
+		 * Sample a card from the deck according to the scores. 
+		 *
+		 * The strategy is to sample cards whose probability of being answered correclty 
+		 * is close to 0.5. Doing this repeatedly eventually pushes all probabilities up 
+		 * to 1.0
+		 *
+		 * NB: Re-orders the cards
+		 */
+		samplePivot : function()
+		{
+			let deck = lt.session.deck
+		
+			// Sort by score
+			_.sortBy(deck.cards, [function(card){return card.score; }])
+			
+			// Find the card whose probability is closest to 0.5
+			let pivot;
+			let smallestDistance = Number.POSITIVE_INFINITY;
+			
+			deck.cards.forEach((card, i) =>
+			{
+				let distance = Math.abs(card.score - 0.5);				
+				if (distance < smallestDistance)
+				{
+					pivot = i;
+					smallestDistance = distance;
+				}
+			});
+			
+			
+			// Sample around that card
+			let target = pivot + _.sample([-4, -3, -2, -1, 0, 1, 2, 3, 4]);
+			target = _.clamp(target, 0, deck.cards.length);
+						
+						
+			console.log('pivot score', deck.cards[target].score)
+			console.log('pivot time since seen', humanizeDuration(deck.cards[target].timeSinceSeen), deck.cards[target].timeSinceSeen)
+						
+			return deck.cards[target]
+		},
+		
+		
+	 	/**
+		 * Sample a card from the deck according to the scores. 
+		 *
+		 * The strategy is to keep the cards sorted, and to move from left to right, 
+		 * letting the probability of answering the card incorrectly be the probability 
+		 * that the card is sampled.
+		 *
+		 * NB: Assumes that the cards maintain a fixed order.
+		 */
+		sampleSeq : function()
+		{
+			let deck = lt.session.deck;
+
+			for (let card of deck.cards)
+			{
+				let r = _.random(0,1,true);
+				if (r > card.score)
+					return card;	
+			}
+
+			return _.sample(deck.cards);
 		},
 	
 		generate : function() 
@@ -160,19 +230,35 @@ var lt = { // * top-level namespace
 
 			// generate a question
 			// -- sample three cards. The first is the target, the other two provide false answers
-			let sample = _.sampleSize(deck.cards, 3);
-			let corr = _.sample([0, 1, 2]);
+			let sampleTarget = lt.session.sampleSeq()
+			
+			console.log(sampleTarget.sides[0], 'score', sampleTarget.score);
+			console.log('time since seen', humanizeDuration(sampleTarget.timeSinceSeen));
+			
+			
+			let sampleAlt = _.sampleSize(_.without(deck.cards, [sampleTarget]), 2)
+			let sample = [sampleTarget].concat(sampleAlt)
+						
+			let ord = _.shuffle([0, 1, 2]); // random order of the answers
+			let correct = ord[0]
+			
+			let answers = [undefined, undefined, undefined]
+			answers[ord[0]] = sample[0]
+			answers[ord[1]] = sample[1]			
+			answers[ord[2]] = sample[2]
 
-			let q = sample[corr].sides[0];
+			let q = sampleTarget.sides[0];
 
 			$("article").html(
 				lt.templates.mc.render({
 					question: q,
-					answer0: sample[0].sides[1],
-					answer1: sample[1].sides[1],
-					answer2: sample[2].sides[1]
+					answer0: answers[0].sides[1],
+					answer1: answers[1].sides[1],
+					answer2: answers[2].sides[1]
 				})
-			)
+			);
+			
+			lt.session.createProgress(deck.cards.indexOf(sampleTarget));
 			
 			if (q.length < 4)
 				$(".frame .question").addClass("short")
@@ -187,19 +273,46 @@ var lt = { // * top-level namespace
 				  card: sample[0].id,
 				  alt1: sample[1].id,
 				  alt2: sample[2].id,
- 				  result: corr
+				  correctAnswer: correct, 
 				},
 				lt.session.processAnswer
 			)            
 		},
 	
 		processAnswer : function(e)
-		{
-			let answered = $(e.target).data('answer')
-			let correct = e.data.result
+		{		
+			let edata = e.data // -- this is apparently required to stop some race conditions from JS re-using its event objects
+			let etarget = e.target
+		
+			let answered = $(etarget).data('answer')
+			let correct = edata.correctAnswer
 
-			console.log(e.data)
-			lt.db.events.add(e.data)
+			let newRow = 
+			{
+				timestamp: edata.timestamp,
+				deck: edata.deck,
+				card: edata.card,
+				alt1: edata.alt1,
+				alt2: edata.alt2,
+ 				correct: edata.correctAnswer == answered ? 1 : 0
+			}
+			
+			lt.db.events.add(newRow).then (result =>
+			{
+			    console.log(newRow);
+			}).catch('ConstraintError', er => 
+			{
+			    console.error ("Constraint error: " + er.message);
+			    console.error(newrow);
+			});
+
+			lt.computeScores(lt.session.deck)
+// 			.then(function() {		
+// 				lt.session.updateProgress();
+// 			});
+
+			// --- todo: recompute only for current card
+
 
 			if(answered == correct)
 			{
@@ -210,11 +323,56 @@ var lt = { // * top-level namespace
 				setTimeout(lt.session.generate , 750)
 			} else
 			{
-				lt.session.failed
 				lt.sounds.incorrect.play()
 			}
 		},
-	}
+		
+		createProgress : function(targetIdx)
+		{
+			let scores = lt.session.deck.cards.map((card) => card.score);
+			let pix = 4
+			
+			const parent = d3.select('div.progress')
+			const svg = parent.append('svg')
+			
+			svg.attr('width', pix * scores.length)
+			   .attr('height', 2*pix)
+// 			   .attr("style", "outline: thin solid red;")
+			    
+			let xCoord = function(i) {return i == targetIdx ? i * pix - (pix/2) : i * pix};
+			let yCoord = function(i) {return i == targetIdx ? 0 : pix/2};
+			
+			const prog = svg.selectAll("g")
+				.data(scores)
+				.join("g")
+					.attr("transform", (d, i) => `translate(${xCoord(i)}, ${yCoord(i)})`);
+					
+					
+					
+			var colorScale = d3.scaleSequential(d3.interpolateRdYlGn)
+    			.domain([0.0, 1.0])
+    								
+			prog.append("rect")
+				.attr("fill", "steelblue")
+				.attr("width", (score, i) => {return i == targetIdx ? 2*pix : pix})
+				.attr("height", (score, i) => {return i == targetIdx ? 2*pix : pix})
+				.attr('fill', (score, i) => {return colorScale(score);})
+
+				
+			// todo: would be nicer to update this rather than redraw every time									
+				
+		}, 
+		
+
+	},
+
+	/**
+	 * Utility functions.
+	 */	
+	util : {	
+	
+	},
+
 }
 
 $(function() 
@@ -224,7 +382,8 @@ $(function()
 // 	let defer = lt.init();
 			
 	// * Load page	
-	lt.init().then(function() {
+	lt.init().then(function() 
+	{
 	
 		let params = new URLSearchParams(window.location.search);
 		
@@ -241,9 +400,7 @@ $(function()
 				$("article").append($('<ul>', {id: 'cards', class: 'cards'}));
 				
 				deck.cards.forEach((card, idx) =>
-				{ 		
-					console.log(Object.keys(card), card.score);
-					
+				{ 							
 					let li = $('<li>', {class: 'card'});
 					li.append($('<h3>').append('card ' + idx + ':'))
 					

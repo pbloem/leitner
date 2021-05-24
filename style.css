@@ -174,8 +174,19 @@ ul.stories li a {
 	padding: 0.725em 1.4545em 0.725em 1.4545em;
 }
 
-.galleria {
-	height: 600px;
+
+.progress {
+	width: 80%;
+	margin: 2em auto auto auto;
+	padding: 1px;
+
+	background: white;
+}
+
+.progress svg {
+
+	display: block;
+	margin: 1em auto 1em auto;
 }
 
 .frame {
