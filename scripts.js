@@ -46,6 +46,7 @@ var lt = { // * top-level namespace
 	// TODO: automate this in init(). Use a query to collect all script elements with type="text/x-jsrender"
 	templates : { 
 		mc: $.templates("#mc"), 
+		text: $.templates("#text"), 
 		decklink: $.templates("#decklink") 
 	},
 	
@@ -90,6 +91,85 @@ var lt = { // * top-level namespace
 		
 		// Default order is by ID
 		deck.cards = _.sortBy(deck.cards, [function(card){return card.id; }])
+	},
+	
+	mask : function(text, prop) 
+	{
+		let num = Math.floor(text.length * prop)
+		let idxs = new Set(_.sampleSize(_.range(text.length), num)) // indices to be masked out
+		
+		let res = ''
+		for (let i of _.range(text.length))
+		{
+			if (idxs.has(i) && text.charAt(i) !== ' ')
+				res += '*';
+			else
+				res += text.charAt(i);
+		}
+		
+		return res
+	},
+
+	
+	/**
+	 * Computes Levenshtein distance. From https://gist.github.com/andrei-m/982927
+	 *
+	 * For this function:
+     *	 Copyright (c) 2011 Andrei Mackenzie
+	 *	 Permission is hereby granted, free of charge, to any person obtaining a copy of 
+	 *   this software and associated documentation files (the "Software"), to deal in the 
+	 *   Software without restriction, including without limitation the rights to use, 
+	 *   copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the
+	 *   Software, and to permit persons to whom the Software is furnished to do so, subject
+	 *   to the following conditions: The above copyright notice and this permission 
+	 *   notice shall be included in all copies or substantial portions of the Software.
+	 *	 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+	 *   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+	 *   FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR 
+	 *   COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN 
+	 *   AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION 
+	 *   WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+	 */
+	levDistance : function(a, b)
+	{
+	
+		  if(a.length == 0) return b.length; 
+		  if(b.length == 0) return a.length; 
+
+		  var matrix = [];
+
+		  // increment along the first column of each row
+		  var i;
+		  for(i = 0; i <= b.length; i++)
+		  {
+			matrix[i] = [i];
+		  }
+
+		  // increment each column in the first row
+		  var j;
+		  for(j = 0; j <= a.length; j++)
+		  {
+			matrix[0][j] = j;
+		  }
+
+		  // Fill in the rest of the matrix
+		  for(i = 1; i <= b.length; i++)
+		  {
+			for(j = 1; j <= a.length; j++)
+			{
+			  if(b.charAt(i-1) == a.charAt(j-1))
+			  {
+				matrix[i][j] = matrix[i-1][j-1];
+			  } else 
+			  {
+				matrix[i][j] = Math.min(matrix[i-1][j-1] + 1, // substitution
+									Math.min(matrix[i][j-1] + 1, // insertion
+										matrix[i-1][j] + 1)); // deletion
+			  }
+			}
+		  }
+
+		  return matrix[b.length][a.length];
 	},
 	
 	sigmoid : function(x) 
@@ -223,7 +303,175 @@ var lt = { // * top-level namespace
 			return _.sample(deck.cards);
 		},
 	
+		mcProb : 0.0,
+	
 		generate : function() 
+		{
+			if (_.random() < lt.session.mcProb)
+				lt.session.generateMC();
+			else
+				lt.session.generateText();
+		
+		},
+		
+		/**
+		 * Generate a text field question. One of the sides of the card is shown, and the 
+		 * user is asked to type in the content of one of the other sides.
+		 *
+		 */
+		generateText : function()
+		{
+			let deck = lt.session.deck
+			$("article").empty();
+
+			let card = lt.session.sampleSeq() // draw a card
+			
+			let question = card.sides[0];
+			let answer   = card.sides[1];
+
+			$("article").html(
+				lt.templates.text.render({
+					question: question,
+				})
+			);
+			
+			$(".frame #answer").focus()
+			
+			lt.session.createProgress(deck.cards.indexOf(card));
+			
+			if (question.length < 4)
+				$(".frame .question").addClass("short")
+			else if (question.length < 10)
+				$(".frame .question").addClass("medium")
+			
+			$("article form").on(
+				'submit',
+				{ 
+			      timestamp: Date.now(),
+			      deck: deck.id,
+			      card: card.id,
+			      question: question,
+				  correctAnswer: answer,
+				},
+				lt.session.processTextAnswer
+			)            
+		},		
+		
+		/**
+		 * Allowed edit distance between answer and truth, as a proportion of the length 
+		 * of the answer
+		 */
+		distAllowed: 0.2,
+		
+		/**
+		 * Check if a given answer is close enough to the correct answer to count as correct
+		 * 
+		 */
+		checkText : function(correct, answered)
+		{
+			// - Normalize accents, cases and diacritics
+			correct = correct.toLowerCase();
+			answered = answered.toLowerCase();
+			
+			correct = correct.normalize("NFD").replace(/\p{Diacritic}/gu, "");
+			answered = answered.normalize("NFD").replace(/\p{Diacritic}/gu, "");
+			
+			let distance = lt.levDistance(correct, answered);
+		
+			return distance < lt.session.distAllowed * correct.length;
+		},
+				
+		processTextAnswer : function(e)
+		{	
+		    e.preventDefault(); // Stop the default form submit action.
+		    
+			let edata = e.data // -- this is apparently required to stop some race conditions from JS re-using its event objects
+			let etarget = e.target
+		
+			let answered = $('article .frame #answer').val()
+			let correct = edata.correctAnswer
+			
+			let success = lt.session.checkText(correct, answered)
+			
+			console.log(answered, correct, edata)
+
+			let newRow = 
+			{
+				timestamp: edata.timestamp,
+				deck: edata.deck,
+				card: edata.card,
+				answered: answered,
+ 				correct: success ? 1 : 0,
+			}
+			
+			
+			lt.db.events.add(newRow).then (result =>
+			{
+			    console.log(newRow);
+			}).catch('ConstraintError', er => 
+			{
+			    console.error ("Constraint error: " + er.message);
+			    console.error(newrow);
+			});
+
+			lt.computeScores(lt.session.deck)
+
+			if(success)
+			{
+				lt.sounds.correct.play()
+			
+				$('article button').attr('disabled', true);
+			
+				setTimeout(lt.session.generate , 750)
+			} else
+			{
+				lt.sounds.incorrect.play()
+
+				$('article .frame input').empty();
+
+				let hint = $('article .frame #hint');
+				
+				let wrongs = parseInt(hint.attr('data-wrong'))
+				console.log(wrongs, ' incorrect answers.')
+				hint.attr('data-wrong', wrongs + 1)
+				
+				hint.empty();
+				hint.removeClass('hidden');
+				hint.addClass('visible');
+
+				if (wrongs == 0)		
+				{	
+					console.log(0);
+					hint.append(lt.mask(correct, 0.95));
+					setTimeout(function(){hint.toggleClass('visible hidden');}, 100);
+				
+				} else if (wrongs == 1)
+				{	
+					console.log(1);
+					hint.append(lt.mask(correct, 0.5));
+					setTimeout(function(){hint.toggleClass('visible hidden');}, 100);
+				} else if (wrongs == 2)
+				{	
+					console.log(2);
+					hint.append(lt.mask(correct, 0.25));
+					setTimeout(function(){hint.toggleClass('visible hidden');}, 100);
+				} else 
+				{	
+					hint.append(correct);
+				}
+				
+
+				
+			}
+		},
+		
+		/**
+		 * Generate a multiple-choice question. One of the sides of the card is shown, and 
+		 * the user is asked to choose the correct value of another side out of three 
+		 * options.
+		 *
+		 */
+		generateMC : function()
 		{
 			let deck = lt.session.deck
 			$("article").empty();
@@ -275,11 +523,11 @@ var lt = { // * top-level namespace
 				  alt2: sample[2].id,
 				  correctAnswer: correct, 
 				},
-				lt.session.processAnswer
+				lt.session.processMCAnswer
 			)            
 		},
 	
-		processAnswer : function(e)
+		processMCAnswer : function(e)
 		{		
 			let edata = e.data // -- this is apparently required to stop some race conditions from JS re-using its event objects
 			let etarget = e.target

@@ -19,6 +19,23 @@
     </div>
 </script>
 
+<script id="text" type="text/x-jsrender">
+	<div class="frame text">
+		<div class="question"><span>
+			{{:question}}
+		</span></div>
+		
+		<form>
+   			<input type="text" id="answer" autocomplete="off" name="answer">
+   			<button type="submit">&#9658;</button>
+   			<div id="hint" class="hidden" data-wrong="0"></div>
+		</form>
+
+    </div>
+    <div class="progress">
+    </div>
+</script>
+
 <script id="decklink" type="text/x-jsrender">
 	<li class="deck">
 		<a class="main" href="{{:href}}">{{:text}}</a>
