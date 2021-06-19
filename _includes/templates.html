@@ -1,19 +1,29 @@
 {% raw %}
 <script id="mc" type="text/x-jsrender">
 	<div class="frame mc">
-		<div class="question"><span>
-			{{:question}}
-		</span></div>
-
-		<button id="a0" data-answer="0">
-		{{:answer0}}
-		</button>
-		<button id="a1" data-answer="1">
-		{{:answer1}}
-		</button>
-		<button id="a2" data-answer="2">
-		{{:answer2}}
-		</button>
+		<div class="question">
+			<h4>
+				{{:frontname}}:
+			</h4>
+			<span>
+				{{:question}}
+			</span>
+	</div>
+		<form>
+			<h4>
+				{{:backname}}:
+			</h4>
+			<button id="a0" data-answer="0">
+			{{:answer0}}
+			</button>
+			<button id="a1" data-answer="1">
+			{{:answer1}}
+			</button>
+			<button id="a2" data-answer="2">
+			{{:answer2}}
+			</button>
+		</form>
+		
     </div>
     <div class="progress">
     </div>
@@ -21,11 +31,19 @@
 
 <script id="text" type="text/x-jsrender">
 	<div class="frame text">
-		<div class="question"><span>
-			{{:question}}
-		</span></div>
+		<div class="question">
+			<h4>
+				{{:frontname}}:
+			</h4>
+			<span>
+				{{:question}}
+			</span>
+		</div>
 		
 		<form>
+			<h4>
+				{{:backname}}:
+			</h4>
    			<input type="text" id="answer" autocomplete="off" name="answer">
    			<button type="submit">&#9658;</button>
    			<div id="hint" class="hidden" data-wrong="0"></div>

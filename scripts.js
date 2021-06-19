@@ -83,14 +83,19 @@ var lt = { // * top-level namespace
 		
 		lt.decks[deck.name] = deck
 		
-		console.log(deck.name + ' loaded');
+		console.log(deck.name + ' loaded.');
 		
 		await lt.computeScores(deck);
 		
-		console.log(deck.name + ' scores computed');
+		console.log(deck.name + ' scores computed.');
 		
 		// Default order is by ID
 		deck.cards = _.sortBy(deck.cards, [function(card){return card.id; }])
+		
+		// TODO: 
+		//  validate that nr. of sides for each card is the same as deck.sides.length
+		//  set default if key 'typing-sides' is missing.
+		//  check max(typableSides)
 	},
 	
 	mask : function(text, prop) 
@@ -179,7 +184,7 @@ var lt = { // * top-level namespace
 
 	// Parameters of first predictor
 	mean : - 538986862113.73,
-	std : 763822940584.4149 / 1e1,
+	std : 7638229405800. / 1e1,
 
 	computeScores : async function(deck)
 	{
@@ -240,7 +245,7 @@ var lt = { // * top-level namespace
 		/**
 		 * Sample a card from the deck according to the scores. 
 		 *
-		 * The strategy is to sample cards whose probability of being answered correclty 
+		 * The strategy is to sample cards whose probability of being answered correctly 
 		 * is close to 0.5. Doing this repeatedly eventually pushes all probabilities up 
 		 * to 1.0
 		 *
@@ -283,9 +288,9 @@ var lt = { // * top-level namespace
 	 	/**
 		 * Sample a card from the deck according to the scores. 
 		 *
-		 * The strategy is to keep the cards sorted, and to move from left to right, 
-		 * letting the probability of answering the card incorrectly be the probability 
-		 * that the card is sampled.
+		 * The strategy is to keep the cards sorted, and to move from left to right. Then 
+		 * at point, we sample that particular card with the probability that it will be 
+		 * answered incorrectly.
 		 *
 		 * NB: Assumes that the cards maintain a fixed order.
 		 */
@@ -303,11 +308,11 @@ var lt = { // * top-level namespace
 			return _.sample(deck.cards);
 		},
 	
-		mcProb : 0.0,
+		mcProb : 0.5,
 	
 		generate : function() 
 		{
-			if (_.random() < lt.session.mcProb)
+			if (_.random() < lt.session.mcProb || lt.session.deck.typableSides.length == 0) 
 				lt.session.generateMC();
 			else
 				lt.session.generateText();
@@ -322,15 +327,28 @@ var lt = { // * top-level namespace
 		generateText : function()
 		{
 			let deck = lt.session.deck
+
+			let back  = _.sample(deck.typableSides);
+			let front = _.sample(
+				_.without(
+					_.range(deck.sides.length),
+					back
+				)
+			);
+			
+			console.log('front', front, 'back', back, deck.sides)
+
 			$("article").empty();
 
-			let card = lt.session.sampleSeq() // draw a card
+			let card = lt.session.sampleSeq(); // draw a card
 			
-			let question = card.sides[0];
-			let answer   = card.sides[1];
+			let question = card.sides[front];
+			let answer   = card.sides[back];
 
 			$("article").html(
 				lt.templates.text.render({
+					frontname: deck.sides[front],
+					backname: deck.sides[back],
 					question: question,
 				})
 			);
@@ -340,21 +358,26 @@ var lt = { // * top-level namespace
 			lt.session.createProgress(deck.cards.indexOf(card));
 			
 			if (question.length < 4)
-				$(".frame .question").addClass("short")
+				$('.frame .question').addClass('short')
 			else if (question.length < 10)
-				$(".frame .question").addClass("medium")
+				$('.frame .question').addClass('medium')
+				
+			$('.frame .question').addClass('side-'+front);
+			$('.frame form').addClass('side-'+back); 
 			
 			$("article form").on(
 				'submit',
 				{ 
-			      timestamp: Date.now(),
-			      deck: deck.id,
-			      card: card.id,
-			      question: question,
-				  correctAnswer: answer,
+					timestamp: Date.now(),
+					deck: deck.id,
+					card: card.id,
+					question: question,
+					front: front,
+					back: back,			      
+					correctAnswer: answer,
 				},
 				lt.session.processTextAnswer
-			)            
+			)
 		},		
 		
 		/**
@@ -382,11 +405,12 @@ var lt = { // * top-level namespace
 		},
 				
 		processTextAnswer : function(e)
-		{	
-		    e.preventDefault(); // Stop the default form submit action.
-		    
-			let edata = e.data // -- this is apparently required to stop some race conditions from JS re-using its event objects
-			let etarget = e.target
+		{			    
+			e.preventDefault(); // Stop the default form submit action.
+
+				    		    
+			let edata = e.data; // -- this is apparently required to stop some race conditions from JS re-using its event objects
+			let etarget = e.target;
 		
 			let answered = $('article .frame #answer').val()
 			let correct = edata.correctAnswer
@@ -401,6 +425,8 @@ var lt = { // * top-level namespace
 				deck: edata.deck,
 				card: edata.card,
 				answered: answered,
+				front: edata.front,
+				back: edata.back,
  				correct: success ? 1 : 0,
 			}
 			
@@ -427,7 +453,7 @@ var lt = { // * top-level namespace
 			{
 				lt.sounds.incorrect.play()
 
-				$('article .frame input').empty();
+				setTimeout(function(){$('article .frame #answer').val('');}, 500);
 
 				let hint = $('article .frame #hint');
 				
@@ -451,7 +477,7 @@ var lt = { // * top-level namespace
 					hint.append(lt.mask(correct, 0.5));
 					setTimeout(function(){hint.toggleClass('visible hidden');}, 100);
 				} else if (wrongs == 2)
-				{	
+				{
 					console.log(2);
 					hint.append(lt.mask(correct, 0.25));
 					setTimeout(function(){hint.toggleClass('visible hidden');}, 100);
@@ -459,10 +485,8 @@ var lt = { // * top-level namespace
 				{	
 					hint.append(correct);
 				}
-				
-
-				
 			}
+			
 		},
 		
 		/**
@@ -474,6 +498,16 @@ var lt = { // * top-level namespace
 		generateMC : function()
 		{
 			let deck = lt.session.deck
+			
+			
+			let back  = _.sample(_.range(deck.sides.length));
+			let front = _.sample(
+				_.without(
+					_.range(deck.sides.length),
+					back
+				)
+			);
+			
 			$("article").empty();
 
 			// generate a question
@@ -484,7 +518,7 @@ var lt = { // * top-level namespace
 			console.log('time since seen', humanizeDuration(sampleTarget.timeSinceSeen));
 			
 			
-			let sampleAlt = _.sampleSize(_.without(deck.cards, [sampleTarget]), 2)
+			let sampleAlt = _.sampleSize(_.without(deck.cards, sampleTarget), 2)
 			let sample = [sampleTarget].concat(sampleAlt)
 						
 			let ord = _.shuffle([0, 1, 2]); // random order of the answers
@@ -495,14 +529,16 @@ var lt = { // * top-level namespace
 			answers[ord[1]] = sample[1]			
 			answers[ord[2]] = sample[2]
 
-			let q = sampleTarget.sides[0];
+			let q = sampleTarget.sides[front];
 
 			$("article").html(
 				lt.templates.mc.render({
+					frontname: deck.sides[front],
+					backname: deck.sides[back],
 					question: q,
-					answer0: answers[0].sides[1],
-					answer1: answers[1].sides[1],
-					answer2: answers[2].sides[1]
+					answer0: answers[0].sides[back],
+					answer1: answers[1].sides[back],
+					answer2: answers[2].sides[back],
 				})
 			);
 			
@@ -512,7 +548,10 @@ var lt = { // * top-level namespace
 				$(".frame .question").addClass("short")
 			else if (q.length < 10)
 				$(".frame .question").addClass("medium")
-			
+				
+			$('.frame .question').addClass('side-'+front);
+			$('.frame form').addClass('side-'+back); 
+						
 			$("article .frame button").on(
 				'click',
 				{ 
@@ -521,14 +560,18 @@ var lt = { // * top-level namespace
 				  card: sample[0].id,
 				  alt1: sample[1].id,
 				  alt2: sample[2].id,
-				  correctAnswer: correct, 
+				  correctAnswer: correct,
+				  front: front,
+				  back: back, 
 				},
 				lt.session.processMCAnswer
 			)            
 		},
 	
 		processMCAnswer : function(e)
-		{		
+		{				
+		    e.preventDefault(); // Stop the default form submit action.
+
 			let edata = e.data // -- this is apparently required to stop some race conditions from JS re-using its event objects
 			let etarget = e.target
 		
@@ -542,6 +585,8 @@ var lt = { // * top-level namespace
 				card: edata.card,
 				alt1: edata.alt1,
 				alt2: edata.alt2,
+				front: edata.front,
+				back: edata.back,
  				correct: edata.correctAnswer == answered ? 1 : 0
 			}
 			

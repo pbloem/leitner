@@ -1,9 +1,7 @@
 {
 	"name": "Capitals",
-	"options": {
-		"f2b": ["review", "mc", "typing"],
-		"b2f": ["review", "mc", "typing"]
-	},
+	"typableSides": [0, 1],
+	"sides": ["capital", "country"],
 	"cards": [
 		{"sides": ["Yamoussoukro", "Ivory Coast"]},
 		{"sides": ["Abu Dhabi", "United Arab Emirates"]},

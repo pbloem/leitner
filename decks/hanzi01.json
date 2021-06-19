@@ -1,9 +1,7 @@
 {
 	"name": "Hanzi",
-	"options": {
-		"f2b": ["review", "mc", "typing"],
-		"b2f": ["review", "mc"]
-	},
+	"typableSides": [1, 2],
+	"sides": ["Hanzi", "Pinyin", "English"],
 	"cards": [
 		{"sides": ["叫", "jiào", "to be called"]},
 		{"sides": ["姓", "xìng", "surname"]},
