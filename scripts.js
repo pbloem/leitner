@@ -338,7 +338,6 @@ var lt = { // * top-level namespace
 						
 						
 			console.log('pivot score', deck.cards[target].score)
-			console.log('pivot time since seen', humanizeDuration(deck.cards[target].timeSinceSeen), deck.cards[target].timeSinceSeen)
 						
 			return deck.cards[target]
 		},
@@ -474,7 +473,7 @@ var lt = { // * top-level namespace
 		 * Allowed edit distance between answer and truth, as a proportion of the length 
 		 * of the answer
 		 */
-		distAllowed: 0.2,
+		distAllowed: 0.3,
 		
 		/**
 		 * Check if a given answer is close enough to the correct answer to count as correct
@@ -641,7 +640,7 @@ var lt = { // * top-level namespace
 			let sampleTarget = lt.session.sampleSeq()
 			
 			console.log(sampleTarget.sides[0], 'score', sampleTarget.score);
-			console.log('time since seen', humanizeDuration(sampleTarget.timeSinceSeen));
+			console.log('time since seen', sampleTarget.timeSinceSeen);
 			
 			
 			let sampleAlt = _.sampleSize(_.without(deck.cards, sampleTarget), 2)
