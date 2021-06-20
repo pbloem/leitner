@@ -177,6 +177,54 @@ var lt = { // * top-level namespace
 		  return matrix[b.length][a.length];
 	},
 	
+	
+	/**
+	 * Scoring based on an approximation of the Leitner system. 
+	 *
+	 * We look at the most recent sequence of fails and successes. Let k be the length of 
+	 * contiguous successes since the most recent failure. k determines the "pile" the card
+	 * is in. Cards in pile k are shown with probability 1 - ~2^-k
+	 * 
+	 * We then modify this score with a multiplier, based on the number of days that have 
+	 * passed since the card was last seen. We assume, for now that the probability of 
+	 * remembering a card decays uniformly by .95 per day. 
+	 *
+	 */
+	computeScores : async function(deck)
+	{
+		let msPerDay = 8.64e+7;
+		let decayRate = 0.95
+	
+		for (let card of deck.cards) 
+		{
+			
+			await lt.db.events // latest seen
+ 				.where('[deck+card]').equals([deck.id,card.id]).reverse().sortBy('timestamp')
+ 				.then(function(events)
+ 				{
+ 					// Compute length of most recent contiguous sequence of successes
+ 					let k = 0
+ 					for (event of events)
+ 						if (event.correct)
+ 							k ++;
+ 						else
+ 							break;
+ 					
+ 					let baseScore = 1.0 - Math.pow(2.0, -k)
+ 					
+ 					// Compute time since seen modifier
+ 					let msSinceSeen = events.length > 0 ? Date.now() - events[0].timestamp : Number.MAX_SAFE_INTEGER;
+ 					let daysSinceSeen = msSinceSeen / msPerDay;
+ 					
+ 					let decay = Math.pow(0.95, daysSinceSeen)
+ 					
+ 					card.score = baseScore * decay
+//  				console.log(card.sides[0], k, baseScore, daysSinceSeen, decay, card.score)
+ 				});
+ 		}
+	
+	},
+	
 	sigmoid : function(x) 
 	{
 		return 1.0 / (1 + Math.exp(-x))
@@ -186,7 +234,10 @@ var lt = { // * top-level namespace
 	mean : - 538986862113.73,
 	std : 7638229405800. / 1e1,
 
-	computeScores : async function(deck)
+	/**
+	 * Logit scoring based on simple features. Doesn't work very well.
+	 */
+	computeScoresLogit : async function(deck)
 	{
 	
 		for (let card of deck.cards) 
@@ -220,7 +271,7 @@ var lt = { // * top-level namespace
 				card.timeSinceSeen = Date.now()
 
 			// Compute score logit
-			// -- This is n unbounded value. The more negative it is, the more likely the 
+			// -- This is an unbounded value. The more negative it is, the more likely the 
 			//    user will get the card wrong.
 			card.score_logit = (- card.timeSinceSeen - lt.mean)/ lt.std
 
@@ -240,10 +291,18 @@ var lt = { // * top-level namespace
 			lt.session.deck = deck
 						
 			lt.session.generate();
+			
+			lt.session.recent = []
 		},
 		
 		/**
-		 * Sample a card from the deck according to the scores. 
+		 * Buffer of recently seen cards (to be rejected from sampling)
+		 */
+		recent : [], 
+		recentMax : 5,
+		
+		/**
+		 * Sample a card from the deck according to the scores, using the pivot strategy. 
 		 *
 		 * The strategy is to sample cards whose probability of being answered correctly 
 		 * is close to 0.5. Doing this repeatedly eventually pushes all probabilities up 
@@ -286,33 +345,63 @@ var lt = { // * top-level namespace
 		
 		
 	 	/**
-		 * Sample a card from the deck according to the scores. 
+		 * Sample a card from the deck according to the scores, using the sequential strategy.
 		 *
 		 * The strategy is to keep the cards sorted, and to move from left to right. Then 
 		 * at point, we sample that particular card with the probability that it will be 
 		 * answered incorrectly.
+		 * 
+		 * TODO: Add a recovery time, whereby cards cannot be chosen if they have been 
+		 * among the  last three cards shown.
+		 *
 		 *
 		 * NB: Assumes that the cards maintain a fixed order.
 		 */
 		sampleSeq : function()
 		{
+			let res = null;
 			let deck = lt.session.deck;
 
-			for (let card of deck.cards)
+			for (let trial of _.range(100)) // allow 100 rejections
 			{
-				let r = _.random(0,1,true);
-				if (r > card.score)
-					return card;	
+				for (let card of deck.cards)
+				{
+					let r = _.random(0,1,true);
+					if (r > card.score)
+					{
+						res = card;	
+						break;
+					}
+				}
+				
+				if (lt.session.recent.indexOf(res.id) == -1)
+					break;
+// 				else
+// 					console.log('Rejected sample: ', res.id);
 			}
-
-			return _.sample(deck.cards);
+				
+			
+			if (res == null) // Clever approach failed. Sample uniformly.
+			{
+				console.log('Could not sample by scores. Sampling uniformly.')
+				res = _.sample(deck.cards);
+			}
+			
+			lt.session.recent.push(res.id)
+			while(lt.session.recent.length > lt.session.recentMax) 
+				lt.session.recent.shift()
+			//--  dequeue until buffer is at max size
+			
+			
+			return res
+			
 		},
 	
 		mcProb : 0.5,
 	
 		generate : function() 
 		{
-			if (_.random() < lt.session.mcProb || lt.session.deck.typableSides.length == 0) 
+			if (_.random(0, 1, true) < lt.session.mcProb || lt.session.deck.typableSides.length == 0) 
 				lt.session.generateMC();
 			else
 				lt.session.generateText();
@@ -373,7 +462,8 @@ var lt = { // * top-level namespace
 					card: card.id,
 					question: question,
 					front: front,
-					back: back,			      
+					back: back,			  
+					allSides: card.sides,    
 					correctAnswer: answer,
 				},
 				lt.session.processTextAnswer
@@ -392,9 +482,9 @@ var lt = { // * top-level namespace
 		 */
 		checkText : function(correct, answered)
 		{
-			// - Normalize accents, cases and diacritics
-			correct = correct.toLowerCase();
-			answered = answered.toLowerCase();
+			// - Trim, normalize accents, cases and diacritics
+			correct = correct.toLowerCase().trim();
+			answered = answered.toLowerCase().trim();
 			
 			correct = correct.normalize("NFD").replace(/\p{Diacritic}/gu, "");
 			answered = answered.normalize("NFD").replace(/\p{Diacritic}/gu, "");
@@ -406,10 +496,10 @@ var lt = { // * top-level namespace
 				
 		processTextAnswer : function(e)
 		{			    
-			e.preventDefault(); // Stop the default form submit action.
-
-				    		    
 			let edata = e.data; // -- this is apparently required to stop some race conditions from JS re-using its event objects
+
+			e.preventDefault(); // Stop the default form submit action.
+				    		    
 			let etarget = e.target;
 		
 			let answered = $('article .frame #answer').val()
@@ -418,29 +508,46 @@ var lt = { // * top-level namespace
 			let success = lt.session.checkText(correct, answered)
 			
 			console.log(answered, correct, edata)
-
-			let newRow = 
+			
+			// -- Check whether user typed wrong side
+			let wrongSide = false, sideAnswered = -1;
+			if (! success) 
 			{
-				timestamp: edata.timestamp,
-				deck: edata.deck,
-				card: edata.card,
-				answered: answered,
-				front: edata.front,
-				back: edata.back,
- 				correct: success ? 1 : 0,
+				edata.allSides.forEach((side, i) => {
+					if (i != edata.front && i != edata.back)
+						if(lt.session.checkText(side, answered))
+						{
+							wrongSide = true;
+							sideAnswered = i;
+						}
+				});			
 			}
-			
-			
-			lt.db.events.add(newRow).then (result =>
-			{
-			    console.log(newRow);
-			}).catch('ConstraintError', er => 
-			{
-			    console.error ("Constraint error: " + er.message);
-			    console.error(newrow);
-			});
 
-			lt.computeScores(lt.session.deck)
+			if (! wrongSide) 
+			{
+				let newRow = 
+				{
+					timestamp: edata.timestamp,
+					deck: edata.deck,
+					card: edata.card,
+					answered: answered,
+					front: edata.front,
+					back: edata.back,
+					correct: success ? 1 : 0,
+					questionType: 'text',
+				}
+			
+				lt.db.events.add(newRow).then (result =>
+				{
+					console.log(newRow);
+				}).catch('ConstraintError', er => 
+				{
+					console.error ("Constraint error: " + er.message);
+					console.error(newrow);
+				});
+
+				lt.computeScores(lt.session.deck)
+			}
 
 			if(success)
 			{
@@ -453,37 +560,56 @@ var lt = { // * top-level namespace
 			{
 				lt.sounds.incorrect.play()
 
-				setTimeout(function(){$('article .frame #answer').val('');}, 500);
-
-				let hint = $('article .frame #hint');
-				
-				let wrongs = parseInt(hint.attr('data-wrong'))
-				console.log(wrongs, ' incorrect answers.')
-				hint.attr('data-wrong', wrongs + 1)
-				
-				hint.empty();
-				hint.removeClass('hidden');
-				hint.addClass('visible');
-
-				if (wrongs == 0)		
-				{	
-					console.log(0);
-					hint.append(lt.mask(correct, 0.95));
-					setTimeout(function(){hint.toggleClass('visible hidden');}, 100);
-				
-				} else if (wrongs == 1)
-				{	
-					console.log(1);
-					hint.append(lt.mask(correct, 0.5));
-					setTimeout(function(){hint.toggleClass('visible hidden');}, 100);
-				} else if (wrongs == 2)
+			
+				if (wrongSide) // typed wrong side
 				{
-					console.log(2);
-					hint.append(lt.mask(correct, 0.25));
-					setTimeout(function(){hint.toggleClass('visible hidden');}, 100);
-				} else 
-				{	
-					hint.append(correct);
+					setTimeout(function(){$('article .frame #answer').val('');}, 500);
+
+					let hint = $('article .frame #hint');
+				
+					hint.empty();
+					hint.removeClass('hidden');
+					hint.addClass('visible');
+
+					console.log(0);
+					hint.append('Wrong side. Type the '+lt.session.deck.sides[edata.back]+' answer.');
+					setTimeout(function(){hint.toggleClass('visible hidden');}, 1500);
+					
+				} else {
+			
+
+					setTimeout(function(){$('article .frame #answer').val('');}, 500);
+
+					let hint = $('article .frame #hint');
+				
+					let wrongs = parseInt(hint.attr('data-wrong'))
+					console.log(wrongs, ' incorrect answers.')
+					hint.attr('data-wrong', wrongs + 1)
+				
+					hint.empty();
+					hint.removeClass('hidden');
+					hint.addClass('visible');
+
+					if (wrongs == 0)		
+					{	
+						console.log(0);
+						hint.append(lt.mask(correct, 0.95));
+						setTimeout(function(){hint.toggleClass('visible hidden');}, 100);
+				
+					} else if (wrongs == 1)
+					{	
+						console.log(1);
+						hint.append(lt.mask(correct, 0.5));
+						setTimeout(function(){hint.toggleClass('visible hidden');}, 100);
+					} else if (wrongs == 2)
+					{
+						console.log(2);
+						hint.append(lt.mask(correct, 0.25));
+						setTimeout(function(){hint.toggleClass('visible hidden');}, 100);
+					} else 
+					{	
+						hint.append(correct);
+					}
 				}
 			}
 			
@@ -551,7 +677,8 @@ var lt = { // * top-level namespace
 				
 			$('.frame .question').addClass('side-'+front);
 			$('.frame form').addClass('side-'+back); 
-						
+									
+			// Add answer evenbt handler
 			$("article .frame button").on(
 				'click',
 				{ 
@@ -565,7 +692,25 @@ var lt = { // * top-level namespace
 				  back: back, 
 				},
 				lt.session.processMCAnswer
-			)            
+			)
+			
+			// Add keyboard shortcuts
+			$(document).on('keydown', function(event) {
+				if (event.key == 1)
+				{
+					$("article .frame button#a0").trigger('click')
+					event.preventDefault();
+				} else if (event.key == 2)
+				{
+					$("article .frame button#a1").trigger('click')					
+					event.preventDefault();
+				} else if (event.key == 3)
+				{
+					$("article .frame button#a2").trigger('click')					
+					event.preventDefault();
+				}
+			});
+            
 		},
 	
 		processMCAnswer : function(e)
@@ -587,6 +732,7 @@ var lt = { // * top-level namespace
 				alt2: edata.alt2,
 				front: edata.front,
 				back: edata.back,
+ 				questionType: 'mc',
  				correct: edata.correctAnswer == answered ? 1 : 0
 			}
 			
@@ -612,6 +758,7 @@ var lt = { // * top-level namespace
 				lt.sounds.correct.play()
 			
 				$('article button').attr('disabled', true);
+				$(document).off('keydown')
 			
 				setTimeout(lt.session.generate , 750)
 			} else
