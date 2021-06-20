@@ -183,7 +183,7 @@ var lt = { // * top-level namespace
 	 *
 	 * We look at the most recent sequence of fails and successes. Let k be the length of 
 	 * contiguous successes since the most recent failure. k determines the "pile" the card
-	 * is in. Cards in pile k are shown with probability 1 - ~2^-k
+	 * is in. Cards in pile k are shown with probability around 1 - 2^-k (exact formula in development).
 	 * 
 	 * We then modify this score with a multiplier, based on the number of days that have 
 	 * passed since the card was last seen. We assume, for now that the probability of 
@@ -192,7 +192,13 @@ var lt = { // * top-level namespace
 	 */
 	computeScores : async function(deck)
 	{
+		// * How much each sequential correct answer decays the probability of a an incorrect one.
+		let base = 0.1;
+		// -- The closer to zero, the more quickly the engine moves on to new cards.
+		
+		// * How many milliseconds in a day.
 		let msPerDay = 8.64e+7;
+		// * How much each day decays the probability of giving a correct answer.
 		let decayRate = 0.95
 	
 		for (let card of deck.cards) 
@@ -210,7 +216,7 @@ var lt = { // * top-level namespace
  						else
  							break;
  					
- 					let baseScore = 1.0 - Math.pow(2.0, -k)
+ 					let baseScore = 1.0 - Math.pow(base, k)
  					
  					// Compute time since seen modifier
  					let msSinceSeen = events.length > 0 ? Date.now() - events[0].timestamp : Number.MAX_SAFE_INTEGER;
@@ -881,6 +887,19 @@ $(function()
 			
 		}	
 	});
-
+	
+	$('nav #full-screen').on('click', function(e){
+	  if (!document.fullscreenElement) 
+	  {
+			$('body')[0].requestFullscreen()
+			.catch(err => 
+			{
+				console.log(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+			});
+	  } else 
+	  {
+			document.exitFullscreen();
+	  }
+	});
 
 });

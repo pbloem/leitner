@@ -94,6 +94,18 @@ nav ul li.home {
 	text-align: right;
 }
 
+nav button {
+	border: none;
+	background: transparent;
+	font-family: Georgia, serif;
+	color: white;
+	font-weight: bold;
+}
+
+nav button:hover {
+	cursor:pointer;
+}
+
 nav h1 {
 	float: right;
 	margin: 0;
