@@ -27,21 +27,40 @@ var lt = { // * top-level namespace
         });
 		
 		// - load all decks
-		let rqs = Array();
-		for (let df of lt.deck_files)
+		let rqs = []; 
+		for (let pair of lt.deck_files)
 		{
-			let prm = $.getJSON(df).then(lt.loadDeck)
+			let df, order;
+			[df, order] = pair
+			
+			let prm = $.getJSON(df).then(async function(deck) {await lt.loadDeck(deck, order);});
 			rqs.push(prm);
 		}
 		
 		await Promise.all(rqs)
+				
+		for (let [name, deck] of Object.entries(lt.decks)) 
+			lt.sortedDecks.push(deck);
+			
+		lt.sortedDecks.sort((a, b) => a.order > b.order ? 1 : -1); 
 	},
 	
 	// Add new decks here
 	deck_files : [
-		'../decks/hanzi01.json',
-		'../decks/capitals.json',
+		['../decks/hanzi01.json', 0],
+		['../decks/capitals.json', 1],
+		['../decks/countries.json', 2],
+		['../decks/esperanto01.json', 3],
+		['../decks/hanzi02.json', 4],
+		['../decks/us-states.json', 5],				
+		['../decks/flags.json', 6],
 	],
+	
+	/**
+	 * Default number of cards per session (equals about 7 minutes for the average deck)
+	 *
+	 */
+	defaultLimit : 100,
 	
 	// TODO: automate this in init(). Use a query to collect all script elements with type="text/x-jsrender"
 	templates : { 
@@ -55,17 +74,29 @@ var lt = { // * top-level namespace
 		incorrect: new Audio('/sounds/incorrect.wav')
 	},
 	
+	/**
+	 * Decks indexed by name.
+	 *
+	 */
 	decks : {},
+
+	/**
+	 * Decks sorted by user-specified order.
+	 *
+	 * This order determines in which order the training progresses.
+	 */
+	sortedDecks : [],
 	
 	/**
 	 * Takes a dictionary representing a deck, enriches it, and adds it to the set of 
 	 * decks in the namespace.
 	 */
-	loadDeck : async function(deck) 
+	loadDeck : async function(deck, order) 
 	{
-	
 		if (!( 'id' in deck))
-			deck.id = (deck.name + '').hash()	
+			deck.id = (deck.name + '').hash()
+			
+		deck.order = order	
 			
 		deck.cards.forEach((card) => 
 		{		
@@ -114,7 +145,6 @@ var lt = { // * top-level namespace
 		
 		return res
 	},
-
 	
 	/**
 	 * Computes Levenshtein distance. From https://gist.github.com/andrei-m/982927
@@ -193,13 +223,16 @@ var lt = { // * top-level namespace
 	computeScores : async function(deck)
 	{
 		// * How much each sequential correct answer decays the probability of a an incorrect one.
-		let base = 0.1;
+		let base = 0.15;
 		// -- The closer to zero, the more quickly the engine moves on to new cards.
 		
 		// * How many milliseconds in a day.
 		let msPerDay = 8.64e+7;
 		// * How much each day decays the probability of giving a correct answer.
 		let decayRate = 0.95
+		
+		let min = Number.POSITIVE_INFINITY
+		deck.numOver99 = 0
 	
 		for (let card of deck.cards) 
 		{
@@ -219,71 +252,86 @@ var lt = { // * top-level namespace
  					let baseScore = 1.0 - Math.pow(base, k)
  					
  					// Compute time since seen modifier
- 					let msSinceSeen = events.length > 0 ? Date.now() - events[0].timestamp : Number.MAX_SAFE_INTEGER;
+ 					let msSinceSeen = events.length > 0 ? Date.now() - events[0].timestamp : 28 * 365;
  					let daysSinceSeen = msSinceSeen / msPerDay;
  					
- 					let decay = Math.pow(0.95, daysSinceSeen)
+ 					let decayBase = 1.0 - (1.0/(k+1));
+ 					// -- The more consecutive corrects we have, the slower the score decays
+ 					let decayOffset = k
+ 					// -- If we have k consecutive corrects, the score starts decaying after k days.
+
+ 					let decay = Math.pow(decayBase, Math.max(0, daysSinceSeen - k))
  					
  					card.score = baseScore * decay
-//  				console.log(card.sides[0], k, baseScore, daysSinceSeen, decay, card.score)
+ 					
+ 					// for debugging
+ 					card.k = k
+ 					card.baseScore = baseScore
+ 					card.decay = decay
+ 					card.daysSinceSeen = daysSinceSeen
+ 					
+ 					deck.minScore = Math.min(min, card.score)
+ 					if (card.score> 0.99)
+ 						deck.numOver99 += 1;
  				});
  		}
 	
 	},
 	
-	sigmoid : function(x) 
-	{
-		return 1.0 / (1 + Math.exp(-x))
-	},
-
-	// Parameters of first predictor
-	mean : - 538986862113.73,
-	std : 7638229405800. / 1e1,
-
 	/**
-	 * Logit scoring based on simple features. Doesn't work very well.
+	 * Convert the raw text of a card to (potentially) HTML content
 	 */
-	computeScoresLogit : async function(deck)
+	content : function(rawText)
+	{
+		if (rawText.startsWith('img:'))
+			return $('<img>').attr('src', rawText.substring(4)).prop('outerHTML');
+			
+		return rawText
+	},
+	
+	createProgress : function(deck, targetIdx, target, tight = false)
 	{
 	
-		for (let card of deck.cards) 
-		{
+		if (target == undefined)
+			target = 'div.progress';
 			
-			await lt.db.events // latest seen
- 				.where('[deck+card]').equals([deck.id,card.id]).reverse().sortBy('timestamp')
- 				.then(function(events)
- 				{
- 					if (events.length > 0)
-						card.timeSinceSeen = Date.now() - events[0].timestamp;
- 				});
+		const parent = d3.select(target)
+		console.log(parent.node().getBoundingClientRect())
 
-			await lt.db.events // latest correct
-				.where('[deck+card+correct]').equals([deck.id,card.id,1]).reverse()
- 				.sortBy('timestamp').then(function(events) 
-				{				
-					if (events.length > 0)
-						card.timeSinceCorrect = Date.now() - events[0].timestamp;
-				});
+		let width = parent.node().getBoundingClientRect().width * (tight ? 1.0 : 0.9)
+	
+		let eps = 1e-5
+		let scores = deck.cards.map((card) => card.score);
+		let pix = Math.min(width / scores.length, 10)
+		
+		let minHeight = 10;
+		
+		const svg = parent.append('svg')
+		
+		svg.attr('width', width) // pix * scores.length)
+		   .attr('height', Math.max(tight ? 2*pix : pix, minHeight) )
+// 			   .attr("style", "outline: thin solid red;")
+			
+		let xCoord = function(i) {return i == targetIdx ? i * pix - (pix/2) : i * pix};
+		let yCoord = function(i) {return i == targetIdx ? 0 : pix/2};
+		
+		const prog = svg.selectAll("g")
+			.data(scores)
+			.join("g")
+				.attr("transform", (d, i) => `translate(${xCoord(i)}, ${yCoord(i)})`);
+				
+		var colorScale = d3.scaleSequential(d3.interpolateRdYlGn)
+			.domain([1, -8.5])
 								
-			await lt.db.events // latest incorrect (this currently works only for MC)
-				.where('[deck+card+correct]').equals([deck.id,card.id,0]).reverse().sortBy('timestamp')
-				.then(function(events)
-				{
-					if (events.length > 0)
-						card.timeSinceIncorrect = Date.now() - events[0].timestamp;
-				});
+		prog.append("rect")
+			.attr("fill", "steelblue")
+			.attr("width", (score, i) => {return i == targetIdx ? 2*pix : pix})
+			.attr("height", (score, i) => {return Math.max((i == targetIdx ? 2*pix : pix), minHeight)})
+			.attr('fill', (score, i) => {return colorScale(Math.log(1.0 - score + eps));})
 
-			if (card.timeSinceSeen === undefined)
-				card.timeSinceSeen = Date.now()
-
-			// Compute score logit
-			// -- This is an unbounded value. The more negative it is, the more likely the 
-			//    user will get the card wrong.
-			card.score_logit = (- card.timeSinceSeen - lt.mean)/ lt.std
-
-			card.score = lt.sigmoid(card.score_logit)		
-		}		
-	},
+		// todo: would be nicer to update this rather than redraw every time									
+			
+	}, 	
 	
 	/** 
 	 * Sub-namespace for the current session
@@ -295,11 +343,30 @@ var lt = { // * top-level namespace
 		{
 
 			lt.session.deck = deck
-						
-			lt.session.generate();
 			
 			lt.session.recent = []
+			
+			let params = new URLSearchParams(window.location.search);
+			if (params.has('limit'))
+				lt.session.limit = parseInt(params.get('limit'))
+						
+			$('nav #train').addClass('hidden')
+			$('nav #session-info').removeClass('hidden')
+			
+			lt.session.generate();
 		},
+		
+		/**
+		 * Session target (number of questions)
+		 *
+		 */
+		limit: undefined,
+		
+		/**
+		 * Number of cards seen
+		 *
+		 */
+		seen: 0, 
 		
 		/**
 		 * Buffer of recently seen cards (to be rejected from sampling)
@@ -356,10 +423,6 @@ var lt = { // * top-level namespace
 		 * at point, we sample that particular card with the probability that it will be 
 		 * answered incorrectly.
 		 * 
-		 * TODO: Add a recovery time, whereby cards cannot be chosen if they have been 
-		 * among the  last three cards shown.
-		 *
-		 *
 		 * NB: Assumes that the cards maintain a fixed order.
 		 */
 		sampleSeq : function()
@@ -379,7 +442,7 @@ var lt = { // * top-level namespace
 					}
 				}
 				
-				if (lt.session.recent.indexOf(res.id) == -1)
+				if (res != null && lt.session.recent.indexOf(res.id) == -1)
 					break;
 // 				else
 // 					console.log('Rejected sample: ', res.id);
@@ -397,6 +460,12 @@ var lt = { // * top-level namespace
 				lt.session.recent.shift()
 			//--  dequeue until buffer is at max size
 			
+			console.log(res.sides[0])
+			console.log('consecutive corrects', res.k);
+			console.log('score', res.score);
+			console.log('basescore', res.baseScore);
+			console.log('decay', res.decay);
+			console.log('daysSinceSeen', res.daysSinceSeen);
 			
 			return res
 			
@@ -406,11 +475,27 @@ var lt = { // * top-level namespace
 	
 		generate : function() 
 		{
-			if (_.random(0, 1, true) < lt.session.mcProb || lt.session.deck.typableSides.length == 0) 
-				lt.session.generateMC();
-			else
-				lt.session.generateText();
+			if (lt.session != undefined && lt.session.seen >= lt.session.limit)
+			{
+				window.location.replace('/')
+				return;
+			}
+			
+			if (lt.session.limit == undefined)
+				$('#session-info').html(`seen this session: ${lt.session.seen}`)
+			else 
+				$('#session-info').html(`to go: ${lt.session.limit - lt.session.seen}`)
 		
+			let card = lt.session.sampleSeq(); // draw a card
+			
+			let score = card.score != undefined ? card.score : 0.0;
+		
+			if (_.random(0, 1, true) < (1.0 - score) || lt.session.deck.typableSides.length == 0) 
+				lt.session.generateMC(card);
+			else
+				lt.session.generateText(card);
+				
+			lt.session.seen ++;
 		},
 		
 		/**
@@ -418,7 +503,7 @@ var lt = { // * top-level namespace
 		 * user is asked to type in the content of one of the other sides.
 		 *
 		 */
-		generateText : function()
+		generateText : function(card)
 		{
 			let deck = lt.session.deck
 
@@ -433,25 +518,25 @@ var lt = { // * top-level namespace
 			console.log('front', front, 'back', back, deck.sides)
 
 			$("article").empty();
-
-			let card = lt.session.sampleSeq(); // draw a card
 			
 			let question = card.sides[front];
-			let answer   = card.sides[back];
+			let answer   = card.sides[back];			
 
 			$("article").html(
 				lt.templates.text.render({
 					frontname: deck.sides[front],
 					backname: deck.sides[back],
-					question: question,
+					question: lt.content(question),
 				})
 			);
 			
 			$(".frame #answer").focus()
 			
-			lt.session.createProgress(deck.cards.indexOf(card));
+			lt.createProgress(deck, deck.cards.indexOf(card));
 			
-			if (question.length < 4)
+			if (question.startsWith('img:'))
+				$('.frame .question').addClass('image')
+			else if (question.length < 4)
 				$('.frame .question').addClass('short')
 			else if (question.length < 10)
 				$('.frame .question').addClass('medium')
@@ -498,9 +583,9 @@ var lt = { // * top-level namespace
 		
 			return distance < lt.session.distAllowed * correct.length;
 		},
-				
+						
 		processTextAnswer : function(e)
-		{			    
+		{	
 			let edata = e.data; // -- this is apparently required to stop some race conditions from JS re-using its event objects
 
 			e.preventDefault(); // Stop the default form submit action.
@@ -626,7 +711,7 @@ var lt = { // * top-level namespace
 		 * options.
 		 *
 		 */
-		generateMC : function()
+		generateMC : function(sampleTarget)
 		{
 			let deck = lt.session.deck
 			
@@ -643,11 +728,6 @@ var lt = { // * top-level namespace
 
 			// generate a question
 			// -- sample three cards. The first is the target, the other two provide false answers
-			let sampleTarget = lt.session.sampleSeq()
-			
-			console.log(sampleTarget.sides[0], 'score', sampleTarget.score);
-			console.log('time since seen', sampleTarget.timeSinceSeen);
-			
 			
 			let sampleAlt = _.sampleSize(_.without(deck.cards, sampleTarget), 2)
 			let sample = [sampleTarget].concat(sampleAlt)
@@ -666,19 +746,37 @@ var lt = { // * top-level namespace
 				lt.templates.mc.render({
 					frontname: deck.sides[front],
 					backname: deck.sides[back],
-					question: q,
-					answer0: answers[0].sides[back],
-					answer1: answers[1].sides[back],
-					answer2: answers[2].sides[back],
+					question: lt.content(q),
+					answer0: lt.content(answers[0].sides[back]),
+					answer1: lt.content(answers[1].sides[back]),
+					answer2: lt.content(answers[2].sides[back]),
 				})
 			);
 			
-			lt.session.createProgress(deck.cards.indexOf(sampleTarget));
+			lt.createProgress(deck, deck.cards.indexOf(sampleTarget));
 			
-			if (q.length < 4)
-				$(".frame .question").addClass("short")
+			if (q.startsWith('img:'))
+				$(".frame .question").addClass("image");
+			else if (q.length < 4)
+				$(".frame .question").addClass("short");
 			else if (q.length < 10)
-				$(".frame .question").addClass("medium")
+				$(".frame .question").addClass("medium");
+				
+			if (answers[0].sides[back].startsWith('img:'))
+			{
+				$(".frame #a0").addClass("image");
+				$(".frame").addClass("image-answers");
+			} 
+			if (answers[1].sides[back].startsWith('img:'))
+			{
+				$(".frame #a1").addClass("image");
+				$(".frame").addClass("image-answers");
+			} 
+			if (answers[2].sides[back].startsWith('img:'))
+			{
+				$(".frame #a2").addClass("image");
+				$(".frame").addClass("image-answers");
+			}
 				
 			$('.frame .question').addClass('side-'+front);
 			$('.frame form').addClass('side-'+back); 
@@ -724,8 +822,13 @@ var lt = { // * top-level namespace
 
 			let edata = e.data // -- this is apparently required to stop some race conditions from JS re-using its event objects
 			let etarget = e.target
-		
-			let answered = $(etarget).data('answer')
+
+			let btn = $(etarget)
+			
+			if (!btn.is('button'))
+				btn = btn.parents('button')[0]
+	
+			let answered = $(btn).data('answer')
 			let correct = edata.correctAnswer
 
 			let newRow = 
@@ -771,44 +874,6 @@ var lt = { // * top-level namespace
 				lt.sounds.incorrect.play()
 			}
 		},
-		
-		createProgress : function(targetIdx)
-		{
-			let scores = lt.session.deck.cards.map((card) => card.score);
-			let pix = 4
-			
-			const parent = d3.select('div.progress')
-			const svg = parent.append('svg')
-			
-			svg.attr('width', pix * scores.length)
-			   .attr('height', 2*pix)
-// 			   .attr("style", "outline: thin solid red;")
-			    
-			let xCoord = function(i) {return i == targetIdx ? i * pix - (pix/2) : i * pix};
-			let yCoord = function(i) {return i == targetIdx ? 0 : pix/2};
-			
-			const prog = svg.selectAll("g")
-				.data(scores)
-				.join("g")
-					.attr("transform", (d, i) => `translate(${xCoord(i)}, ${yCoord(i)})`);
-					
-					
-					
-			var colorScale = d3.scaleSequential(d3.interpolateRdYlGn)
-    			.domain([0.0, 1.0])
-    								
-			prog.append("rect")
-				.attr("fill", "steelblue")
-				.attr("width", (score, i) => {return i == targetIdx ? 2*pix : pix})
-				.attr("height", (score, i) => {return i == targetIdx ? 2*pix : pix})
-				.attr('fill', (score, i) => {return colorScale(score);})
-
-				
-			// todo: would be nicer to update this rather than redraw every time									
-				
-		}, 
-		
-
 	},
 
 	/**
@@ -822,9 +887,6 @@ var lt = { // * top-level namespace
 
 $(function() 
 {
-// 
-// 	// - init environment
-// 	let defer = lt.init();
 			
 	// * Load page	
 	lt.init().then(function() 
@@ -852,7 +914,15 @@ $(function()
 					let ulSides = $('<ul>', {class: 'sides'});					
 					card.sides.forEach((side, j) =>
 					{
-						ulSides.append($('<li>', {class: 'side'}).append(j+':'+side));
+						if (side.startsWith('img:'))
+						{
+							ulSides.append($('<li>', {class: 'side'}).append(j+':').append(
+								$('<img>').attr('src', side.substring(4))
+							));
+						} else 
+						{
+							ulSides.append($('<li>', {class: 'side'}).append(j+':'+side));
+						}
 					});
 										
 					li.append(ulSides);
@@ -867,24 +937,51 @@ $(function()
 			}
 		} else
 		{
+			$('nav #session-info').addClass('hidden')
+			$('nav #train').removeClass('hidden')
+
+			
 			// - Print the list of decks
 			$("article").append('<p>No deck specified. Available decks:</p>')
 			
 			$("article").html($('<ul>', {id: 'decks', class: 'decks'}));
-			
-			console.log(lt.templates)
-			
-			for (let [name, deck] of Object.entries(lt.decks)) 
-			{ 
+				
+			lt.sortedDecks.forEach((deck, i) =>
+			{
+				console.log(deck, deck['numOver99'], deck.numOver99, deck.cards.length, (deck.numOver99 / deck.cards.length).toPrecision(2))
+				
 				$('ul#decks').append(
 					lt.templates.decklink.render({
-						href: '/?deck=' + name,
-						href_list: '/?deck=' + name + '&list=true',
-						text: name
+						href: '/?deck=' + deck.name,
+						href_list: '/?deck=' + deck.name + '&list=true',
+						name: deck.name,
+						progress: (deck.numOver99 / deck.cards.length).toPrecision(2),
+						num: i,
 				}));
-			}
-						
+				
+				lt.createProgress(deck, -1, `ul#decks li#deck-${i} div.progress`, true)
+				
+			});
 			
+			// pick a random deck to train on
+			$('nav #train').on('click', function()
+			{
+				let chosen = null;
+				for (let deck of lt.sortedDecks) 
+				{	
+					let prob = 1.0 - (deck.numOver99 / deck.cards.length)
+					if (_.random(0, 1, true) < prob)
+					{
+						chosen = deck;
+						break;
+					}						
+				}
+				
+				if (chosen == null)
+					chosen = _.sample(lt.sortedDecks);
+			
+				window.location.replace(`/?deck=${chosen.name}&limit=${lt.defaultLimit}`);
+			});
 		}	
 	});
 	
@@ -901,5 +998,5 @@ $(function()
 			document.exitFullscreen();
 	  }
 	});
-
+	
 });

@@ -1,5 +1,5 @@
 {
-	"name": "Hanzi",
+	"name": "Hanzi 1/10",
 	"typableSides": [1, 2],
 	"sides": ["Hanzi", "Pinyin", "English"],
 	"cards": [
@@ -48,7 +48,7 @@
 		{"sides": ["家人", "jiārén", "family member"]},
 		{"sides": ["介绍", "jièshào", "to introduce"]},
 		{"sides": ["漂亮", "piàoliàng", "beautiful"]},
-		{"sides": ["张", "zhāng", "a mw for photograph, picture, paper"]},
+		{"sides": ["张", "zhāng", "mw for paper"]},
 		{"sides": ["女儿", "nǚér", "daughter"]},
 		{"sides": ["猫", "māo", "cat"]},
 		{"sides": ["照片", "zhàopiàn", "pictures"]},

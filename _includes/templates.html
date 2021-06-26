@@ -55,9 +55,10 @@
 </script>
 
 <script id="decklink" type="text/x-jsrender">
-	<li class="deck">
-		<a class="main" href="{{:href}}">{{:text}}</a>
-		<a class="list" href="{{:href_list}}">list</a>
+	<li class="deck" id="deck-{{:num}}">
+		<a class="main" href="{{:href}}">{{:name}} ({{:progress}})</a>
+		<a class="list" href="{{:href_list}}">i</a>
+		<div class="progress"></div>
 	</li>
 </script>
 {% endraw %}

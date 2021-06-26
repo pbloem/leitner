@@ -350,6 +350,24 @@ ul.stories li a {
 	overflow: scroll;
 }
 
+.frame .question.image span {
+	top: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	
+	z-index: 1;
+}
+
+.frame .question.image h4 {
+	position: relative;
+	z-index: 2;
+}
+
+.frame .question.image img {
+	width: 100%;
+}
+
 .frame .question span {
 	position: absolute;
 	top: 2em;
@@ -520,9 +538,41 @@ ul.stories li a {
 {
 }
 
+
+.frame.image-answers div.question {
+	width: 30%;
+	height: 60%;
+	font-size: 0.8em;
+}
+
+.frame.image-answers form {
+	width: 60%;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.frame.image-answers form h4 {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+}
+
+.frame.image-answers button {
+	width: 35%;
+	height: 50%;
+	margin: 5px
+	
+}
+
+.frame.image-answers button img {
+	width: 100%;
+}
+
 ul.decks {
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 }
 
 ul.decks li {
@@ -557,6 +607,37 @@ ul.decks li a.main {
 
 ul.decks li a.list {
 	position: absolute;
+	top: 3px;
+	right: 3px;
+	
+	width: 15px;
+	height: 15px;
+	line-height: 15px;
+	text-align: center;
+	font-size: 0.8em;
+	padding: 0;
+	margin: 0;
+	
+	border-radius: 7.5px;
+	
+	background: #ddd;
+	color: white;
+	border: none;
+}
+
+ul.decks li div.progress {
+	position: absolute;
+	min-height: 3px;
 	bottom: 0;
-	right: 0;
+	width: 200px;
+	padding: 0;
+}
+
+ul.decks li div.progress svg {
+	margin: 0;
+}
+
+nav .hidden
+{
+	display: none;
 }
