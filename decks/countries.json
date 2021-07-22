@@ -181,5 +181,17 @@
 		{"sides": ["Yemen", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Yemen%20%28orthographic%20projection%29.svg"]},
 		{"sides": ["Jordan", "img:http://commons.wikimedia.org/wiki/Special:FilePath/LocationJordan.svg"]},
 		{"sides": ["Nicaragua", "img:http://commons.wikimedia.org/wiki/Special:FilePath/LocationNicaragua.svg"]}
+	],
+	"similar" : [
+		["Dominican Republic" , "Papua New Guinea"],
+		["The Bahamas", "Philippines"],
+		["Ghana", "Togo", "Benin"],
+		["Lebanon", "Israel", "Syria", "Jordan"],
+		["Oman", "Yemen"],
+		["Federated States of Micronesia", "Vanuatu", "Cook Islands", "Northern Mariana Islands", "Tuvalu", "Palau"],
+		["Samoa", "Fiji", "Nauru"],
+		["Honduras", "El Salvador", "Costa Rica", "Guatemala"],
+		["Bolivia", "Paraguay", "Colombia"],
+		["Burundi", "Brunei", "Bhutan"]
 	]
 }

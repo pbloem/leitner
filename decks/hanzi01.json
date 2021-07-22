@@ -29,7 +29,7 @@
 		{"sides": ["咖啡", "kāfēi", "coffee"]},
 		{"sides": ["菜", "cài", "dish"]},
 		{"sides": ["茶", "chá", "tea"]},
-		{"sides": ["口", "kǒu", "mw for family members"]},
+		{"sides": ["口", "kǒu", "mw for family"]},
 		{"sides": ["个", "gè", "general mw"]},
 		{"sides": ["爸爸", "bàba", "father"]},
 		{"sides": ["妈妈", "māma", "mother"]},
@@ -67,9 +67,9 @@
 		{"sides": ["百", "bǎi", "hundred"]},
 		{"sides": ["一共", "yígòng", "altogether"]},
 		{"sides": ["今天", "jīntiān", "today"]},
-		{"sides": ["几点", "jǐdiǎn", "What time"]},
+		{"sides": ["几点", "jǐdiǎn", "what time"]},
 		{"sides": ["分", "fēn", "minute"]},
-		{"sides": ["看", "kàn", "to read, to watch"]},
+		{"sides": ["看", "kàn", "to watch"]},
 		{"sides": ["电影", "diànyǐng", "movie"]},
 		{"sides": ["上网", "shàngwǎng", "Surf Internet"]},
 		{"sides": ["现在", "xiànzài", "now"]},
@@ -103,5 +103,17 @@
 		{"sides": ["晚上", "wǎnshàng", "evening"]},
 		{"sides": ["请", "qǐng", "to treat"]},
 		{"sides": ["来", "lái", "to come"]}
+	],
+	"similar" : [
+		["today", "tomorrow", "yesterday"], 
+		["older brother", "younger brother", "older sister", "younger sister"],
+		["zhēn", "zhāng"],
+		["tea", "to come", "dish"],
+		["to plan to", "to treat", "to watch", "really"],
+		["when", "what time", "siblings"],
+		["breakfast", "to cook", "restaurant"],
+		["hundred", "half"],
+		["few", "some", "many", "minute"],
+		["afternoon", "morning"]
 	]
 }

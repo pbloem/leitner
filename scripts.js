@@ -43,6 +43,7 @@ var lt = { // * top-level namespace
 			lt.sortedDecks.push(deck);
 			
 		lt.sortedDecks.sort((a, b) => a.order > b.order ? 1 : -1); 
+	
 	},
 	
 	// Add new decks here
@@ -51,9 +52,10 @@ var lt = { // * top-level namespace
 		['../decks/capitals.json', 1],
 		['../decks/countries.json', 2],
 		['../decks/esperanto01.json', 3],
-		['../decks/hanzi02.json', 4],
-		['../decks/us-states.json', 5],				
+		['../decks/us-states.json', 4],				
+		['../decks/hanzi02.json', 5],
 		['../decks/flags.json', 6],
+		['../decks/morse.json', 7]
 	],
 	
 	/**
@@ -127,6 +129,50 @@ var lt = { // * top-level namespace
 		//  validate that nr. of sides for each card is the same as deck.sides.length
 		//  set default if key 'typing-sides' is missing.
 		//  check max(typableSides)
+		
+		// * Map from card id to its index in the deck.cards array
+		deck.id2idx = new Map()
+		deck.cards.forEach((card, idx) => {
+			deck.id2idx.set(card.id, idx)
+		});
+		
+		// * Create a dictionary mapping any side to its card
+		let s2c = new Map()
+		for (let card of deck.cards)
+			for (let side of card.sides)
+				s2c.set(side, card)
+	
+			
+		// * Create a graph of similar cards (i.e. ones that are easily mistaken for each 
+		//   other.
+		// -- For now, we only use user hints.
+		deck.sim = new Map()
+		if (deck.hasOwnProperty('similar'))
+			for (let coll of deck.similar)
+				for (let first of coll)
+					for (let second of coll)
+						if (first !== second)
+						{	
+							let c1 = s2c.get(first), c2 = s2c.get(second);
+							if (c1 == undefined)
+								throw `Error parsing similarity array: could not find card with side "${first}"`;
+							if (c2 == undefined)
+								throw `Error parsing similarity array: could not find card with side "${second}"`;
+							
+							let c1idx = deck.id2idx.get(c1.id), c2idx = deck.id2idx.get(c2.id);
+							
+							if (! deck.sim.has(c1idx))
+								deck.sim.set(c1idx, []);
+								
+							deck.sim.get(c1idx).push(c2idx);
+						}
+		
+		console.log(deck.sim)
+		// TODO: Get statistics from events DB. Use transitive property for sampling?
+		
+		// NOTE: Don't do this on the fly. Add an "analysis" button to each deck that 
+		//       computes suggestions based on Levenshtein distance and events in db. 
+		//       Let users copy and edit these suggestions into the deck. 
 	},
 	
 	mask : function(text, prop) 
@@ -296,7 +342,6 @@ var lt = { // * top-level namespace
 			target = 'div.progress';
 			
 		const parent = d3.select(target)
-		console.log(parent.node().getBoundingClientRect())
 
 		let width = parent.node().getBoundingClientRect().width * (tight ? 1.0 : 0.9)
 	
@@ -329,7 +374,7 @@ var lt = { // * top-level namespace
 			.attr("height", (score, i) => {return Math.max((i == targetIdx ? 2*pix : pix), minHeight)})
 			.attr('fill', (score, i) => {return colorScale(Math.log(1.0 - score + eps));})
 
-		// todo: would be nicer to update this rather than redraw every time									
+		// TODO: would be nicer to update this rather than redraw every time									
 			
 	}, 	
 	
@@ -353,7 +398,37 @@ var lt = { // * top-level namespace
 			$('nav #train').addClass('hidden')
 			$('nav #session-info').removeClass('hidden')
 			
+			await lt.session.preload();
+			
 			lt.session.generate();
+
+		},
+		
+		imageCache : [], 
+		// -- The cache is just used to keep the images from being garbage collected
+		//    The browser should take care of the caching itself.
+		
+		/**
+		 * Preload any image references in the deck.
+		 */
+		preload : async function(deck)
+		{
+			
+			for (let card of lt.session.deck.cards)
+				for (let side of card.sides)
+					if (side.startsWith('img:'))
+					{
+						let url = side.substring(4)
+
+						let res = document.createElement("link");
+						res.rel = 'preload';
+						res.as = 'image';
+						res.href = url;
+						
+						document.head.appendChild(res);
+					}
+					
+			console.log(`Images preloaded for deck ${lt.session.deck.name}`)
 		},
 		
 		/**
@@ -486,14 +561,45 @@ var lt = { // * top-level namespace
 			else 
 				$('#session-info').html(`to go: ${lt.session.limit - lt.session.seen}`)
 		
-			let card = lt.session.sampleSeq(); // draw a card
+			let deck = lt.session.deck;
+			let card = lt.session.sampleSeq(); // Draw a card
+			
+			let hasSim = deck.sim.has(deck.id2idx.get(card.id)); 
+			// -- Check if we have similarity hints for this card
+			
+			// * If so, with some probability we switch the sample to one of its similars.
+			if (hasSim)
+			{
+				let sims = deck.sim.get(deck.id2idx.get(card.id));
+				let switchProb = 1.0 - (1.0/(sims.length + 1))
+				// -- The probability of switching is so that each alternative (including 
+				//    our sampled card) has the same probability.
+				if (_.random(0, 1, true) < switchProb)
+				{						
+					let simCards = sims.map((idx) => {return deck.cards[idx]});
+					card = _.sample(simCards);
+				}
+			}
+			// -- The idea here is that if a card with similars drops to a low score, you 
+			//    can still pick it out form its similars, since that's always the card 
+			//    you've been seeing recently. By switching a sampled card to 
+			//    its similars we prevent this tactic, without needing to augment the score
+			//    for the similars.
 			
 			let score = card.score != undefined ? card.score : 0.0;
+			
+			let mcThreshold = hasSim ? 0.5 : 0.05;
+			// -- If we have similarity hints for this card, keep the MC probability high.
+			//    Otherwise, favor the typing exercises as the score gets higher.
 		
-			if (_.random(0, 1, true) < (1.0 - score) || lt.session.deck.typableSides.length == 0) 
+			if (_.random(0, 1, true) < Math.max(mcThreshold, 1.0 - score) || lt.session.deck.typableSides.length == 0) 
 				lt.session.generateMC(card);
 			else
 				lt.session.generateText(card);
+				
+				
+			// -- MC questions are drawn with probability inversely proportional to the 
+			//    score, unless that probability drops below a given threshold
 				
 			lt.session.seen ++;
 		},
@@ -572,10 +678,16 @@ var lt = { // * top-level namespace
 		 */
 		checkText : function(correct, answered)
 		{
-			// - Trim, normalize accents, cases and diacritics
+		
+			// - Remove any content in square brackets
+			correct = correct.replace(/ *\[[^)]*\] */g, "");			
+			answered = answered.replace(/ *\[[^)]*\] */g, "");		
+		
+			// - Trim, normalize accents, cases
 			correct = correct.toLowerCase().trim();
 			answered = answered.toLowerCase().trim();
 			
+			// - Normalize diacritics
 			correct = correct.normalize("NFD").replace(/\p{Diacritic}/gu, "");
 			answered = answered.normalize("NFD").replace(/\p{Diacritic}/gu, "");
 			
@@ -729,10 +841,14 @@ var lt = { // * top-level namespace
 			// generate a question
 			// -- sample three cards. The first is the target, the other two provide false answers
 			
-			let sampleAlt = _.sampleSize(_.without(deck.cards, sampleTarget), 2)
+// 			let sampleAlt = _.sampleSize(_.without(deck.cards, sampleTarget), 2)
+
+			let sampleAlt = lt.session.sampleAlt(sampleTarget, deck)
+			console.assert(sampleAlt.length == 2)
+			
 			let sample = [sampleTarget].concat(sampleAlt)
 						
-			let ord = _.shuffle([0, 1, 2]); // random order of the answers
+			let ord = _.shuffle([0, 1, 2]); // -- random order of the answers
 			let correct = ord[0]
 			
 			let answers = [undefined, undefined, undefined]
@@ -781,7 +897,7 @@ var lt = { // * top-level namespace
 			$('.frame .question').addClass('side-'+front);
 			$('.frame form').addClass('side-'+back); 
 									
-			// Add answer evenbt handler
+			// Add answer event handler
 			$("article .frame button").on(
 				'click',
 				{ 
@@ -814,6 +930,51 @@ var lt = { // * top-level namespace
 				}
 			});
             
+		},
+		
+		/**
+		 * Sample two alternatives for the given card. 
+		 *
+		 * If the score is low, alternatives are sampled uniformly. If the score is high,
+		 * and similarity hints are available, we sample similar cards.
+		 *
+		 */
+		sampleAlt : function(card, deck)
+		{
+			console.log('Sampling alts for ', card)
+		
+			// * Low score, sample easy alternatives
+			if (card.score < 0.7)
+				return lt.session.sampleAltUniform(card, deck);
+				
+			// * High score, try to sample difficult ones
+			let cardIdx = deck.id2idx.get(card.id)
+
+			if (! deck.sim.has(cardIdx))
+				return lt.session.sampleAltUniform(card, deck);
+				
+			let sims = deck.sim.get(cardIdx);
+			
+			console.assert(sims.length > 0)
+			
+			if (sims.length == 1) // only one sim, add a uniform random second card
+				return [ deck.cards[sims[0]] ].concat([_.sample(_.without(deck.cards, card))])
+							
+			let simCards = sims.map((idx) => {return deck.cards[idx]});
+
+			let res = _.sampleSize(simCards, 2);
+						
+			return res
+			
+			// TODO: Add some noise with some probability
+		},
+		
+		/**
+		 * Sample two alternatives from the deck uniformly
+		 */
+		sampleAltUniform : function(card, deck)
+		{
+			return  _.sampleSize(_.without(deck.cards, card), 2);
 		},
 	
 		processMCAnswer : function(e)
@@ -882,7 +1043,18 @@ var lt = { // * top-level namespace
 	util : {	
 	
 	},
-
+	
+	/**
+	 * Data stores.
+	 */
+	 
+	 /**
+	  * Dropbox 
+	  */
+	 dbx : {
+	 	clientID : 'hu8kdrkpke73lhq',
+	 	redirectURI : 'http://localhost:4000/?dbx=auth'
+	 },
 }
 
 $(function() 
@@ -935,6 +1107,70 @@ $(function()
 			{
 				lt.session.startSession(lt.decks[params.get('deck')]);
 			}
+		} else if (params.has('dbx'))
+		{
+			// ** Dropbox connection
+		
+			lt.dbx.auth = new Dropbox.DropboxAuth(
+			{
+				clientId: lt.dbx.clientID
+			});
+		
+			if (params.get('dbx') == 'start')
+			{				
+				let btn = $('<button>').append('connect to dropbox')
+				
+				$('article').append(btn)
+				btn.on('click', function(){
+			
+					 lt.dbx.auth.getAuthenticationUrl(lt.dbx.redirectURI, undefined, 'code', 'offline', undefined, undefined, true)
+					.then(authUrl => {
+						window.sessionStorage.clear();
+						window.sessionStorage.setItem("codeVerifier", lt.dbx.auth.codeVerifier);
+						window.location.href = authUrl;
+					})
+					.catch((error) => console.error(error));
+				});
+				
+			} else if (params.get('dbx') == 'auth') 
+			{
+			
+			    lt.dbx.auth.setCodeVerifier(window.sessionStorage.getItem('codeVerifier'));
+			    
+				lt.dbx.auth.getAccessTokenFromCode(lt.dbx.redirectURI, params.get('code'))
+        		.then((response) => 
+                {
+                    lt.dbx.auth.setAccessToken(response.result.access_token);
+                    
+                    lt.dbx.con = new Dropbox.Dropbox({
+                        auth: lt.dbx.auth
+                    })
+                    
+					return lt.db.export({ prettyJson: true , function (arg) {console.log(arg); } })
+					.then(blob =>
+					{
+						lt.dbx.con.filesUpload({
+							path: '/Apps/leitnr/db_dump.json',
+							contents: blob
+						});
+					});
+					
+                    
+                }).catch((error) => 
+                {
+                    console.error(error);
+                    
+                });
+                
+                
+// 			        dbx.filesUpload({path: '/test.txt', contents: 'teeeeest.'})
+			        
+			        
+			} else 
+			{
+				console.log('Not a valid state in the dropbox auth flow: ', params.get('dbx'));
+			}
+			
 		} else
 		{
 			$('nav #session-info').addClass('hidden')
@@ -963,23 +1199,33 @@ $(function()
 				
 			});
 			
-			// pick a random deck to train on
-			$('nav #train').on('click', function()
-			{
-				let chosen = null;
-				for (let deck of lt.sortedDecks) 
-				{	
-					let prob = 1.0 - (deck.numOver99 / deck.cards.length)
-					if (_.random(0, 1, true) < prob)
-					{
-						chosen = deck;
-						break;
-					}						
-				}
-				
-				if (chosen == null)
-					chosen = _.sample(lt.sortedDecks);
+			// * pick a random deck to train on
+			let probMult; // 1 for very eager to move on, 10 for lots of revision
+						
+			let chosen = null;
+			for (let deck of lt.sortedDecks) 
+			{	
+				let score99 = (deck.numOver99 / deck.cards.length);
+				let prob = score99 < .9 ? 1.0 : (1.0 - score99) * probMult;
+				// -- If the deck score is below .9, force training on this deck
+				//    otherwise we train this deck with probability proportional to the 
+				//    distances to .9
+								
+				if (_.random(0, 1, true) < prob)
+				{
+					chosen = deck;
+					break;
+				}						
+			}
 			
+			if (chosen == null)
+			{
+				console.log('Choosing deck uniformly.')
+				chosen = _.sample(lt.sortedDecks);
+			}
+			
+			$('nav #train').on('click', function()
+			{			
 				window.location.replace(`/?deck=${chosen.name}&limit=${lt.defaultLimit}`);
 			});
 		}	

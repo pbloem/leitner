@@ -105,8 +105,8 @@
 		{"sides": ["Kiev", "Ukraine"]},
 		{"sides": ["Kigali", "Rwanda"]},
 		{"sides": ["King Edward Point", "South Georgia and the South Sandwich Islands*"]},
-		{"sides": ["Kingston", "Jamaica"]},
-		{"sides": ["Kingston", "Norfolk Island*"]},
+		{"sides": ["Kingston [J]", "Jamaica"]},
+		{"sides": ["Kingston [N]", "Norfolk Island*"]},
 		{"sides": ["Kingstown", "Saint Vincent and the Grenadines"]},
 		{"sides": ["Kinshasa", "DRC"]},
 		{"sides": ["Kuala Lumpur", "Malaysia"]},
@@ -241,5 +241,18 @@
 		{"sides": ["Yaren", "Nauru"]},
 		{"sides": ["Yerevan", "Armenia"]},
 		{"sides": ["Zagreb", "Croatia"]}
+	],
+	"similar" : [
+		["Angola", "Cameroon"],
+		["Liechtenstein", "Luxembourg"],
+		["Estonia", "Lithuania", "Latvia"],
+		["Rwanda", "Uganda"],
+		["Burundi", "Brunei", "Bhutan"],
+		["Freetown", "Libreville"],
+		["Ecuador", "Fiji", "Chile", "Peru"],
+		["Dili", "Thimphu"],
+		["Belgrade", "Sarajevo"],
+		["Belize", "Bolivia"],
+		["Tajikistan", "Uzbekistan", "Kazakhstan", "Turkmenistan", "Kyrgyzstan"]
 	]
 }
