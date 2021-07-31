@@ -61,4 +61,25 @@
 		<div class="progress"></div>
 	</li>
 </script>
+
+<script id="dbxoff" type="text/x-jsrender">
+	<div id="dropbox">
+		<span>Not connected to dropbox</span>
+		<ul id="dblinks">
+			<li><button id="dbx-connect">connect</li>
+		</ul>
+	</div>
+</script>
+
+<script id="dbxon" type="text/x-jsrender">
+	<div id="dropbox">
+		<span>Connected to Dropbox</span>
+		<ul id="dblinks">
+			<li><a href="/?dbx=disconnect">disconnect</a></li>
+			<li><a href="/?dbx=backup">backup</a></li>
+			<li><a href="/?dbx=load">load</a></li>
+		</ul>
+	</div>
+</script>
+
 {% endraw %}

@@ -43,6 +43,13 @@ var lt = { // * top-level namespace
 			lt.sortedDecks.push(deck);
 			
 		lt.sortedDecks.sort((a, b) => a.order > b.order ? 1 : -1); 
+		
+		// Load all templates
+		$('script[type="text/x-jsrender"]').each((idx, tmpl) =>
+			{
+				lt.templates[tmpl.id] = $.templates(tmpl)
+			}
+		);
 	
 	},
 	
@@ -63,13 +70,12 @@ var lt = { // * top-level namespace
 	 *
 	 */
 	defaultLimit : 100,
-	
-	// TODO: automate this in init(). Use a query to collect all script elements with type="text/x-jsrender"
-	templates : { 
-		mc: $.templates("#mc"), 
-		text: $.templates("#text"), 
-		decklink: $.templates("#decklink") 
-	},
+
+	/**
+	 * Holds the templates defined in _includes/templates.html. Loaded in init() from the 
+	 * <head> of the HTML.
+	 */
+	templates : {},
 	
 	sounds: {
 		correct: new Audio('/sounds/correct.mp3'),
@@ -1157,64 +1163,88 @@ $(function()
 		{
 			// ** Dropbox connection
 		
+		
 			lt.dbx.auth = new Dropbox.DropboxAuth(
 			{
 				clientId: lt.dbx.clientID
 			});
 		
-			if (params.get('dbx') == 'start')
+			if (params.get('dbx') == 'connect') // start dropbox connection
 			{				
-				let btn = $('<button>').append('connect to dropbox')
+				// no longer used 
 				
-				$('article').append(btn)
-				btn.on('click', function(){
-			
-					 lt.dbx.auth.getAuthenticationUrl(lt.dbx.redirectURI, undefined, 'code', 'offline', undefined, undefined, true)
-					.then(authUrl => {
-						window.sessionStorage.clear();
-						window.sessionStorage.setItem("codeVerifier", lt.dbx.auth.codeVerifier);
-						window.location.href = authUrl;
-					})
-					.catch((error) => console.error(error));
-				});
-				
-			} else if (params.get('dbx') == 'auth') 
+			} else if (params.get('dbx') == 'auth') // finish dropbox connection
 			{
-			
 			    lt.dbx.auth.setCodeVerifier(window.sessionStorage.getItem('codeVerifier'));
 			    
 				lt.dbx.auth.getAccessTokenFromCode(lt.dbx.redirectURI, params.get('code'))
         		.then((response) => 
                 {
-                    lt.dbx.auth.setAccessToken(response.result.access_token);
+//                     lt.dbx.auth.setAccessToken(response.result.access_token);
                     
-                    lt.dbx.con = new Dropbox.Dropbox({
-                        auth: lt.dbx.auth
+//                     lt.dbx.con = new Dropbox.Dropbox({
+//                         auth: lt.dbx.auth
+//                     })
+                    
+                    // -- store the acces token
+                    window.localStorage.setItem('lt.dbx.accessToken', response.result.access_token);
+                    
+//                     $('article').append('Succesfully acquired Dropbox access token.');
+                	window.location.replace('/')
+                
+	            }).catch((error) => 
+                {
+                    console.error('Failed to connect to dropbox', error);    
+					lt.dbx.con == null;
+               });	
+        
+        	} else if (params.get('dbx') == 'backup') // use dropbox connection
+        	{
+                    
+                if (! window.localStorage.getItem('lt.dbx.accessToken'))
+                {
+                	console.log(window.localStorage.getItem('lt.dbx.accessToken'));
+                	
+                	let msg = 'Database backup failed. No dropbox access token found (make sure you\'re connected to dropbox).'
+                	console.error(msg);
+                	$('article').append(msg);
+			     
+                } else {
+                
+                    lt.dbx.auth.setAccessToken(window.localStorage.getItem('lt.dbx.accessToken'));
+                    
+                	lt.dbx.con = new Dropbox.Dropbox({
+                		auth: lt.dbx.auth
                     })
-                    
-					return lt.db.export({ prettyJson: true , function (arg) {console.log(arg); } })
+                
+					lt.db.export({ prettyJson: true , function (arg) {console.log(arg); } })
 					.then(blob =>
 					{
 						lt.dbx.con.filesUpload({
-							path: '/Apps/leitnr/db_dump.json',
+							path: '/db_dump.json',
 							contents: blob
 						});
-					});
 					
-                    
-                }).catch((error) => 
-                {
-                    console.error(error);
-                    
-                });
-                
-                
-// 			        dbx.filesUpload({path: '/test.txt', contents: 'teeeeest.'})
+						$('article').append('Database successfully backed up to Dropbox');
+						setTimeout(function(){window.location.replace('/');} , 750)
+
+					}).catch((error) => 
+					{
+						console.error(error);
+					
+					});	
+				}		        
 			        
-			        
-			} else 
+			} else if (params.get('dbx') == 'disconnect') // use dropbox connection
+        	{
+        		window.localStorage.removeItem('lt.dbx.accessToken');
+				window.location.replace('/')
+
+        	}else 
 			{
-				console.log('Not a valid state in the dropbox auth flow: ', params.get('dbx'));
+				let msg = 'Not a valid state in the dropbox flow: ' + params.get('dbx')
+				$('article').append(msg)
+				console.error(msg);
 			}
 			
 		} else
@@ -1274,7 +1304,36 @@ $(function()
 			{			
 				window.location.replace(`/?deck=${chosen.name}&limit=${lt.defaultLimit}`);
 			});
-		}	
+		}
+		
+		if (! params.has('dbx'))
+			if (window.localStorage.getItem('lt.dbx.accessToken'))
+			{
+				$("nav").append(
+					lt.templates.dbxon.render({})
+				);
+			} else 
+			{
+				$('nav').append(
+					lt.templates.dbxoff.render()
+				);
+				
+				$('#dbx-connect').on('click', function(){
+			
+					lt.dbx.auth = new Dropbox.DropboxAuth(
+					{
+						clientId: lt.dbx.clientID
+					});
+			
+					lt.dbx.auth.getAuthenticationUrl(lt.dbx.redirectURI, undefined, 'code', 'offline', undefined, undefined, true)
+					.then(authUrl => {
+						window.sessionStorage.clear();
+						window.sessionStorage.setItem("codeVerifier", lt.dbx.auth.codeVerifier);
+						window.location.href = authUrl;
+					})
+					.catch((error) => console.error(error));
+				});
+			}	
 	});
 	
 	$('nav #full-screen').on('click', function(e){
@@ -1291,4 +1350,6 @@ $(function()
 	  }
 	});
 	
+
+		
 });

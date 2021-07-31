@@ -28,7 +28,7 @@ body {
 article {
 
 	margin: 0 auto;
-	padding: 0 0 0 0;
+	padding: 1em 0 0 1em;
 		
 	font-size: 18px;
 	line-height: 1.6em;
@@ -646,3 +646,29 @@ nav .hidden
 {
 	display: none;
 }
+
+nav #dropbox {
+	position: absolute;
+	top: 1.6em;
+	right: 0;
+}
+
+nav #dropbox a {
+	font-weight: bold;
+	border: none;
+}
+
+nav #dropbox a:hover {
+	border: none;
+}
+
+nav #dropbox span {
+	padding-right: 1em;
+}
+
+nav #dropbox ul, nav #dropbox li, nav #dropbox span {
+	display: inline;
+}
+
+
+
