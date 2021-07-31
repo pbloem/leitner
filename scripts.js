@@ -504,30 +504,53 @@ var lt = { // * top-level namespace
 		{
 			let res = null;
 			let deck = lt.session.deck;
-
-			for (let trial of _.range(100)) // allow 100 rejections
+			
+			let maxUniformProb = 0.15
+			let exponent = 2.0
+			let deckScore = (deck.numOver99 / deck.cards.length)
+			// - With a certain probability we sample a card uniformly from the whole deck
+			//   This probability shoudl increase with the deck score. If the deck score is 
+			//   low, we just review what we've already learned, but the closer we get to 
+			//   completing the deck the more often we sample unfiromly to check for cards 
+			//   that have high scores but aren't well remembered.
+			
+			let prob = deckScore ** exponent * maxUniformProb
+			console.log(`Uniform probability ${prob}`)
+			if (_.random(0,1,true) < prob)
 			{
-				for (let card of deck.cards)
+				console.log('Taking uniform sample.')
+				res = _.sample(deck.cards);
+			} else
+			{
+				
+				for (let trial of _.range(100)) // allow 100 rejections
 				{
-					let r = _.random(0,1,true);
-					if (r > card.score)
+					for (let card of deck.cards)
 					{
-						res = card;	
-						break;
+						if (lt.session.recent.indexOf(card.id) == -1)
+						{
+							// - We only sample if we haven't recently seen the card
+							
+							let r = _.random(0,1,true);
+							if (r > card.score)
+							{
+								res = card;	
+								break;
+							}
+						}
 					}
+				
+					
+					if (res != null)
+						break;
 				}
 				
-				if (res != null && lt.session.recent.indexOf(res.id) == -1)
-					break;
-// 				else
-// 					console.log('Rejected sample: ', res.id);
-			}
-				
 			
-			if (res == null) // Clever approach failed. Sample uniformly.
-			{
-				console.log('Could not sample by scores. Sampling uniformly.')
-				res = _.sample(deck.cards);
+				if (res == null) // Clever approach failed. Sample uniformly.
+				{
+					console.log('Could not sample by scores. Sampling uniformly.')
+					res = _.sample(deck.cards);
+				}
 			}
 			
 			lt.session.recent.push(res.id)
@@ -572,12 +595,17 @@ var lt = { // * top-level namespace
 			{
 				let sims = deck.sim.get(deck.id2idx.get(card.id));
 				let switchProb = 1.0 - (1.0/(sims.length + 1))
+				
 				// -- The probability of switching is so that each alternative (including 
 				//    our sampled card) has the same probability.
 				if (_.random(0, 1, true) < switchProb)
 				{						
 					let simCards = sims.map((idx) => {return deck.cards[idx]});
-					card = _.sample(simCards);
+					let newCard = _.sample(simCards);
+					
+					// - Switch unless we've recently seen the alternative
+					if (lt.session.recent.indexOf(newCard.id) == -1)
+						card = newCard;
 				}
 			}
 			// -- The idea here is that if a card with similars drops to a low score, you 
@@ -693,7 +721,7 @@ var lt = { // * top-level namespace
 			
 			let distance = lt.levDistance(correct, answered);
 		
-			return distance < lt.session.distAllowed * correct.length;
+			return [distance < lt.session.distAllowed * correct.length, distance]
 		},
 						
 		processTextAnswer : function(e)
@@ -707,17 +735,18 @@ var lt = { // * top-level namespace
 			let answered = $('article .frame #answer').val()
 			let correct = edata.correctAnswer
 			
-			let success = lt.session.checkText(correct, answered)
+			let [success, dist] = lt.session.checkText(correct, answered)
 			
 			console.log(answered, correct, edata)
 			
-			// -- Check whether user typed wrong side
+			// -- Check whether user typed wrong side (this doesn't reduce the score of the 
+			//    card).
 			let wrongSide = false, sideAnswered = -1;
 			if (! success) 
 			{
 				edata.allSides.forEach((side, i) => {
 					if (i != edata.front && i != edata.back)
-						if(lt.session.checkText(side, answered))
+						if(lt.session.checkText(side, answered)[0])
 						{
 							wrongSide = true;
 							sideAnswered = i;
@@ -756,8 +785,25 @@ var lt = { // * top-level namespace
 				lt.sounds.correct.play()
 			
 				$('article button').attr('disabled', true);
+				
+				// - For minor errors, display the correct spelling
+				let hint = $('article .frame #hint');
+				hint.empty();
+				hint.removeClass('hidden');
+				hint.addClass('visible');
+				if (dist > 0) 
+				{
+					hint.addClass('compliment');
+					hint.append(correct);
+					setTimeout(lt.session.generate , 900)
+				} else
+				{
+					hint.append(_.sample(['Flawless', 'Perfect', 'Faultless', 'Sublime', 'Unimpeachable', '*cheff\'s kiss*']));
+					setTimeout(lt.session.generate , 500)
+				}
+
+				
 			
-				setTimeout(lt.session.generate , 750)
 			} else
 			{
 				lt.sounds.incorrect.play()
