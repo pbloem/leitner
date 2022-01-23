@@ -120,7 +120,7 @@
 		{"sides": ["American Samoa", "img:http://commons.wikimedia.org/wiki/Special:FilePath/LocationAmericanSamoa.png"]},
 		{"sides": ["Northern Mariana Islands", "img:http://commons.wikimedia.org/wiki/Special:FilePath/LocationNorthernMarianas.png"]},
 		{"sides": ["Aruba", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Aruba%20in%20its%20region.svg"]},
-		{"sides": ["Sint Maarten", "img:https://upload.wikimedia.org/wikipedia/commons/3/3e/Sint_Maarten_in_its_region.svg"]},
+		{"sides": ["St. Maarten", "img:https://upload.wikimedia.org/wikipedia/commons/3/3e/Sint_Maarten_in_its_region.svg"]},
 		{"sides": ["Cook Islands", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Cook%20Islands%20on%20the%20globe%20%28small%20islands%20magnified%29%20%28Polynesia%20centered%29.svg"]},
 		{"sides": ["Kingdom of the Netherlands", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Kingdom%20of%20the%20Netherlands%20in%20its%20region%20%28special%20marker%29.svg"]},
 		{"sides": ["Niue", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Niue%20on%20the%20globe%20%28small%20islands%20magnified%29%20%28Polynesia%20centered%29.svg"]},
@@ -140,6 +140,7 @@
 		{"sides": ["Cambodia", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Cambodia%20on%20the%20globe%20%28Asia%20centered%29.svg"]},
 		{"sides": ["East Timor", "img:http://commons.wikimedia.org/wiki/Special:FilePath/LocationEastTimor.svg"]},
 		{"sides": ["Chad", "img:http://commons.wikimedia.org/wiki/Special:FilePath/LocationChad.svg"]},
+		{"sides": ["Gabon", "img:https://upload.wikimedia.org/wikipedia/commons/b/bf/Gabon_%28orthographic_projection%29.svg"]},
 		{"sides": ["New Zealand", "img:http://commons.wikimedia.org/wiki/Special:FilePath/LocationNewZealand.png"]},
 		{"sides": ["India", "img:http://commons.wikimedia.org/wiki/Special:FilePath/LocationIndia.svg"]},
 		{"sides": ["Tuvalu", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Tuvalu%20on%20the%20globe%20%28small%20islands%20magnified%29%20%28Polynesia%20centered%29.svg"]},
@@ -149,7 +150,7 @@
 		{"sides": ["Papua New Guinea", "img:http://commons.wikimedia.org/wiki/Special:FilePath/LocationPapuaNewGuinea.svg"]},
 		{"sides": ["Palau", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Palau%20on%20the%20globe%20%28Southeast%20Asia%20centered%29%20%28small%20islands%20magnified%29.svg"]},
 		{"sides": ["Nauru", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Nauru%20on%20the%20globe%20%28small%20islands%20magnified%29%20%28Polynesia%20centered%29.svg"]},
-		{"sides": ["Federated States of Micronesia", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Micronesia%20on%20the%20globe%20%28small%20islands%20magnified%29%20%28Polynesia%20centered%29.svg"]},
+		{"sides": ["Micronesia", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Micronesia%20on%20the%20globe%20%28small%20islands%20magnified%29%20%28Polynesia%20centered%29.svg"]},
 		{"sides": ["Marshall Islands", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Marshall%20Islands%20on%20the%20globe%20%28small%20islands%20magnified%29%20%28Polynesia%20centered%29.svg"]},
 		{"sides": ["Kiribati", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Kiribati%20on%20the%20globe%20%28Polynesia%20centered%29.svg"]},
 		{"sides": ["Mongolia", "img:http://commons.wikimedia.org/wiki/Special:FilePath/LocationMongolia.svg"]},
@@ -161,9 +162,9 @@
 		{"sides": ["Colombia", "img:http://commons.wikimedia.org/wiki/Special:FilePath/LocationColombia.svg"]},
 		{"sides": ["Bolivia", "img:http://commons.wikimedia.org/wiki/Special:FilePath/LocationBolivia.svg"]},
 		{"sides": ["Trinidad and Tobago", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Trinidad%20and%20Tobago%20%28orthographic%20projection%29.svg"]},
-		{"sides": ["Saint Vincent and the Grenadines", "img:http://commons.wikimedia.org/wiki/Special:FilePath/VCT%20orthographic.svg"]},
-		{"sides": ["Saint Lucia", "img:https://www.cia.gov/the-world-factbook/static/e0f1af6f594ea1cce8c67f10f0f4f214/007b5/ST-locator-map.jpg"]},
-		{"sides": ["Saint Kitts and Nevis", "img:http://commons.wikimedia.org/wiki/Special:FilePath/KNA%20orthographic.svg"]},
+		{"sides": ["St. Vincent and the Grenadines", "img:http://commons.wikimedia.org/wiki/Special:FilePath/VCT%20orthographic.svg"]},
+		{"sides": ["St. Lucia", "img:https://www.cia.gov/the-world-factbook/static/e0f1af6f594ea1cce8c67f10f0f4f214/007b5/ST-locator-map.jpg"]},
+		{"sides": ["St. Kitts and Nevis", "img:http://commons.wikimedia.org/wiki/Special:FilePath/KNA%20orthographic.svg"]},
 		{"sides": ["Jamaica", "img:http://commons.wikimedia.org/wiki/Special:FilePath/LocationJamaica.svg"]},
 		{"sides": ["Grenada", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Grenada%20in%20its%20region.svg"]},
 		{"sides": ["Guatemala", "img:http://commons.wikimedia.org/wiki/Special:FilePath/LocationGuatemala.svg"]},
@@ -180,7 +181,10 @@
 		{"sides": ["Israel", "img:http://commons.wikimedia.org/wiki/Special:FilePath/LocationIsrael.svg"]},
 		{"sides": ["Yemen", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Yemen%20%28orthographic%20projection%29.svg"]},
 		{"sides": ["Jordan", "img:http://commons.wikimedia.org/wiki/Special:FilePath/LocationJordan.svg"]},
-		{"sides": ["Nicaragua", "img:http://commons.wikimedia.org/wiki/Special:FilePath/LocationNicaragua.svg"]}
+		{"sides": ["Nicaragua", "img:http://commons.wikimedia.org/wiki/Special:FilePath/LocationNicaragua.svg"]},
+		{"sides": ["Estonia", "img:https://upload.wikimedia.org/wikipedia/commons/a/a2/EU-Estonia.svg"]},
+		{"sides": ["Lithuania", "img:https://upload.wikimedia.org/wikipedia/commons/e/ec/EU-Lithuania.svg"]},
+		{"sides": ["Suriname", "img:https://upload.wikimedia.org/wikipedia/commons/7/72/SUR_orthographic.svg"]}
 	],
 	"similar" : [
 		["Dominican Republic" , "Papua New Guinea"],
@@ -188,10 +192,12 @@
 		["Ghana", "Togo", "Benin"],
 		["Lebanon", "Israel", "Syria", "Jordan"],
 		["Oman", "Yemen"],
-		["Federated States of Micronesia", "Vanuatu", "Cook Islands", "Northern Mariana Islands", "Tuvalu", "Palau"],
+		["Micronesia", "Vanuatu", "Cook Islands", "Northern Mariana Islands", "Tuvalu", "Palau", "Niue"],
 		["Samoa", "Fiji", "Nauru"],
 		["Honduras", "El Salvador", "Costa Rica", "Guatemala"],
 		["Bolivia", "Paraguay", "Colombia"],
-		["Burundi", "Brunei", "Bhutan"]
+		["Burundi", "Brunei", "Bhutan"],
+		["Estonia", "Latvia", "Lithuania"],
+		["Dominica", "St. Lucia", "Barbados"]
 	]
 }

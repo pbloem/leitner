@@ -106,10 +106,10 @@
 	],
 	"similar" : [
 		["tial", "tiel", "tiu", "tie", "tia"],
-		["al", "ol"],
 		["pro", "per", "por"],
-		["preskaŭ","kvazaŭ","ankaŭ", "ankoraŭ", "laŭ"],
+		["preskaŭ","kvazaŭ","ankaŭ", "ankoraŭ", "laŭ", "antaŭ"],
 		["el","ol","al"],
-		["eĉ", "ĉe", "ĉu", "ĉi", "ĉio", "ĉiam"]
+		["eĉ", "ĉe", "ĉu", "ĉi", "ĉio", "ĉiam"],
+		["kiu", "kiel", "kiam", "kio", "kie"]
 	]
 }

@@ -2,6 +2,7 @@
 	"name": "Morse code",
 	"typableSides": [0, 1],
 	"sides": ["Morse", "Meaning"],
+	"repetitionBoost": 3.0,
 	"cards": [
 		{"sides" : ["A",  	".-"]},
 		{"sides" : ["B",  	"-..."]},

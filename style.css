@@ -642,6 +642,15 @@ ul.decks li div.progress svg {
 	margin: 0;
 }
 
+nav #train a {
+	font-weight: bold;
+	border: none;
+}
+
+nav #train a:hover {
+	border: none;
+}
+
 nav .hidden
 {
 	display: none;

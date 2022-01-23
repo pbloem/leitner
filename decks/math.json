@@ -1,0 +1,22 @@
+{
+	"name": "Math",
+	"typableSides": [0],
+	"sides": ["Name", "Description"],
+	"cards": [
+		{"sides": ["Field axioms", "Associativity, Commutativity, identities, inverses, distributivity of multiplication"]},
+		{"sides": ["Group axioms", "Associativity, Identity element, inverse element"]},
+		{"sides": ["Equivalence class axioms", "Reflexivity, symmetry, transitivity"]},
+		{"sides": ["Associativity", "a + (b + c) = (a + b) + c"]},
+		{"sides": ["Distributivity", "a(b + c) = ab + ac"]},
+		{"sides": ["Reflexivity", "for all a: r(a, a)"]},
+		{"sides": ["Symmetry", "r(a, b) = r(b, a)"]},
+		{"sides": ["Antisymmetry", "r(a, b) => ~r(b, a)"]},		
+		{"sides": ["Transitivity", "r(a, b) & r(b, c) => r(a, c)"]},
+		{"sides": ["Commutativity", "a + b = b + a"]},
+
+
+
+	],
+	"similar" : [
+	]
+}

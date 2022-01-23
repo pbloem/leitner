@@ -1,0 +1,31 @@
+{
+	"name": "Ultimate",
+	"typableSides": [1],
+	"sides": ["sign", "meaning"],
+	"cards": [
+			{"sides": ["img:/decks/frisbee/3men.png", "3 men, 4 women"]},
+			{"sides": ["img:/decks/frisbee/4men.png", "4 men, 3 women"]},
+			{"sides": ["img:/decks/frisbee/contest.png", "contest"]},
+			{"sides": ["img:/decks/frisbee/discdown.png", "disc down"]},
+			{"sides": ["img:/decks/frisbee/discup.png", "disc up"]},
+			{"sides": ["img:/decks/frisbee/foul.png", "foul"]},
+			{"sides": ["img:/decks/frisbee/goal.png", "goal"]},
+			{"sides": ["img:/decks/frisbee/inbounds.png", "in/out of bounds"]},
+			{"sides": ["img:/decks/frisbee/marking infraction.png", "marking infraction"]},
+			{"sides": ["img:/decks/frisbee/match point.png", "match point"]},
+			{"sides": ["img:/decks/frisbee/offside.png", "off side"]},
+			{"sides": ["img:/decks/frisbee/pick.png", "pick"]},
+			{"sides": ["img:/decks/frisbee/retracted.png", "retracted"]},
+			{"sides": ["img:/decks/frisbee/spirit.png", "spirit stoppage"]},
+			{"sides": ["img:/decks/frisbee/stoppage.png", "stoppage"]},
+			{"sides": ["img:/decks/frisbee/stopped.png", "play stopped"]},
+			{"sides": ["img:/decks/frisbee/timeout.png", "timeout"]},
+			{"sides": ["img:/decks/frisbee/timing.png", "timing violation (stall)"]},
+			{"sides": ["img:/decks/frisbee/travel.png", "travel"]},
+			{"sides": ["img:/decks/frisbee/turnover.png", "turnover"]},
+			{"sides": ["img:/decks/frisbee/uncontested.png", "uncontested"]},
+			{"sides": ["img:/decks/frisbee/violation.png", "violation"]},
+			{"sides": ["img:/decks/frisbee/who.png", "who called"]}
+		],
+	"similar" : []
+}

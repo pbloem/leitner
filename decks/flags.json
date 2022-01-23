@@ -79,16 +79,12 @@
 		{"sides" : ["Aruba", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Aruba.svg"]},
 		{"sides" : ["Sint Maarten", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Sint%20Maarten.svg"]},
 		{"sides" : ["Cook Islands", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20Cook%20Islands.svg"]},
-		{"sides" : ["Kingdom of the Netherlands", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20Netherlands.svg"]},
 		{"sides" : ["Niue", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Niue.svg"]},
 		{"sides" : ["Somaliland", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Somaliland.svg"]},
 		{"sides" : ["Gagauzia", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Gagauzia.svg"]},
 		{"sides" : ["Imperial State of Iran", "img:http://commons.wikimedia.org/wiki/Special:FilePath/State%20flag%20of%20Iran%20%281964%E2%80%931980%29.svg"]},
-		{"sides" : ["Republic of Artsakh", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Artsakh.svg"]},
-		{"sides" : ["Danish Realm", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Denmark.svg"]},
-		{"sides" : ["Danish Realm", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Denmark%20%28state%29.svg"]},
+		{"sides" : ["Artsakh", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Artsakh.svg"]},
 		{"sides" : ["Transnistria", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Transnistria.svg"]},
-		{"sides" : ["State of Somaliland", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20State%20of%20Somaliland.svg"]},
 		{"sides" : ["Canada", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Canada%20%28Pantone%29.svg"]},
 		{"sides" : ["Japan", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Japan.svg"]},
 		{"sides" : ["Norway", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Norway.svg"]},
@@ -115,7 +111,7 @@
 		{"sides" : ["Ghana", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Ghana.svg"]},
 		{"sides" : ["France", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20France.svg"]},
 		{"sides" : ["United Kingdom", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20United%20Kingdom.svg"]},
-		{"sides" : ["People's Republic of China", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20People%27s%20Republic%20of%20China.svg"]},
+		{"sides" : ["China", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20People%27s%20Republic%20of%20China.svg"]},
 		{"sides" : ["Brazil", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Brazil.svg"]},
 		{"sides" : ["Germany", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Germany.svg"]},
 		{"sides" : ["Belarus", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Belarus.svg"]},
@@ -157,7 +153,7 @@
 		{"sides" : ["Papua New Guinea", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Papua%20New%20Guinea.svg"]},
 		{"sides" : ["Palau", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Palau.svg"]},
 		{"sides" : ["Nauru", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Nauru.svg"]},
-		{"sides" : ["Federated States of Micronesia", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20Federated%20States%20of%20Micronesia.svg"]},
+		{"sides" : ["Micronesia", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20Federated%20States%20of%20Micronesia.svg"]},
 		{"sides" : ["Marshall Islands", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20Marshall%20Islands.svg"]},
 		{"sides" : ["Kiribati", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Kiribati.svg"]},
 		{"sides" : ["Mongolia", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Mongolia.svg"]},
@@ -169,9 +165,9 @@
 		{"sides" : ["Colombia", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Colombia.svg"]},
 		{"sides" : ["Bolivia", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Bolivia%20%28state%29.svg"]},
 		{"sides" : ["Trinidad and Tobago", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Trinidad%20and%20Tobago.svg"]},
-		{"sides" : ["Saint Vincent and the Grenadines", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Saint%20Vincent%20and%20the%20Grenadines.svg"]},
-		{"sides" : ["Saint Lucia", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Saint%20Lucia.svg"]},
-		{"sides" : ["Saint Kitts and Nevis", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Saint%20Kitts%20and%20Nevis.svg"]},
+		{"sides" : ["St Vincent and the Grenadines", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Saint%20Vincent%20and%20the%20Grenadines.svg"]},
+		{"sides" : ["St Lucia", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Saint%20Lucia.svg"]},
+		{"sides" : ["St Kitts and Nevis", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Saint%20Kitts%20and%20Nevis.svg"]},
 		{"sides" : ["Jamaica", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Jamaica.svg"]},
 		{"sides" : ["Grenada", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Grenada.svg"]},
 		{"sides" : ["Guatemala", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Guatemala.svg"]},
@@ -189,5 +185,8 @@
 		{"sides" : ["Yemen", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Yemen.svg"]},
 		{"sides" : ["Jordan", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Jordan.svg"]},
 		{"sides" : ["Nicaragua", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Nicaragua.svg"]}
-	]
+	],
+	"similar" : [
+		["Ireland", "Ivory Coast"]
+	]	
 }
