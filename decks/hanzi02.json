@@ -5,7 +5,7 @@
 	"cards": [
 		{"sides": ["有空", "yǒukòng", "to be free"]},
 		{"sides": ["对不起", "duìbùqǐ", "sorry"]},
-		{"sides": ["没关系", "méiguānxi", "no problem [don't worry about it]"]},
+		{"sides": ["没关系", "méiguānxi", "don't worry about it [no problem]"]},
 		{"sides": ["生日", "shēngrì", "birthday"]},
 		{"sides": ["打球", "dǎqiú", "ball sports"]},
 		{"sides": ["篮球", "lánqiú", "basketball"]},
@@ -29,7 +29,7 @@
 		{"sides": ["算了", "suànle", "forget about it"]},
 		{"sides": ["下雨", "xiàyǔ", "raining"]},
 		{"sides": ["外面", "wàimiàn", "outside"]},
-		{"sides": ["没问题", "méi wèntí", "no problem [happy to help]"]},
+		{"sides": ["没问题", "méi wèntí", "happy to help [no problem]"]},
 		{"sides": ["可是", "kěshì", "but"]},
 		{"sides": ["做菜", "zuòcài", "cooking"]},
 		{"sides": ["唱歌", "chànggē", "to sing"]},

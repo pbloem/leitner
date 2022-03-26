@@ -105,7 +105,7 @@
 		{"sides": ["来", "lái", "to come"]}
 	],
 	"similar" : [
-		["today", "tomorrow", "yesterday"], 
+		["today", "tomorrow", "yesterday"],
 		["older brother", "younger brother", "older sister", "younger sister"],
 		["zhēn", "zhāng"],
 		["tea", "to come", "dish"],
@@ -116,6 +116,7 @@
 		["few", "some", "many", "minute"],
 		["afternoon", "morning"],
 		["I", "money"],
-		["things", "day of the week"]
+		["things", "day of the week"],
+		["to be called", "and"]
 	]
 }

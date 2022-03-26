@@ -23,7 +23,8 @@
 		{"sides" : ["United Arab Emirates", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20United%20Arab%20Emirates.svg"]},
 		{"sides" : ["Vietnam", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Vietnam.svg"]},
 		{"sides" : ["South Korea", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20South%20Korea.svg"]},
-		{"sides" : ["Afghanistan", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Afghanistan.svg"]},
+		{"sides" : ["Afghanistan [after 2021]", "img:https://upload.wikimedia.org/wikipedia/commons/5/5f/Flag_of_the_Islamic_Emirate_of_Afghanistan.svg"]},
+		{"sides" : ["Afghanistan [before 2021]", "img:https://upload.wikimedia.org/wikipedia/commons/c/cd/Flag_of_Afghanistan_%282013%E2%80%932021%29.svg"]},		
 		{"sides" : ["Bangladesh", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Bangladesh.svg"]},
 		{"sides" : ["Mali", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Mali.svg"]},
 		{"sides" : ["Angola", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Angola.svg"]},
@@ -91,7 +92,7 @@
 		{"sides" : ["Wales", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Wales%20%281959%E2%80%93present%29.svg"]},
 		{"sides" : ["Ireland", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Ireland.svg"]},
 		{"sides" : ["Hungary", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Hungary.svg"]},
-		{"sides" : ["United States of America", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20United%20States.svg"]},
+		{"sides" : ["United States", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20United%20States.svg"]},
 		{"sides" : ["Finland", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Finland.svg"]},
 		{"sides" : ["Sweden", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Sweden.svg"]},
 		{"sides" : ["Denmark", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Denmark.svg"]},
@@ -188,5 +189,5 @@
 	],
 	"similar" : [
 		["Ireland", "Ivory Coast"]
-	]	
+	]
 }

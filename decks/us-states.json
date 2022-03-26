@@ -53,5 +53,8 @@
 		{"sides" : ["Arkansas", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Arkansas%20in%20United%20States.svg"]},
 		{"sides" : ["Oklahoma", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Oklahoma%20in%20United%20States.svg"]},
 		{"sides" : ["Vermont", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Vermont%20in%20United%20States%20%28zoom%29.svg"]}
+	],
+	"similar" : [
+		["Pennsylvania", "Connecticut"]
 	]
 }
