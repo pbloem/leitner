@@ -79,7 +79,8 @@ var lt = { // * top-level namespace
 		['../decks/morse.json', 9],
 		['../decks/german01.json', 10],
 		['../decks/french01.json', 11],
-		['../decks/spanish01.json', 12]
+		['../decks/spanish01.json', 12],
+		['../decks/hanzi03.json', 13]
 	],
 
 	/**

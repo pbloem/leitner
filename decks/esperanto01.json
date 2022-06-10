@@ -5,7 +5,7 @@
 	"cards": [
 		{"sides": ["la", "the"]},
 		{"sides": ["kaj ", "and"]},
-		{"sides": ["de", "of"]},
+		{"sides": ["de", "of [general]"]},
 		{"sides": ["mi", "I"]},
 		{"sides": ["en", " in"]},
 		{"sides": ["al", "to"]},
@@ -20,7 +20,7 @@
 		{"sides": ["ĉi", "(proximity)"]},
 		{"sides": ["kun", "together with"]},
 		{"sides": ["ni", "us, we"]},
-		{"sides": ["sur", "on top"]},
+		{"sides": ["sur", "on top of"]},
 		{"sides": ["kiu", "who"]},
 		{"sides": ["tiu", "that [specific pronoun]"]},
 		{"sides": ["ili", "they"]},
@@ -29,7 +29,7 @@
 		{"sides": ["kiel", "how"]},
 		{"sides": ["pli", "more [comparative]"]},
 		{"sides": ["el", "from, out of"]},
-		{"sides": ["da", "of "]},
+		{"sides": ["da", "of [quantity]"]},
 		{"sides": ["pri", "about"]},
 		{"sides": ["unu", "one"]},
 		{"sides": ["diri", "to say"]},
@@ -102,7 +102,35 @@
 		{"sides": ["momento", "moment"]},
 		{"sides": ["maro", "sea"]},
 		{"sides": ["tia", "that kind"]},
-		{"sides": ["fari", "to do"]}
+		{"sides": ["fari", "to do"]},
+
+		{"sides": ["varmega",	"hot"]},
+		{"sides": ["vorto",	"word"]},
+		{"sides": ["iuj",	"some [j]"]},
+		{"sides": ["volo",	"wish [noun]"]},
+		{"sides": ["aero",	"air"]},
+		{"sides": ["ludi",	"to play"]},
+		{"sides": ["malgranda",	"small"]},
+		{"sides": ["fino",	"end"]},
+		{"sides": ["meti",	"to put"]},
+		{"sides": ["hejmo",	"home"]},
+		{"sides": ["legi",	"to read"]},
+		{"sides": ["mano",	"hand"]},
+
+		{"sides": ["voli",	"to want"]},
+		{"sides": ["alta",	"high"]},
+		{"sides": ["tiaj",	"such"]},
+		{"sides": ["sekvi",	"to follow"]},
+		{"sides": ["akto",	"document"]},
+		{"sides": ["viro",	"man"]},
+		{"sides": ["ŝanĝi",	"to change"]},
+		{"sides": ["eniri",	"to go"]},
+		{"sides": ["peza",	"heavy"]},
+		{"sides": ["malpeza",	"light [weight]"]},
+		{"sides": ["afabla",	"friendly"]},
+		{"sides": ["ekstere",	"outside"]},
+		{"sides": ["bezoni",	"to need"]}
+
 	],
 	"similar" : [
 		["tial", "tiel", "tiu", "tie", "tia"],
@@ -111,5 +139,6 @@
 		["el","ol","al"],
 		["eĉ", "ĉe", "ĉu", "ĉi", "ĉio", "ĉiam"],
 		["kiu", "kiel", "kiam", "kio", "kie"]
-	]
+	],
+	"notes" : ""
 }

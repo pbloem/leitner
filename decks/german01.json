@@ -18,7 +18,7 @@
 		{"sides": ["aus", "from"]},
 		{"sides": ["durch", "by"]},
 		{"sides": ["heiß", "hot"]},
-		{"sides": ["Wort", "word"]},
+		{"sides": ["das Wort", "the word"]},
 		{"sides": ["aber", "but"]},
 		{"sides": ["was", "what"]},
 		{"sides": ["einige", "some"]},
@@ -53,7 +53,7 @@
 		{"sides": ["auch", "also"]},
 		{"sides": ["spielen", "play"]},
 		{"sides": ["klein", "small"]},
-		{"sides": ["Ende", "end"]},
+		{"sides": ["das Ende", "the end"]},
 		{"sides": ["setzen", "put"]},
 		{"sides": ["Zuhause", "home"]},
 		{"sides": ["lesen", "read"]},
@@ -193,7 +193,7 @@
 		{"sides": ["die Milch","the milk"]},
 		{"sides": ["der Wein","the wine"]},
 		{"sides": ["das Bier","the beer"]},
-		{"sides": ["der Tee","the tea"]}
-
+		{"sides": ["der Tee","the tea"]},
+		{"sides": ["aufhören", "to stop"]}
 	]
 }
