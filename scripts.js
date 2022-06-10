@@ -14,9 +14,10 @@ String.prototype.hash = function() {
  *  ! Non-uniform side selection: look at the sequence of corrects that determines the score
  *    and pick the front/back inversely proportional to how often it occurs.
  *  - Load personal decks from linked dropbox account
- *  - Show multiple sides for the question multi-side cards.
+ *  - Show multiple sides for the question multi-side cards?
  *  - Mark specific cards as difficult manually
  *   - Increases decay rate?
+ *  - Pause decks for a week manually
  *
  */
 
@@ -1191,7 +1192,7 @@ var lt = { // * top-level namespace
 	  */
 	 dbx : {
 	 	clientID : 'hu8kdrkpke73lhq',
-	 	redirectURI : 'http://localhost:4000/?dbx=auth'
+	 	redirectURI : window.location.origin + '/?dbx=auth'
 	 },
 }
 
