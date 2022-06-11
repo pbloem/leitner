@@ -29,18 +29,18 @@ article {
 
 	margin: 0 auto;
 	padding: 1em 0 0 1em;
-		
+
 	font-size: 18px;
 	line-height: 1.6em;
 	font-family: Georgia, serif;
-	
+
 }
 
 h1, h2, h3, h4, h5 {
 	line-height: 1em;
 
 	font-family: Georgia, serif;
-		
+
 	font-weight: normal;
 }
 
@@ -49,9 +49,9 @@ h1 {
 	position: relative;
 	font-size: 1em;
 	line-height: 1.6em;
-	
+
 	text-transform: lowercase;
-	
+
 	padding: 0;
 	margin: 1.4545em 0 1.4545em;
 }
@@ -60,10 +60,10 @@ h2 {
 	position: relative;
 	font-size: 1em;
 	line-height: 1.6em;
-	
+
 	padding: 0;
 	margin: 0;
-	
+
 	font-weight: bold;
 }
 
@@ -72,14 +72,19 @@ nav {
 	padding: 1.6em 1em 1.6em 1em;
 	margin: 0;
 
-	color: white;	
+	color: white;
+
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
 }
 
 nav ul {
 
 	max-width: 800px;
-	margin: 0;
-	
+	margin: 0 0 1em 0;
+
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
@@ -117,6 +122,44 @@ nav h1 {
 	padding: 0;
 }
 
+
+nav #train a {
+	font-weight: bold;
+	border: none;
+}
+
+nav #train a:hover {
+	border: none;
+}
+
+nav .hidden
+{
+	display: none;
+}
+
+nav #dropbox {
+	top: 1.6em;
+	right: 0;
+}
+
+nav #dropbox a {
+	font-weight: bold;
+	border: none;
+}
+
+nav #dropbox a:hover {
+	border: none;
+}
+
+nav #dropbox span {
+	padding-right: 1em;
+}
+
+nav #dropbox ul, nav #dropbox li, nav #dropbox span {
+	display: inline;
+}
+
+
 #body nav a,
 #body nav a:hover  {
 	color: white;
@@ -130,9 +173,9 @@ p {
 
 aside {
 	font-size: 0.8em;
-	line-height: 2em; 
+	line-height: 2em;
 	text-align: right;
-	
+
 	padding: 0 60px;
 	margin: -1.8em 0 0;
 }
@@ -143,17 +186,17 @@ ul, ol {
 	display: block;
 	margin: 0.8em 0;
 	padding: 0;
-	
+
 	list-style: none;
 }
 
 a {
 
 	font-weight: 100;
-	
+
 	text-decoration: none;
 	color: black;
-	
+
 	border-bottom: dashed 2px black;
 	padding-bottom: 3px;
 }
@@ -164,18 +207,18 @@ a {
 
 pre {
 	font-family: Consolas, monospace;
-	
+
 	white-space: pre-wrap;
-	
+
 	font-size: 1em;
 	line-height: 1.6em;
 	margin: 1.6em 0;
 }
 
-footer {	
+footer {
 	font-size: 0.8em;
 	text-align: center;
-	
+
 	margin-top: 3.2em;
 }
 
@@ -223,11 +266,17 @@ ul.stories li a {
 }
 
 .frame {
-	position: relative;
-	padding-top: 40%;
-	
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: flex-start;
+
 	width: 80%;
 	min-width: 340px;
+
+	aspect-ratio: 1.6 /1;
+
 	margin: 2em auto auto auto;
 	background: white;
 }
@@ -239,27 +288,32 @@ ul.stories li a {
 
 	display: flex;
 	flex-wrap: wrap;
-		
+
 	width: 50%;
-	position: absolute;
 	height: 80%;
 	top: 2em;
 	right: 0;
-	
+
 	flex-direction: column;
 	justify-content: space-around;
 }
 
 .frame form h4,
 .frame .question h4 {
-	font-size: 24px;
-	text-align: left;	
+	font-size: 2vw;
+	text-align: left;
+}
+
+.frame .question {
+	position: relative;
 }
 
 .frame .question h4 {
 
-	font-size: 24px;
-	padding-left: 1em;
+	margin: 0;
+	position: absolute;
+	left: 1vw;
+	top: 1vw;
 
 	color: var(--blue);
 	text-shadow: -1px -1px 0 black;
@@ -268,8 +322,6 @@ ul.stories li a {
 
 .frame form h4 {
 
-	font-size: 24px;
-	
 	color: white;
 	text-shadow: -1px -1px 0 black;
 	opacity: 0.5;
@@ -305,19 +357,18 @@ ul.stories li a {
 
 .frame .question {
 
-	position: absolute;
-
-	width: 40%;
-	height: 80%;
+	width: 45%;
+	margin-left: 3vw;
+	margin-top: 3vw;
 	background: #87cbe6;
 	color: #2c5768;
-	
-	top: 10%; left: 5%;
-	
+
 	text-align: center;
-	
+
 	box-shadow: 5px 5px #eee;
 	transform: rotate(-2deg);
+
+	aspect-ratio: 1 / 1;
 }
 
 .frame .question.side-0 {
@@ -351,7 +402,7 @@ ul.stories li a {
 	top: 40%;
 }
 
-.frame .question {	
+.frame .question {
 	overflow: scroll;
 }
 
@@ -360,12 +411,11 @@ ul.stories li a {
 	left: 0;
 	right: 0;
 	width: 100%;
-	
+
 	z-index: 1;
 }
 
 .frame .question.image h4 {
-	position: relative;
 	z-index: 2;
 }
 
@@ -374,11 +424,10 @@ ul.stories li a {
 }
 
 .frame .question span {
-	position: absolute;
 	top: 2em;
 	left: 1em;
 	right: 1em;
-		
+
 	font-size: 1.8em;
 	line-height: 2em;
 }
@@ -386,9 +435,9 @@ ul.stories li a {
 .frame.mc button {
 	width: 90%;
 	height: 20%;
-	
+
 	border: none;
-	
+
 	font-family: Georgia, serif;
 	font-size: 3vw;
 	box-shadow: 5px 5px #eee;
@@ -404,7 +453,7 @@ ul.stories li a {
 
 	position: static;
 	display:block;
-	
+
 	font-family: Georgia, serif;
 
 }
@@ -417,13 +466,8 @@ ul.stories li a {
 
 	display: flex;
 	flex-wrap: wrap;
-	
-	margin-top: 140px;
-	
+
 	width: 50%;
-	position: absolute;
-	top: 0;
-	right: 0;
 }
 
 .frame.text .side-0 #answer {
@@ -444,23 +488,23 @@ ul.stories li a {
 .frame.text input {
 
 	display: block;
-	height: 60px;
-	
+	height: 5vw;
+
 	border: none;
-	
+
 	box-shadow: inset 5px 5px 0px #eee;
-	margin-right: 5px;
-	padding-left: 25px;
-	
-	line-height: 60px;
-	font-size: 20px;
+	margin-right: 0;
+	padding-left: 1.2vw;
+
+	line-height: 1.1vw;
+	font-size: 2.8vw;
 	font-family: Georgia, serif;
 	color: var(--dark-blue);
-	
-	flex-grow: 1;
+
+
 }
 
-.frame.text input:focus 
+.frame.text input:focus
 {
     outline: none !important;
 }
@@ -468,22 +512,21 @@ ul.stories li a {
 .frame.text button {
 
 	display: block;
-	position: static;
-	
-	width: 60px;
-	height: 60px;
+
+	width: 5vw;
+	height: 5vw;
 	padding: 0;
-	
+
 	border: none;
-	
+
 	font-size: 3vw;
 	box-shadow: 5px 5px #eee;
-	
+
 	color: white;
-	
-	margin-right: 25px;	
-	
-	flex-grow: none;	
+
+	margin-right: 25px;
+
+	flex-grow: none;
 }
 
 
@@ -491,19 +534,19 @@ ul.stories li a {
 	position: static;
 }
 
-.frame.text form #hint 
-{		
+.frame.text form #hint
+{
 	width: 100%;
 	height: 80px;
-	
-	color: var(--red);		
+
+	color: var(--red);
 	line-height: 80px;
-	
+
 	padding-left: 25px;
-	
+
 	line-height: 60px;
 	font-size: 20px;
-	
+
 	transition: opacity 3s linear;
 }
 
@@ -518,7 +561,7 @@ ul.stories li a {
 
 .frame.text form #hint[data-wrong="0"]
 {
-	color: var(--green);		
+	color: var(--green);
 }
 
 .frame.text form #hint[data-wrong="0"].hidden
@@ -527,16 +570,16 @@ ul.stories li a {
 
 .frame.text form #hint[data-wrong="1"]
 {
-	color: var(--dark-blue);		
+	color: var(--dark-blue);
 }
 
 .frame.text form #hint[data-wrong="1"].hidden
 {
 }
 
-.frame.text form #hint[data-wrong="2"] 
+.frame.text form #hint[data-wrong="2"]
 {
-	color: var(--dark-red);		
+	color: var(--dark-red);
 }
 
 .frame.text form #hint[data-wrong="2"].hidden
@@ -567,7 +610,7 @@ ul.stories li a {
 	width: 35%;
 	height: 50%;
 	margin: 5px
-	
+
 }
 
 .frame.image-answers button img {
@@ -585,9 +628,9 @@ ul.decks li {
 
 	width: 200px;
 	height: 200px;
-	
+
 	background: white;
-	
+
 	margin: 10px;
 	padding: 0;
 }
@@ -597,12 +640,12 @@ ul.decks li a.main {
 	display: block;
 	width: 100%;
 	height: 100%;
-	
+
 	padding: 0;
-	
+
 	text-align: center;
-	line-height: 150px;	
-	
+	line-height: 150px;
+
 	border: none;
 }
 
@@ -614,7 +657,7 @@ ul.decks li a.list {
 	position: absolute;
 	top: 3px;
 	right: 3px;
-	
+
 	width: 15px;
 	height: 15px;
 	line-height: 15px;
@@ -622,9 +665,9 @@ ul.decks li a.list {
 	font-size: 0.8em;
 	padding: 0;
 	margin: 0;
-	
+
 	border-radius: 7.5px;
-	
+
 	background: #ddd;
 	color: white;
 	border: none;
@@ -641,43 +684,3 @@ ul.decks li div.progress {
 ul.decks li div.progress svg {
 	margin: 0;
 }
-
-nav #train a {
-	font-weight: bold;
-	border: none;
-}
-
-nav #train a:hover {
-	border: none;
-}
-
-nav .hidden
-{
-	display: none;
-}
-
-nav #dropbox {
-	position: absolute;
-	top: 1.6em;
-	right: 0;
-}
-
-nav #dropbox a {
-	font-weight: bold;
-	border: none;
-}
-
-nav #dropbox a:hover {
-	border: none;
-}
-
-nav #dropbox span {
-	padding-right: 1em;
-}
-
-nav #dropbox ul, nav #dropbox li, nav #dropbox span {
-	display: inline;
-}
-
-
-

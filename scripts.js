@@ -1542,7 +1542,8 @@ $(function()
 
 		}
 
-		if (! params.has('dbx')) // -- Render the dropbox controls
+		// -- Render the dropbox controls
+		if (! (params.has('dbx') || params.has('deck')))
 			if (window.localStorage.getItem('lt.dbx.accessToken'))
 			{
 				// - if connected to dropbox
