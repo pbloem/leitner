@@ -1267,6 +1267,14 @@ $(function()
 				// * Start session
 				lt.session.startSession(lt.decks[params.get('deck')], queue, startTime);
 			}
+		} else if (params.has('debug')) {
+
+			$('article').append('DEBUG<br\>');
+			lt.db.events.count(count => {
+				$('article').append(`Number of events ${count}.`);
+			});
+
+
 		} else if (params.has('dbx'))
 		{
 			// ** Dropbox connection
@@ -1361,67 +1369,72 @@ $(function()
 
                 } else {
 
+					let ct = lt.db.events.count().then(count =>
+					{
+						$('article').append(`Number of events in database: ${count}. <br/>`);
+					});
+
                     lt.dbx.auth.setAccessToken(window.localStorage.getItem('lt.dbx.accessToken'));
 
                 	lt.dbx.con = new Dropbox.Dropbox({
                 		auth: lt.dbx.auth
                     });
 
+					$('article').append('Connected. Downloading backup.');
+
                     lt.dbx.con.filesDownload({ path: '/db_backup.json' })
                     .then(function(response)
                     {
-						console.log(response);
+						console.log(response.result.fileBlob.size)
 
-						response.result.fileBlob.text().then(txt => {
+						response.result.fileBlob.text().then(txt =>
+						{
 
-  						let json = JSON.parse(txt);
+							$('article').append('Download finished. Parsing.');
 
-  						let numRows = json.data.data[0].rows.length
+	  						let json = JSON.parse(txt);
 
-  						for (const [i, row] of json.data.data[0].rows.entries())
-  						{
-  							if (i % 1000 == 0)
-  							{
-  								console.log(row)
-  								$('article').append(`${i} rows processed </br>`);
-  							}
+	  						let numRows = json.data.data[0].rows.length
 
-  							lt.db.events.add(row).then (result =>
-  							{
-  								console.log(row);
-  							}).catch('ConstraintError', er =>
-  							{
-  								console.error ("Constraint error: " + er.message);
-  								console.error(row);
-  							});
+							lt.db.events.bulkAdd(json.data.data[0].rows).then(lastKey =>
+								{
+									console.log('Added.');
+								}
+							).catch(Dexie.BulkError, function (e) {
+							    // Explicitely catching the bulkAdd() operation makes those successful
+							    // additions commit despite that there were errors.
 
-  						}
+							    console.error('Failures', e.failures.length );
+							});
 
-						$('article').append(`Finished.</br>`);
-						window.location.replace('/');
+	  						// for (const [i, row] of json.data.data[0].rows.entries())
+	  						// {
+	  						// 	if (i % 5000 == 0)
+	  						// 	{
+	  						// 		console.log(i, row)
+	  						// 		$('article').append(`${i} rows processed </br>`);
+	  						// 	}
+							//
+	  						// 	lt.db.events.add(row).then (result =>
+	  						// 	{
+	  						// 		// console.log(row);
+							// 		// console.log(result)
+							//
+	  						// 	}).catch('ConstraintError', er =>
+	  						// 	{
+	  						// 		console.error ("Constraint error: " + er.message);
+	  						// 		console.error(row);
+	  						// 	});
+  							// }
 
-						// 	const db = new Dexie('testimport')
-// 							db.version(1).stores({
-// 					              events: 'id++, timestamp, deck, card, alt1, alt2, correct, [deck+card], [deck+card+correct]'
-// 					        });
-//
-// 							let options = {
-// 								acceptNameDiff: true,
-// 								acceptVersionDiff: true,
-// 								acceptMissingTables: true,
-// 								acceptChangedPrimaryKey: true
-// 							};
-//
-// 							db.import(response.result.fileBlob, options).then(res => {
-// 								$('article').append('done.');
-// 							}).catch((error) =>
-// 							{
-// 								console.error('error caught', error);
-// 							});
+							$('article').append(`Finished.</br>`);
 
+							let ct = lt.db.events.count().then(count =>
+							{
+								$('article').append(`<br/>Number of events in database: ${count}.`);
+							});
 
 						});
-
 
 					}).catch(function (error) {
 						console.error(error);
