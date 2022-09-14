@@ -24,7 +24,7 @@
 		{"sides" : ["Vietnam", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Vietnam.svg"]},
 		{"sides" : ["South Korea", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20South%20Korea.svg"]},
 		{"sides" : ["Afghanistan [after 2021]", "img:https://upload.wikimedia.org/wikipedia/commons/5/5f/Flag_of_the_Islamic_Emirate_of_Afghanistan.svg"]},
-		{"sides" : ["Afghanistan [before 2021]", "img:https://upload.wikimedia.org/wikipedia/commons/c/cd/Flag_of_Afghanistan_%282013%E2%80%932021%29.svg"]},		
+		{"sides" : ["Afghanistan [before 2021]", "img:https://upload.wikimedia.org/wikipedia/commons/c/cd/Flag_of_Afghanistan_%282013%E2%80%932021%29.svg"]},
 		{"sides" : ["Bangladesh", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Bangladesh.svg"]},
 		{"sides" : ["Mali", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Mali.svg"]},
 		{"sides" : ["Angola", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Angola.svg"]},
@@ -188,6 +188,7 @@
 		{"sides" : ["Nicaragua", "img:http://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Nicaragua.svg"]}
 	],
 	"similar" : [
-		["Ireland", "Ivory Coast"]
+		["Ireland", "Ivory Coast"],
+		["New Zealand", "Australia"]		
 	]
 }

@@ -107,10 +107,11 @@
 	"similar" : [
 		["to turn left", "to turn right", "to tell"],
 		["to know", "to know of", "to wake up early"],
-		["to arrive", "then", "front"],
+		["to arrive", "then", "front", "thousand"],
 		["road", "to ride", "question"],
 		["match", "ball sports", "basketball"],
 		["time", "weekend"],
-		["chair", "together"]
+		["chair", "together"],
+		["bar", "beer"]
 	]
 }

@@ -129,8 +129,36 @@
 		{"sides": ["malpeza",	"light [weight]"]},
 		{"sides": ["afabla",	"friendly"]},
 		{"sides": ["ekstere",	"outside"]},
-		{"sides": ["bezoni",	"to need"]}
-
+		{"sides": ["bezoni",	"to need"]},
+		{"sides": ["wife",	"edzino"]},
+		{"sides": ["husband",	"edzo"]},
+		{"sides": ["mother",	"patrino"]},
+		{"sides": ["father",	"patro"]},
+		{"sides": ["animal",	"besto"]},
+		{"sides": ["fish",	"fiŝo"]},
+		{"sides": ["bird",	"birdo"]},
+		{"sides": ["dog",	"hundo"]},
+		{"sides": ["louse",	"pediko"]},
+		{"sides": ["snake",	"serpento"]},
+		{"sides": ["worm",	"vermo"]},
+		{"sides": ["tree",	"arbo"]},
+		{"sides": ["forest",	"arbaro"]},
+		{"sides": ["stick",	"bastono"]},
+		{"sides": ["fruit",	"frukto"]},
+		{"sides": ["seed",	"semo"]},
+		{"sides": ["leaf",	"folio"]},
+		{"sides": ["root",	"radiko"]},
+		{"sides": ["bark [of a tree]",	"arboŝelo"]},
+		{"sides": ["flower",	"floro"]},
+		{"sides": ["grass",	"herbo"]},
+		{"sides": ["rope",	"ŝnuro"]},
+		{"sides": ["skin",	"haŭto"]},
+		{"sides": ["meat",	"viando"]},
+		{"sides": ["blood",	"sango"]},
+		{"sides": ["bone",	"osto"]},
+		{"sides": ["fat [noun]",	"graso"]},
+		{"sides": ["egg",	"ovo"]},
+		{"sides": ["horn",	"korno"]}
 	],
 	"similar" : [
 		["tial", "tiel", "tiu", "tie", "tia"],
@@ -140,5 +168,5 @@
 		["eĉ", "ĉe", "ĉu", "ĉi", "ĉio", "ĉiam"],
 		["kiu", "kiel", "kiam", "kio", "kie"]
 	],
-	"notes" : ""
+	"notes" : "https://en.wiktionary.org/wiki/Appendix:Esperanto_Swadesh_list"
 }

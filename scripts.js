@@ -68,18 +68,18 @@ var lt = { // * top-level namespace
 
 	// Add new decks here
 	deck_files : [
-		['../decks/frisbee.json', 0],
-		['../decks/hanzi01.json', 1],
-		['../decks/capitals.json', 2],
-		['../decks/countries.json', 3],
-		['../decks/esperanto01.json', 4],
-		['../decks/us-states.json', 5],
-		['../decks/invictus.json', 6],
-		['../decks/hanzi02.json', 7],
-		['../decks/flags.json', 8],
-		['../decks/morse.json', 9],
-		['../decks/german01.json', 10],
-		['../decks/french01.json', 11],
+		['../decks/french01.json', 0],
+		['../decks/frisbee.json', 1],
+		['../decks/hanzi01.json', 2],
+		['../decks/capitals.json', 3],
+		['../decks/countries.json', 4],
+		['../decks/esperanto01.json', 5],
+		['../decks/us-states.json', 6],
+		['../decks/invictus.json', 7],
+		['../decks/hanzi02.json', 8],
+		['../decks/flags.json', 9],
+		['../decks/morse.json', 10],
+		['../decks/german01.json', 11],
 		['../decks/spanish01.json', 12],
 		['../decks/hanzi03.json', 13]
 	],
@@ -122,6 +122,8 @@ var lt = { // * top-level namespace
 	{
 		if (!( 'id' in deck))
 			deck.id = (deck.name + '').hash()
+
+		deck.repetitionBoost = deck.repetitionBoost ? deck.repetitionBoost : 1.0;
 
 		deck.order = order
 
@@ -308,7 +310,7 @@ var lt = { // * top-level namespace
 
 		// * The higher this value, the more repetitions required before moving on
 		//   (that is, the score increases less with increasing corrects)
-		let rb = deck.repetitionBoost ? deck.repetitionBoost : 1.0;
+		let rb = deck.repetitionBoost;
 
     console.log('loading deck', deck)
 
@@ -550,9 +552,9 @@ var lt = { // * top-level namespace
 	 	/**
 		 * Sample a card from the deck according to the scores, using the sequential strategy.
 		 *
-		 * The strategy is to keep the cards sorted, and to move from left to right. Then
-		 * at point, we sample that particular card with the probability that it will be
-		 * answered incorrectly.
+		 * The strategy is to keep the cards sorted, and to move from left to
+		 * right. Then at each point, we sample that particular card with the
+		 * probability that it will be answered incorrectly.
 		 *
 		 * NB: Assumes that the cards maintain a fixed order.
 		 */
@@ -579,7 +581,7 @@ var lt = { // * top-level namespace
 			} else
 			{
 
-				for (let trial of _.range(100)) // allow 100 rejections
+				for (let trial of _.range(1000)) // allow 1000 rejections
 				{
 					for (let card of deck.cards)
 					{
@@ -1486,21 +1488,23 @@ $(function()
 			// * Create a queue for the training session
 
 			let probMult = 1;
-			let cutoff = 0.99
-			let remaining = 150; // 150 cards is about 10 minutes of active training
+			let cutoff = 0.95
+			let remaining = 150; // Total cards in one session
+								 // 150 cards is about 10 minutes of active training
 
 			let queue = [];
  			for (let deck of lt.sortedDecks)
 			{
 
-				let numMult = _.random(1.0, 5.0); // The number of cards to practice is the number under 99, times this.
+				let numMult = _.random(1.0, 3.0); // The number of cards to practice
+				                                  //is the number under 99, times this.
 
 				// If the deck has more than two sides (or the first card in a deck with
 				//          variable sides), we increase the required number of practices.
 				// TODO: use the average nr of sides instead
 				let ns = deck.cards[0].sides.length;
 				let sidesCorrection = ((ns * ns - ns) / 2);
-				numMult *= sidesCorrection;
+				numMult *= sidesCorrection * deck.repetitionBoost;
 
 				let score99 = (deck.numOver99 / deck.cards.length);
 				let prob = score99 < cutoff ? 1.0 : ((score99 - cutoff) / (1.0 - cutoff)) * probMult;
