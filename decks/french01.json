@@ -381,7 +381,1199 @@
 		{"sides": ["personnel", "personal"]},
 		{"sides": ["un titre", "a title"]},
 		{"sides": ["un soir", "an evening"]},
-		{"sides": ["un parti", "a party"]}
+		{"sides": ["un parti", "a party"]},
+		unique
+		unique [not "singulier"]
+		souhaiter
+		to wish
+		afin
+		so that, in order to
+		un objet
+		(objective;) object
+		malgré
+		despite, in spite of
+		une période
+		period
+		engager
+		to hire, involve, engage
+		une peine
+		effort, trouble [not "effort" / "trouble"]
+		parfois
+		sometimes [not "quelquefois"]
+		lors
+		at the time of
+		sérieux
+		serious [not "grave"]
+		aider
+		to help, assist [not "assister"]
+		réaliser
+		to realize, achieve
+		terminer
+		to finish, end [not "achever" / "finir"]
+		une base
+		base
+		espérer
+		to hope
+		une main
+		hand
+		une voix
+		voice
+		arrêter
+		to stop, arrest [not "stopper"]
+		un retour
+		return
+		prêt
+		ready
+		une occasion
+		chance, opportunity, occasion [not "opportunité"]
+		gros
+		big [not "grand" / "super"]
+		regarder
+		to look, watch
+		une plupart
+		most, the majority [not "majorité"]
+		deuxième
+		second [ordinal] [not "second"]
+		un résultat
+		result, follow-up [not "suite"]
+		un député
+		deputy, parliamentary delegate
+		une terre
+		earth, world, soil, land
+		valoir
+		to be worth
+		un dollar
+		dollar
+		un intérieur
+		interior, inside
+		écouter
+		to listen to
+		une confiance
+		confidence, trust
+		un choix
+		choice
+		prévoir
+		to foresee, anticipate [not "anticiper"]
+		une page
+		page
+		notamment
+		notably
+		un type
+		type; guy
+		un but
+		goal, aim, objective, purpose [not "objectif"]
+		une chance
+		chance, luck [not "hasard"]
+		grave
+		serious, grave [not "sérieux"]
+		une prise
+		grip, hold, seizure, catch
+		européen
+		European
+		une étude
+		study
+		un matin
+		morning
+		remplacer
+		to replace
+		avancer
+		to advance, move forward
+		six
+		six
+		nécessaire
+		necessary, required [not "obligé"]
+		une activité
+		activity
+		une valeur
+		value, worth
+		un principe
+		principle
+		entier
+		whole, full, entire [not "plein"]
+		une réponse
+		answer, response
+		une aide
+		help, assistance [not "secours"/"renfort"]
+		marquer
+		to mark
+		élever
+		to grow, lift, raise, elevate
+		pourtant
+		yet, nonetheless, nevertheless, however [not "néanmoins"]
+		une commission
+		commission
+		cesser
+		to cease, stop
+		poursuivre
+		to pursue
+		maintenir
+		to maintain [not "entretenir"]
+		principal
+		principal
+		exprimer
+		to express
+		un ami
+		friend [not "camarade" / "copain"]
+		bas
+		low; (stockings)
+		une époque
+		era, period, epoch
+		une moitié
+		(a) half [not "demi"]
+		un avenir
+		future [not "futur"]
+		un argent
+		money; (silver)
+		imposer
+		to impose
+		une mise
+		putting, placing
+		un œil
+		eye
+		une eau
+		water
+		sauf
+		except; (safe)
+		une école
+		school
+		une sécurité
+		security, safety
+		un milieu
+		middle
+		presque
+		almost [not "quasi" / "quasiment"]
+		une attention
+		attention
+		un cadre
+		frame, executive
+		une lettre
+		letter
+		un mouvement
+		movement
+		former
+		to form
+		conduire
+		to lead, drive, conduct
+		une règle
+		rule
+		un poste
+		post, position; (post office)
+		une demande
+		request, demand
+		un futur
+		future [not "avenir"]
+		un acte
+		act
+		disparaître
+		to disappear, vanish
+		priver
+		to deprive
+		constituer
+		to constitute
+		un centre
+		center
+		un milliard
+		a billion, a thousand million
+		lier
+		to link, join
+		obliger
+		to oblige, force, require
+		un accord
+		agreement
+		craindre
+		to fear, be afraid of [c]
+		un âge
+		age
+		déclarer
+		to declare [not "proclamer" / "décréter"]
+		oublier
+		to forget
+		un propos
+		remark [not "commentaire"/"remarque"]
+		un passé
+		past
+		quitter
+		to leave, quit [not "laisser" / "partir"]
+		un bout
+		bit, tip, end
+		une population
+		population
+		troisième
+		third [ordinal]
+		responsable
+		responsible
+		une route
+		road, route [not "voie"]
+		tôt
+		early
+		lancer
+		to throw, launch [not "jeter"]
+		toi
+		you, yourself [informal, not "tu"]
+		une fonction
+		function
+		un emploi
+		employment, work, use
+		un objectif
+		objective, aim, goal; lens [not "but"]
+		une limite
+		limit
+		un journal
+		newspaper, paper
+		annoncer
+		to announce
+		lui-même
+		himself
+		un tour
+		(tower;) turn; tour
+		voilà
+		right, there, here, there you go
+		une volonté
+		will
+		envoyer
+		to send
+		paraître
+		to appear [not "apparaître" / "comparaître"]
+		puisque
+		since, because, as
+		établir
+		to establish
+		un changement
+		change
+		garder
+		to keep [not "conserver" / "préserver"]
+		partager
+		to share
+		interdire
+		to forbid, prohibit, ban
+		finir
+		to finish [not "achever" / "terminer"]
+		placer
+		to place
+		une réalité
+		reality
+		payer
+		to pay
+		un esprit
+		mind, spirit
+		un domaine
+		domain, field
+		diriger
+		to lead, direct
+		sentir
+		to feel, smell
+		une nature
+		nature [not "caractère"]
+		un régime
+		regime
+		charger
+		to load, charge
+		noter
+		to note, notice [not "apercevoir" / "constater"]
+		parent
+		parent
+		tomber
+		to fall [not "chuter"]
+		un départ
+		departure
+		mondial
+		world, global [not "global"]
+		court
+		short
+		disposer
+		to arrange, set, dispose [not "fixer" / "arranger"]
+		une parole
+		word [not "mot"]
+		un fond
+		bottom
+		public
+		public
+		entraîner
+		to carry along, train
+		faux
+		false; (scythe)
+		un genre
+		type, kind, sort, genre [not "sorte"]
+		une communauté
+		community [not "collectivité"]
+		intéresser
+		to interest, involve
+		c'est-à-dire
+		in other words, that is to say
+		retenir
+		to retain, hold back, remember
+		une matière
+		matter, material; subject
+		un sein
+		breast, bosom [not "poitrine"]
+		une difficulté
+		difficulty
+		parvenir
+		to reach, achieve [not "atteindre"]
+		un corps
+		body
+		un appel
+		call
+		un cœur
+		heart
+		un père
+		father
+		une organisation
+		organisation
+		un secteur
+		sector
+		noir
+		black
+		un événement
+		event
+		double
+		double
+		une unité
+		unity; unit
+		une nation
+		nation
+		un conseil
+		advice, counsel, council
+		soutenir
+		to sustain, support
+		une paix
+		peace
+		convaincre
+		to convince
+		partout
+		everywhere
+		une direction
+		direction, management
+		manquer
+		to miss
+		actuel
+		current, present [not "courant"]
+		opposer
+		to oppose
+		une nuit
+		night
+		une journée
+		day [not "jour"]
+		d'ailleurs
+		moreover, besides, for that matter
+		traiter
+		to treat, handle, deal with
+		indiquer
+		to indicate, signal [not "signaler"]
+		signifier
+		to mean
+		une technique
+		technique, technics, (technical)
+		rapidement
+		quickly, rapidly [not "vite"]
+		autour
+		around
+		réduire
+		to reduce
+		d'après
+		according to [not "selon"]
+		tuer
+		to kill
+		riche
+		rich
+		préférer
+		to prefer
+		une rue
+		street
+		bref
+		brief
+		une violence
+		violence
+		un siècle
+		century
+		un article
+		article
+		nommer
+		to call, name, appoint
+		une qualité
+		quality
+		gauche
+		left
+		une solution
+		solution
+		une voie
+		road, lane, route, track, way [not "route"]
+		durer
+		to last
+		canadien
+		Canadian
+		une erreur
+		mistake, error
+		livrer
+		to deliver
+		capable
+		able, capable
+		simplement
+		simply
+		souvenir
+		(memory;) to remember
+		une conséquence
+		consequence
+		large
+		wide, (width)
+		auprès
+		near, close to, beside, next to, with
+		un succès
+		success [not "réussite"]
+		un élément
+		element
+		local
+		local
+		un contraire
+		opposite, contrary
+		inviter
+		to invite
+		un extérieur
+		exterior
+		un pied
+		foot
+		une mission
+		mission
+		un été
+		summer
+		une fille
+		girl, daughter
+		répéter
+		to repeat
+		un texte
+		text
+		un débat
+		debate
+		une chambre
+		bedroom, chamber
+		une création
+		creation
+		prouver
+		to prove
+		acheter
+		to buy
+		profiter
+		to take advantage, profit
+		une production
+		production
+		ignorer
+		to ignore
+		un directeur
+		director [not "réalisateur"]
+		une santé
+		health
+		une justice
+		justice
+		précis
+		precise
+		fixer
+		to fix, arrange, set [not "disposer" / "arranger"]
+		une mère
+		mother
+		une croissance
+		growth
+		un risque
+		risk
+		souffrir
+		to suffer
+		estimer
+		to estimate; (to consider, deem)
+		un endroit
+		place, spot [e...]
+		un comité
+		committee
+		impossible
+		impossible
+		une arme
+		weapon, arm
+		véritable
+		real, true [not "réel" / "vrai"]
+		amener
+		to bring, lead [not "apporter"/"procurer"]
+		viser
+		to aim at/for [not "cibler"]
+		retirer
+		to remove, withdraw [not "enlever" / "supprimer" / "ôter"]
+		une preuve
+		proof
+		une image
+		picture, image
+		une date
+		date
+		travers
+		(breadth,) across; (fault, amiss)
+		un contrôle
+		control
+		total
+		total
+		conserver
+		to keep, preserve [not "préserver" / "garder"]
+		réel
+		real [not "véritable" / "vrai"]
+		une campagne
+		countryside
+		naître
+		to be born
+		énorme
+		enormous
+		tourner
+		to turn
+		participer
+		to participate
+		vieux
+		old [not "âgé"]
+		accorder
+		to grant, accord, agree to sth
+		respecter
+		to respect
+		un passage
+		passage, way [not "voie" / "chemin"]
+		essentiel
+		essential [not "indispensable"]
+		adopter
+		to adopt
+		rapide
+		fast, quick, rapid [not "vite" / "rapidement"]
+		environ
+		about, thereabouts, or so
+		une expérience
+		experience
+		admettre
+		to admit [not "avouer"]
+		découvrir
+		to discover
+		subir
+		to undergo, be subjected to, suffer
+		assister
+		to attend; (to assist, help) [not "aider"]
+		un sénateur
+		senator
+		dépasser
+		to pass, go beyond
+		affirmer
+		to affirm, maintain, declare, allege
+		couvrir
+		to cover
+		financier
+		financial, financier
+		un processus
+		process [not "procédé" / "démarche"]
+		militaire
+		military
+		frais
+		cool, fresh; (fee, expense)
+		soumettre
+		to submit
+		une industrie
+		industry
+		apparaître
+		to appear [not "paraître" / "comparaître"]
+		une responsabilité
+		responsibility
+		réserver
+		to reserve, keep
+		une porte
+		door
+		une victime
+		victim
+		un territoire
+		territory
+		pauvre
+		poor
+		un taux
+		rate
+		posséder
+		to possess, own, have
+		un matériel
+		equipment, material [not "équipement"]
+		un cent
+		one hundred, cent [not "centaine"]
+		constater
+		to note, notice; to establish, certify [not "noter"/ "apercevoir"]
+		prononcer
+		to pronounce
+		organiser
+		to organize
+		blanc
+		white
+		une origine
+		origin, source [not "provenance"]
+		vendre
+		to sell
+		vite
+		fast, quickly [not "rapid" / rapidement"]
+		un signe
+		sign
+		dangereux
+		dangerous
+		déplacer
+		to move, displace
+		une importance
+		importance
+		suffire
+		to be sufficient, suffice
+		un espoir
+		hope [not "espérance"]
+		davantage
+		more [not "plus"]
+		une langue
+		language, tongue [not "langage"]
+		une énergie
+		energy
+		un réseau
+		network
+		mourir
+		to die [not "décéder"]
+		faible
+		weak
+		employer
+		to use, employ
+		saisir
+		to take hold of, grab, seize
+		spécial
+		special
+		accompagner
+		to accompany
+		actuellement
+		at present, at the moment
+		une union
+		union [not "syndicat"]
+		supposer
+		to suppose, assume [not "assumer"]
+		une possibilité
+		possibility [not "éventualité"]
+		ceci
+		this
+		exiger
+		to require, demand [not "demander" / "requérir"]
+		intervenir
+		to intervene
+		un fils
+		son
+		d'accord
+		okay, alright
+		fournir
+		to provide, supply, furnish [not "doter" / "pourvoir"]
+		une différence
+		difference
+		protéger
+		to protect
+		abandonner
+		to give up, abandon [not "renoncer" / "céder"]
+		discuter
+		to discuss, debate; to question [not "débattre"]
+		battre
+		to beat, hit
+		pire
+		worse, worst
+		adresser
+		to address, send
+		préciser
+		to state, specify, clarify [not "énoncer" / "énoncer"]
+		une intervention
+		intervention; talk
+		un avis
+		opinion, mind [not "opinion"]
+		demeurer
+		to remain, live
+		un chiffre
+		figure, number
+		consacrer
+		to devote, consecrate [not "vouer" / "dévouer"]
+		attirer
+		to attract
+		divers
+		diverse, various
+		appliquer
+		to apply
+		frapper
+		to hit, strike, knock [not "heurter"]
+		une peur
+		fear [not "crainte"]
+		un parlement
+		parliament
+		remplir
+		to fill, fulfill [not "combler"]
+		forcer
+		to force
+		une lutte
+		struggle, fight, conflict
+		naturel
+		natural
+		un air
+		air, appearance [not "mine" / "apparition" / "apparence"]
+		un/une auteur
+		author
+		fermer
+		to close, shut
+		heureux
+		happy, lucky, fortunate
+		une crise
+		crisis
+		un numéro
+		number [not "nombre"]
+		résoudre
+		to solve, resolve
+		publier
+		to publish
+		une opération
+		operation
+		toutefois
+		however [not "cependant"]
+		pousser
+		to push
+		quelqu'un
+		somebody, someone
+		un discours
+		speech, talk, discourse
+		une banque
+		bank
+		un instant
+		instant, moment
+		reposer
+		to rest
+		une opinion
+		opinion
+		une classe
+		class
+		particulièrement
+		particularly [not "spécialement"]
+		commun
+		common
+		une compagnie
+		company
+		une intention
+		intention
+		une autorité
+		authority
+		anglais
+		English
+		un échange
+		exchange [not "change"]
+		un feu
+		fire
+		satisfaire
+		to satisfy [not "contenter"]
+		observer
+		to observe, watch [not "surveiller"]
+		une capacité
+		capacity, ability
+		désigner
+		to designate
+		dépendre
+		to depend
+		neuf
+		nine; (new)
+		construire
+		to build, construct
+		une scène
+		scene
+		durant
+		during, for [not "pendant"]
+		un secret
+		secret
+		un plaisir
+		pleasure
+		un message
+		message
+		une proposition
+		proposition, proposal
+		combien
+		how much, how many
+		un dossier
+		file, record; (case) [do]
+		une absence
+		absence
+		cher
+		expensive [not "coûteux"]
+		plaire
+		to please
+		derrière
+		last; behind
+		une connaissance
+		knowledge
+		nul
+		nil, null
+		une entrée
+		entrance
+		signer
+		to sign
+		révéler
+		to reveal
+		couper
+		to cut
+		une salle
+		room
+		immédiatement
+		immediately
+		une équipe
+		team
+		situer
+		to situate, locate
+		souligner
+		to underline, stress
+		une source
+		source, spring
+		une pièce
+		piece, part, component; room
+		un crime
+		crime [not "criminalité"]
+		précédent
+		precedent; previous
+		installer
+		to install
+		facile
+		easy
+		augmenter
+		to increase, raise [not "accroître" / "hausser" / "grandir" / "croître"]
+		un respect
+		respect
+		une impression
+		impression
+		octobre
+		October
+		un médecin
+		physician, doctor [not "docteur"]
+		fédéral
+		federal
+		une police
+		police
+		un coût
+		cost
+		réunir
+		to gather, reunite, raise [not "rejoindre" / "rassembler"]
+		un contrat
+		contract
+		normal
+		normal
+		une attitude
+		attitude
+		une série
+		series
+		une formation
+		training, forming, formation
+		lever
+		to lift, raise
+		proche
+		near, nearby, close
+		direct
+		direct
+		une faute
+		mistake, error, fault [not "erreur"]
+		figurer
+		to represent, appear, figure [not "représenter"]
+		une pratique
+		practice, (practical)
+		finalement
+		finally, eventually
+		allemand
+		German
+		une pression
+		pressure
+		imaginer
+		to imagine
+		un champ
+		field, realm
+		un film
+		film
+		une charge
+		charge, load
+		envisager
+		to view, contemplate, envisage
+		un accès
+		access
+		une ressource
+		resource
+		monter
+		to go up, rise, assemble, mount
+		promettre
+		to promise
+		une motion
+		motion
+		concentrer
+		to concentrate
+		une commune
+		locality; (common, joint)
+		composer
+		to compose, dial
+		un chemin
+		path, way [not "passage"]
+		une zone
+		zone, area
+		une province
+		province
+		une élection
+		election
+		exactement
+		exactly
+		un conflit
+		conflict
+		hors
+		except, outside [not "dehors"]
+		une enquête
+		inquiry, enquiry, investigation
+		un terrain
+		ground, terrain
+		mars
+		March; Mars
+		tellement
+		so much [not "tant" / "autant"]
+		un usage
+		use, usage [not "utilisation"]
+		demain
+		tomorrow
+		hier
+		yesterday
+		confier
+		to entrust
+		remarquer
+		to remark; to notice, point out
+		un égard
+		consideration, respect, regard [not "consideration"]
+		supérieur
+		superior
+		un espace
+		space [not "écart"]
+		condamner
+		to condemn
+		capital
+		major, chief, principal; (capital, assets)
+		un lien
+		link, bond
+		une voiture
+		car [not "auto"]
+		une discussion
+		discussion
+		huit
+		eight
+		justifier
+		to justify
+		un agent
+		agent
+		un sentiment
+		feeling
+		une tâche
+		task [not "travail" / "oeuvre" / "ouvrage"]
+		directement
+		directly
+		limiter
+		to limit [not "borner"]
+		raconter
+		to tell, recount
+		décembre
+		December
+		développer
+		to develop
+		honorable
+		honorable
+		un contact
+		contact
+		conclure
+		to conclude
+		euh
+		er, um, uh
+		ouvert
+		open
+		un investissement	investment
+		insister	to insist
+		un fruit	fruit
+		un avantage	advantage
+		historique
+		historical
+		probablement
+		probably
+		un voyage
+		trip, journey, voyage [not "trajet" / "parcours"]
+		sept
+		seven
+		une marche
+		walk, step, march
+		un garde
+		guard
+		commercial
+		commercial
+		critique
+		(criticism, critic), critical
+		un ministère
+		ministry
+		baisser
+		to lower, turn down, bend down
+		une vérité
+		truth
+		une culture
+		culture
+		cacher
+		to hide
+		prêter
+		to lend
+		définir
+		to define
+		une somme
+		amount, sum; (nap) [not "dose"]
+		exposer
+		to display, exhibit, expose [not "manifester" / "afficher" / "étaler"]
+		un progrès
+		progress
+		un/une secrétaire
+		secretary
+		une mer
+		sea
+		rapporter
+		to bring back, report [not "ramener"]
+		appuyer
+		to lean, support [not "pencher"]
+		un client
+		client
+		rentrer
+		to go in, come in, come back, return
+		une mémoire
+		memory
+		un caractère
+		nature, character [not "nature"]
+		détruire
+		to destroy
+		un civil
+		civil; civilian
+		une liste
+		list
+		juin
+		June
+		un danger
+		danger
+		complexe
+		complex
+		un commerce
+		commerce, trade
+		un transport
+		transportation
+		une nécessité
+		necessity, need
+		une institution
+		institution
+		une défense
+		defense
+		janvier
+		January
+		échapper
+		to escape
+		une négociation
+		negotiation [not "pourparlers"]
+		une attente
+		wait
+		mai
+		May
+		septembre
+		September
+		un environnement
+		environment
+		séparer
+		to separate [not "écarter"]
+		une réaction
+		reaction
+		franc
+		frank, straightforward; (franc)
+		positif
+		positive
+		scientifique
+		scientific
+		un papier
+		paper
+		une expression
+		expression
+		une disposition
+		arrangement, disposition [not "arrangement"]
+		indépendant
+		independent
+		une carte
+		card
+		une association
+		association
+		régler
+		to pay, adjust, settle, regulate
+		un modèle
+		model
+		une protection
+		protection
+		étudier
+		to study
+		déterminer
+		to determine, find out, specify
+		un budget
+		budget
+		fonder
+		to found, set
+		une structure
+		structure
+		commander
+		to order, command [not "ordonner"]
+		exercer
+		to exercise, exert, practise, carry out
+		un amour
+		love
+		manifester
+		to show, demonstrate, display [not "exposer" / "afficher" / "étaler"]
+		menacer
+		to threaten
+		conseiller
+		(adviser), to advise [not "aviser"]
+		complet
+		full, complete; (suit)
+		une opposition
+		opposition
+		une maladie
+		illness, disease
+		outre
+		besides
+		tandis
+		while
+		une construction
+		construction, building
+		une bande
+		band, strip
+		un signal
+		signal
+		une réunion
+		meeting [not "rencontre" / "assemblée" / "concertation"]
+		une réforme
+		reform
+		rejeter
+		to reject
+		novembre
+		November
+		un fonds
+		funds
+		coûter
+		to cost
+		un voisin
+		neighbor
+		une presse
+		press
+		rouge
+		red
+		une majorité
+		majority
+		autoriser
+		to authorize
+		effectuer
+		to carry out, undergo [not "subir"]
+		une reprise
+		resumption, renewal; time
+		central
+		central
+		une procédure
+		procedure [not "méthode"]
+		une faveur
+		favor
+		une éducation
+		education
+		officiel
+		official
+		un document
+		document
+		un bord	edge, side, board
+		retourner	to return, go back
+		professionnel	professional
+		un aspect	aspect
 	],
 	"comments": ["https://app.memrise.com/course/131111/5000-most-common-french-words/"]
 }
