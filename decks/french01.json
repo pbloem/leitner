@@ -382,30 +382,18 @@
 		{"sides": ["un titre", "a title"]},
 		{"sides": ["un soir", "an evening"]},
 		{"sides": ["un parti", "a party"]},
-		unique
-		unique [not "singulier"]
-		souhaiter
-		to wish
-		afin
-		so that, in order to
-		un objet
-		(objective;) object
-		malgré
-		despite, in spite of
-		une période
-		period
-		engager
-		to hire, involve, engage
-		une peine
-		effort, trouble [not "effort" / "trouble"]
-		parfois
-		sometimes [not "quelquefois"]
-		lors
-		at the time of
-		sérieux
-		serious [not "grave"]
-		aider
-		to help, assist [not "assister"]
+		unique	unique [u]
+		souhaiter	to wish
+		afin	so that, in order to
+		un objet	an object
+		malgré	despite, in spite of
+		une période	a period
+		engager	to hire, involve, engage
+		une peine	an effort, trouble
+		parfois	sometimes
+		lors	at the time of
+		sérieux	serious
+		aider	to help, assist [not "assister"]
 		réaliser
 		to realize, achieve
 		terminer
