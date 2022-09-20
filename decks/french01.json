@@ -739,226 +739,116 @@
 		un parlement	a parliament
 		remplir	to fill, fulfill
 		forcer	to force
-		une lutte
-		struggle, fight, conflict
-		naturel
-		natural
-		un air
-		air, appearance [not "mine" / "apparition" / "apparence"]
-		un/une auteur
-		author
-		fermer
-		to close, shut
-		heureux
-		happy, lucky, fortunate
-		une crise
-		crisis
-		un numéro
-		number [not "nombre"]
-		résoudre
-		to solve, resolve
-		publier
-		to publish
-		une opération
-		operation
-		toutefois
-		however [not "cependant"]
-		pousser
-		to push
-		quelqu'un
-		somebody, someone
-		un discours
-		speech, talk, discourse
-		une banque
-		bank
-		un instant
-		instant, moment
-		reposer
-		to rest
-		une opinion
-		opinion
-		une classe
-		class
-		particulièrement
-		particularly [not "spécialement"]
-		commun
-		common
-		une compagnie
-		company
-		une intention
-		intention
-		une autorité
-		authority
-		anglais
-		English
-		un échange
-		exchange [not "change"]
-		un feu
-		fire
-		satisfaire
-		to satisfy [not "contenter"]
-		observer
-		to observe, watch [not "surveiller"]
-		une capacité
-		capacity, ability
-		désigner
-		to designate
-		dépendre
-		to depend
-		neuf
-		nine; (new)
-		construire
-		to build, construct
-		une scène
-		scene
-		durant
-		during, for [not "pendant"]
-		un secret
-		secret
-		un plaisir
-		pleasure
-		un message
-		message
-		une proposition
-		proposition, proposal
-		combien
-		how much, how many
-		un dossier
-		file, record; (case) [do]
-		une absence
-		absence
-		cher
-		expensive [not "coûteux"]
-		plaire
-		to please
-		derrière
-		last; behind
-		une connaissance
-		knowledge
-		nul
-		nil, null
-		une entrée
-		entrance
-		signer
-		to sign
-		révéler
-		to reveal
-		couper
-		to cut
-		une salle
-		room
-		immédiatement
-		immediately
-		une équipe
-		team
-		situer
-		to situate, locate
-		souligner
-		to underline, stress
-		une source
-		source, spring
-		une pièce
-		piece, part, component; room
-		un crime
-		crime [not "criminalité"]
-		précédent
-		precedent; previous
-		installer
-		to install
-		facile
-		easy
-		augmenter
-		to increase, raise [not "accroître" / "hausser" / "grandir" / "croître"]
-		un respect
-		respect
-		une impression
-		impression
-		octobre
-		October
-		un médecin
-		physician, doctor [not "docteur"]
-		fédéral
-		federal
-		une police
-		police
-		un coût
-		cost
-		réunir
-		to gather, reunite, raise [not "rejoindre" / "rassembler"]
-		un contrat
-		contract
-		normal
-		normal
-		une attitude
-		attitude
-		une série
-		series
-		une formation
-		training, forming, formation
-		lever
-		to lift, raise
-		proche
-		near, nearby, close
-		direct
-		direct
-		une faute
-		mistake, error, fault [not "erreur"]
-		figurer
-		to represent, appear, figure [not "représenter"]
-		une pratique
-		practice, (practical)
-		finalement
-		finally, eventually
-		allemand
-		German
-		une pression
-		pressure
-		imaginer
-		to imagine
-		un champ
-		field, realm
-		un film
-		film
-		une charge
-		charge, load
-		envisager
-		to view, contemplate, envisage
-		un accès
-		access
-		une ressource
-		resource
-		monter
-		to go up, rise, assemble, mount
-		promettre
-		to promise
-		une motion
-		motion
-		concentrer
-		to concentrate
-		une commune
-		locality; (common, joint)
-		composer
-		to compose, dial
-		un chemin
-		path, way [not "passage"]
-		une zone
-		zone, area
-		une province
-		province
-		une élection
-		election
-		exactement
-		exactly
-		un conflit
-		conflict
-		hors
-		except, outside [not "dehors"]
-		une enquête
-		inquiry, enquiry, investigation
-		un terrain
-		ground, terrain
-		mars
-		March; Mars
+		une lutte	a struggle
+		naturel	natural
+		un air	an appearance
+		un(e) auteur	a author
+		fermer	to close, shut
+		heureux	happy, fortunate
+		une crise	a crisis
+		un numéro	a number
+		résoudre	to solve, resolve
+		publier		to publish
+		une opération	a operation
+		toutefois	however
+		pousser	to push
+		quelqu'un	somebody, someone
+		un discours	a speech
+		une banque	a bank
+		un instant	a instant, moment
+		reposer		to rest
+		une opinion	an opinion
+		une classe	a class
+		particulièrement	a particularly
+		commun	common
+		une compagnie	a company
+		une intention	an intention
+		une autorité	an authority
+		anglais	English
+		un échange	an exchange
+		un feu	a fire
+		satisfaire	to satisfy
+		observer	to observe
+		une capacité	an ability
+		désigner	to designate
+		dépendre	to depend
+		neuf	nine, new
+		construire	to build
+		une scène	a scene
+		durant	during [d]
+		un secret	a secret
+		un plaisir	a pleasure
+		un message	a message
+		une proposition	a proposal
+		combien		how much, how many
+		un dossier	a record
+		une absence	an absence
+		cher	expensive
+		plaire	to please
+		derrière	last, behind
+		une connaissance	knowledge
+		nul	nil, null
+		une entrée	entrance
+		signer	to sign
+		révéler	to reveal
+		couper	to cut
+		une salle	a room
+		immédiatement	immediately
+		une équipe	a team
+		situer	to situate, locate
+		souligner	to underline, stress
+		une source	a source, spring
+		une pièce	a component, room
+		un crime	a crime 
+		précédent	precedent
+		installer	to install
+		facile	easy
+		augmenter	to increase
+		un respect	a respect
+		une impression	an impression
+		octobre	October
+		un médecin	a physician, doctor
+		fédéral	federal
+		une police	police
+		un coût	cost
+		réunir	to gather
+		un contrat	a contract
+		normal	normal
+		une attitude	an attitude
+		une série	a series
+		une formation	a training
+		lever	to lift, raise
+		proche	nearby
+		direct	direct
+		une faute	a mistake
+		figurer	to appear
+		une pratique	a practice
+		finalement	finally
+		allemand	German
+		une pression	a pressure
+		imaginer	to imagine
+		un champ 	a field, realm
+		un film	a film
+		une charge	a charge, load
+		envisager	to contemplate
+		un accès	access
+		une ressource	a resource
+		monter	to assemble
+		promettre	to promise
+		une motion	motion
+		concentrer	to concentrate
+		une commune	locality
+		composer	to compose, dial
+		un chemin	a path, way
+		une zone	a zone, area
+		une province	a province
+		une élection	an election
+		exactement	exactly
+		un conflit	aconflict
+		hors	except
+		une enquête	an investigation
+		un terrain	a terrain
+		mars	March
 		tellement
 		so much [not "tant" / "autant"]
 		un usage
