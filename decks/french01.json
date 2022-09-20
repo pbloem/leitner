@@ -382,38 +382,38 @@
 		{"sides": ["un titre", "a title"]},
 		{"sides": ["un soir", "an evening"]},
 		{"sides": ["un parti", "a party"]},
-		unique	unique [u]
-		souhaiter	to wish
-		afin	so that, in order to
-		un objet	an object
-		malgré	despite, in spite of
-		une période	a period
-		engager	to hire, involve, engage
-		une peine	an effort, trouble
-		parfois	sometimes
-		lors	at the time of
-		sérieux	serious
-		aider	to help, assist [not "assister"]
-		réaliser	to achieve
-		terminer	to end
-		une base	a base
-		espérer		to hope
-		une main	a hand
-		une voix	a voice
-		arrêter		to stop
-		un retour	a return
-		prêt	ready
-		une occasion	an opportunity
-		gros	big 
-		regarder	to look
-		une plupart	a majority
-		deuxième	second
-		un résultat	a result
-		un député	a parliamentary delegate
-		une terre	a land
-		valoir	to be worth
-		un dollar	a dollar
-		un intérieur	an interior
+		{"sides": ["unique	unique [u]
+		{"sides": ["souhaiter	to wish
+		{"sides": ["afin	so that, in order to
+		{"sides": ["un objet	an object
+		{"sides": ["malgré	despite, in spite of
+		{"sides": ["une période	a period
+		{"sides": ["engager	to hire, involve, engage
+		{"sides": ["une peine	an effort, trouble
+		{"sides": ["parfois	sometimes
+		{"sides": ["lors	at the time of
+		{"sides": ["sérieux	serious
+		{"sides": ["aider	to help, assist [not "assister"]
+		{"sides": ["réaliser	to achieve
+		{"sides": ["terminer	to end
+		{"sides": ["une base	a base
+		{"sides": ["espérer		to hope
+		{"sides": ["une main	a hand
+		{"sides": ["une voix	a voice
+		{"sides": ["arrêter		to stop
+		{"sides": ["un retour	a return
+		{"sides": ["prêt	ready
+		{"sides": ["une occasion	an opportunity
+		{"sides": ["gros	big 
+		{"sides": ["regarder	to look
+		{"sides": ["une plupart	a majority
+		{"sides": ["deuxième	second
+		{"sides": ["un résultat	a result
+		{"sides": ["un député	a parliamentary delegate
+		{"sides": ["une terre	a land
+		{"sides": ["valoir	to be worth
+		{"sides": ["un dollar	a dollar
+		{"sides": ["un intérieur	an interior
 		écouter	to listen to
 		une confiance	a confidence
 		un choix	a choice
