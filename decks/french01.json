@@ -557,220 +557,113 @@
 		double	double
 		une unité	a unity; unit
 		une nation	a nation
-		un conseil
-		advice, counsel, council
-		soutenir
-		to sustain, support
-		une paix
-		peace
-		convaincre
-		to convince
-		partout
-		everywhere
-		une direction
-		direction, management
-		manquer
-		to miss
-		actuel
-		current, present [not "courant"]
-		opposer
-		to oppose
-		une nuit
-		night
-		une journée
-		day [not "jour"]
-		d'ailleurs
-		moreover, besides, for that matter
-		traiter
-		to treat, handle, deal with
-		indiquer
-		to indicate, signal [not "signaler"]
-		signifier
-		to mean
-		une technique
-		technique, technics, (technical)
-		rapidement
-		quickly, rapidly [not "vite"]
-		autour
-		around
-		réduire
-		to reduce
-		d'après
-		according to [not "selon"]
-		tuer
-		to kill
-		riche
-		rich
-		préférer
-		to prefer
-		une rue
-		street
-		bref
-		brief
-		une violence
-		violence
-		un siècle
-		century
-		un article
-		article
-		nommer
-		to call, name, appoint
-		une qualité
-		quality
-		gauche
-		left
-		une solution
-		solution
-		une voie
-		road, lane, route, track, way [not "route"]
-		durer
-		to last
-		canadien
-		Canadian
-		une erreur
-		mistake, error
-		livrer
-		to deliver
-		capable
-		able, capable
-		simplement
-		simply
-		souvenir
-		(memory;) to remember
-		une conséquence
-		consequence
-		large
-		wide, (width)
-		auprès
-		near, close to, beside, next to, with
-		un succès
-		success [not "réussite"]
-		un élément
-		element
-		local
-		local
-		un contraire
-		opposite, contrary
-		inviter
-		to invite
-		un extérieur
-		exterior
-		un pied
-		foot
-		une mission
-		mission
-		un été
-		summer
-		une fille
-		girl, daughter
-		répéter
-		to repeat
-		un texte
-		text
-		un débat
-		debate
-		une chambre
-		bedroom, chamber
-		une création
-		creation
-		prouver
-		to prove
-		acheter
-		to buy
-		profiter
-		to take advantage, profit
-		une production
-		production
-		ignorer
-		to ignore
-		un directeur
-		director [not "réalisateur"]
-		une santé
-		health
-		une justice
-		justice
-		précis
-		precise
-		fixer
-		to fix, arrange, set [not "disposer" / "arranger"]
-		une mère
-		mother
-		une croissance
-		growth
-		un risque
-		risk
-		souffrir
-		to suffer
-		estimer
-		to estimate; (to consider, deem)
-		un endroit
-		place, spot [e...]
-		un comité
-		committee
-		impossible
-		impossible
-		une arme
-		weapon, arm
-		véritable
-		real, true [not "réel" / "vrai"]
-		amener
-		to bring, lead [not "apporter"/"procurer"]
-		viser
-		to aim at/for [not "cibler"]
-		retirer
-		to remove, withdraw [not "enlever" / "supprimer" / "ôter"]
-		une preuve
-		proof
-		une image
-		picture, image
-		une date
-		date
-		travers
-		(breadth,) across; (fault, amiss)
-		un contrôle
-		control
-		total
-		total
-		conserver
-		to keep, preserve [not "préserver" / "garder"]
-		réel
-		real [not "véritable" / "vrai"]
-		une campagne
-		countryside
-		naître
-		to be born
-		énorme
-		enormous
-		tourner
-		to turn
-		participer
-		to participate
-		vieux
-		old [not "âgé"]
-		accorder
-		to grant, accord, agree to sth
-		respecter
-		to respect
-		un passage
-		passage, way [not "voie" / "chemin"]
-		essentiel
-		essential [not "indispensable"]
-		adopter
-		to adopt
-		rapide
-		fast, quick, rapid [not "vite" / "rapidement"]
-		environ
-		about, thereabouts, or so
-		une expérience
-		experience
-		admettre
-		to admit [not "avouer"]
-		découvrir
-		to discover
-		subir
-		to undergo, be subjected to, suffer
-		assister
-		to attend; (to assist, help) [not "aider"]
+		un conseil	advice
+		soutenir	to support
+		une paix	a peace
+		convaincre	to convince
+		partout		everywhere
+		une direction	a management
+		manquer	to miss
+		actuel	current [a] 
+		opposer	to oppose
+		une nuit	a night
+		une journée	a day
+		d'ailleurs	moreover
+		traiter		to deal with
+		indiquer	to indicate
+		signifier	to mean
+		une technique	a technique
+		rapidement	quickly
+		autour	around
+		réduire	to reduce
+		d'après	according to
+		tuer	to kill
+		riche	rich
+		préférer	to prefer
+		une rue	a street
+		bref	brief
+		une violence	violence
+		un siècle	a century
+		un article	an article
+		nommer	to call
+		une qualité	a quality
+		gauche	left
+		une solution	a solution
+		une voie	a road [v]
+		durer	to last
+		canadien	Canadian
+		une erreur	a mistake, error
+		livrer	to deliver
+		capable	able, capable
+		simplement	simply
+		souvenir	to remember
+		une conséquence	a consequence
+		large	wide
+		auprès	near, next to
+		un succès	a success
+		un élément	an element
+		local	local
+		un contraire	an opposite, contrary
+		inviter	to invite
+		un extérieur	an exterior
+		un pied	a foot
+		une mission	a mission
+		un été	a summer
+		une fille	a girl, daughter
+		répéter	to repeat
+		un texte	a text
+		un débat	a debate
+		une chambre	a bedroom, chamber
+		une création	a creation
+		prouver	to prove
+		acheter	to buy
+		profiter	to take advantage, profit
+		une production	a production
+		ignorer	to ignore
+		un directeur	a director
+		une santé	health
+		une justice	a justice
+		précis	precise
+		fixer	to set
+		une mère	a mother
+		une croissance	a growth
+		un risque	a risk
+		souffrir	to suffer
+		estimer	to estimate
+		un endroit	a place
+		un comité	a committee
+		impossible	impossible
+		une arme	a weapon
+		véritable	true [9]
+		amener	to bring, lead
+		viser	to aim at/for 
+		retirer	to remove, withdraw
+		une preuve	a proof
+		une image	a picture
+		une date	a date
+		travers	across
+		un contrôle	a control
+		total	total
+		conserver	to preserve
+		réel	real
+		une campagne	a countryside
+		naître	to be born
+		énorme	enormous
+		tourner	to turn
+		participer	to participate
+		vieux	old
+		accorder	to grant, accord, agree to sth
+		respecter	to respect
+		un passage	a passage
+		essentiel	essential
+		adopter	to adopt
+		rapide	quick
+		environ	thereabouts
+		une expérience	an experience
+		admettre	to admit
+		découvrir	to discover
+		subir	to undergo
+		assister	to attend to
 		un sénateur
 		senator
 		dépasser
