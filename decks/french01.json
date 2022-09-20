@@ -461,197 +461,102 @@
 		une école	a school
 		une sécurité	a security
 		un milieu	a middle
-		presque	almost [not "quasi" / "quasiment"]
-		une attention
-		attention
-		un cadre
-		frame, executive
-		une lettre
-		letter
-		un mouvement
-		movement
-		former
-		to form
-		conduire
-		to lead, drive, conduct
-		une règle
-		rule
-		un poste
-		post, position; (post office)
-		une demande
-		request, demand
-		un futur
-		future [not "avenir"]
-		un acte
-		act
-		disparaître
-		to disappear, vanish
-		priver
-		to deprive
-		constituer
-		to constitute
-		un centre
-		center
-		un milliard
-		a billion, a thousand million
-		lier
-		to link, join
-		obliger
-		to oblige, force, require
-		un accord
-		agreement
-		craindre
-		to fear, be afraid of [c]
-		un âge
-		age
-		déclarer
-		to declare [not "proclamer" / "décréter"]
-		oublier
-		to forget
-		un propos
-		remark [not "commentaire"/"remarque"]
-		un passé
-		past
-		quitter
-		to leave, quit [not "laisser" / "partir"]
-		un bout
-		bit, tip, end
-		une population
-		population
-		troisième
-		third [ordinal]
-		responsable
-		responsible
-		une route
-		road, route [not "voie"]
-		tôt
-		early
-		lancer
-		to throw, launch [not "jeter"]
-		toi
-		you, yourself [informal, not "tu"]
-		une fonction
-		function
-		un emploi
-		employment, work, use
-		un objectif
-		objective, aim, goal; lens [not "but"]
-		une limite
-		limit
-		un journal
-		newspaper, paper
-		annoncer
-		to announce
-		lui-même
-		himself
-		un tour
-		(tower;) turn; tour
-		voilà
-		right, there, here, there you go
-		une volonté
-		will
-		envoyer
-		to send
-		paraître
-		to appear [not "apparaître" / "comparaître"]
-		puisque
-		since, because, as
-		établir
-		to establish
-		un changement
-		change
-		garder
-		to keep [not "conserver" / "préserver"]
-		partager
-		to share
-		interdire
-		to forbid, prohibit, ban
-		finir
-		to finish [not "achever" / "terminer"]
-		placer
-		to place
-		une réalité
-		reality
-		payer
-		to pay
-		un esprit
-		mind, spirit
-		un domaine
-		domain, field
-		diriger
-		to lead, direct
-		sentir
-		to feel, smell
-		une nature
-		nature [not "caractère"]
-		un régime
-		regime
-		charger
-		to load, charge
-		noter
-		to note, notice [not "apercevoir" / "constater"]
-		parent
-		parent
-		tomber
-		to fall [not "chuter"]
-		un départ
-		departure
-		mondial
-		world, global [not "global"]
-		court
-		short
-		disposer
-		to arrange, set, dispose [not "fixer" / "arranger"]
-		une parole
-		word [not "mot"]
-		un fond
-		bottom
-		public
-		public
-		entraîner
-		to carry along, train
-		faux
-		false; (scythe)
-		un genre
-		type, kind, sort, genre [not "sorte"]
-		une communauté
-		community [not "collectivité"]
-		intéresser
-		to interest, involve
-		c'est-à-dire
-		in other words, that is to say
-		retenir
-		to retain, hold back, remember
-		une matière
-		matter, material; subject
-		un sein
-		breast, bosom [not "poitrine"]
-		une difficulté
-		difficulty
-		parvenir
-		to reach, achieve [not "atteindre"]
-		un corps
-		body
-		un appel
-		call
-		un cœur
-		heart
-		un père
-		father
-		une organisation
-		organisation
-		un secteur
-		sector
-		noir
-		black
-		un événement
-		event
-		double
-		double
-		une unité
-		unity; unit
-		une nation
-		nation
+		presque	almost
+		une attention	an attention
+		un cadre a frame, executive
+		une lettre	a letter
+		un mouvement	a movement
+		former	to form
+		conduire	to lead, drive, conduct
+		une règle 	a rule
+		un poste	a position
+		une demande	a request
+		un futur	a future [f]
+		un acte	an act
+		disparaître	to disappear, vanish
+		priver	to deprive
+		constituer	to constitute
+		un centre	a center
+		un milliard	a billion, a thousand million
+		lier	to link, join
+		obliger	to oblige, force, require
+		un accord	an agreement
+		craindre	to fear [c]
+		un âge	an age
+		déclarer	to declare 
+		oublier	to forget
+		un propos	a remark 
+		un passé	a past
+		quitter	to leave [q]
+		un bout		a tip
+		une population	a population
+		troisième	third
+		responsable	responsible
+		une route a road
+		tôt	early
+		lancer	to launch
+		toi	yourself
+		une fonction	function
+		un emploi	a work
+		un objectif	an aim
+		une limite	a limit
+		un journal	a newspaper
+		annoncer	to announce
+		lui-même	himself
+		un tour	a turn
+		voilà	there you go
+		une volonté	a will
+		envoyer	to send
+		paraître	to appear
+		puisque	since
+		établir	to establish
+		un changement	change
+		garder	to keep
+		partager	to share
+		interdire	to forbid
+		finir	to finish
+		placer	to place
+		une réalité	reality
+		payer	to pay
+		un esprit	a mind
+		un domaine	a field
+		diriger	to lead
+		sentir	to feel, smell
+		une nature	a nature
+		un régime	regime
+		charger	to load, charge
+		noter	to note
+		parent	parent
+		tomber	to fall
+		un départ	departure
+		mondial	global
+		court	short
+		disposer	to arrange
+		une parole	a word [p]
+		un fond	a bottom
+		public	public
+		entraîner	to carry along, train
+		faux	false
+		un genre	kind, type [G]
+		une communauté	a community 
+		intéresser	to interest
+		c'est-à-dire	that is to say
+		retenir	to hold back, remember
+		une matière	a material, subject
+		un sein	a breast, bosom
+		une difficulté	a difficulty
+		parvenir	to reach
+		un corps	a body
+		un appel	a call
+		un coeur	heart
+		un père	a father
+		une organisation	an organisation
+		un secteur	a sector
+		noir	black
+		un événement	an event
+		double	double
+		une unité	a unity; unit
+		une nation	a nation
 		un conseil
 		advice, counsel, council
 		soutenir
