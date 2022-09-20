@@ -685,87 +685,87 @@
 		{"sides": ["posséder", "to own"]},
 		{"sides": ["un matériel", "equipment"]},
 		{"sides": ["un cent", "one hundred"]},
-		{"sides": ["constater", "to note
-		{"sides": ["prononcer", "to pronounce
-		{"sides": ["organiser", "to organize
-		{"sides": ["blanc", "white
-		{"sides": ["une origine", "a source
-		{"sides": ["vendre", "to sell
-		{"sides": ["vite", "fast, quickly
-		{"sides": ["un signe", "sign
-		{"sides": ["dangereux", "dangerous
-		{"sides": ["déplacer", "to move, displace
-		{"sides": ["une importance", "importance
-		{"sides": ["suffire", "to suffice
-		{"sides": ["un espoir", "hope 
-		{"sides": ["davantage", "more
-		{"sides": ["une langue", "a language
-		{"sides": ["une énergie", "an energy
-		{"sides": ["un réseau", "a network
-		{"sides": ["mourir", "to die
-		{"sides": ["faible", "weak
-		{"sides": ["employer", "to use
-		{"sides": ["saisir", "to grab
-		{"sides": ["spécial", "special
-		{"sides": ["accompagner", "to accompany
-		{"sides": ["actuellement", "at present
-		{"sides": ["une union", "a union
-		{"sides": ["supposer", "to suppose
-		{"sides": ["une possibilité", "a possibility
-		{"sides": ["ceci", "this
-		{"sides": ["exiger", "to require
-		{"sides": ["intervenir", "to intervene
-		{"sides": ["un fils", "a son
-		{"sides": ["d'accord", "alright
-		{"sides": ["fournir", "to supply
-		{"sides": ["une différence", "a difference
-		{"sides": ["protéger", "to protect
-		{"sides": ["abandonner", "to give up
-		{"sides": ["discuter", "to discuss
-		{"sides": ["battre", "to beat, hit
-		{"sides": ["pire", "worse, worst
-		{"sides": ["adresser", "to address, send
-		{"sides": ["préciser", "to specify
-		{"sides": ["une intervention", "an intervention
-		{"sides": ["un avis", "an opinion, mind
-		{"sides": ["demeurer", "to remain, live
-		{"sides": ["un chiffre", "a figure, number
-		{"sides": ["consacrer", "to devote, consecrate
-		{"sides": ["attirer", "to attract
-		{"sides": ["divers", "diverse, various
-		{"sides": ["appliquer", "to apply
-		{"sides": ["frapper", "to hit
-		{"sides": ["une peur", "a fear [p]
-		{"sides": ["un parlement", "a parliament
-		{"sides": ["remplir", "to fill, fulfill
-		{"sides": ["forcer", "to force
-		{"sides": ["une lutte", "a struggle
-		{"sides": ["naturel", "natural
-		{"sides": ["un air", "an appearance
-		{"sides": ["un(e) auteur", "a author
-		{"sides": ["fermer", "to close, shut
-		{"sides": ["heureux", "happy, fortunate
-		{"sides": ["une crise", "a crisis
-		{"sides": ["un numéro", "a number
-		{"sides": ["résoudre", "to solve, resolve
-		{"sides": ["publier", "to publish
-		{"sides": ["une opération", "a operation
-		{"sides": ["toutefois", "however
-		{"sides": ["pousser", "to push
-		{"sides": ["quelqu'un", "somebody, someone
-		{"sides": ["un discours", "a speech
-		{"sides": ["une banque", "a bank
-		{"sides": ["un instant", "a instant, moment
-		{"sides": ["reposer", "to rest
-		{"sides": ["une opinion", "an opinion
-		{"sides": ["une classe", "a class
-		{"sides": ["particulièrement", "a particularly
-		{"sides": ["commun", "common
-		{"sides": ["une compagnie", "a company
-		{"sides": ["une intention", "an intention
-		{"sides": ["une autorité", "an authority
-		{"sides": ["anglais", "English
-		{"sides": ["un échange", "an exchange
+		{"sides": ["constater", "to note"]},
+		{"sides": ["prononcer", "to pronounce"]},
+		{"sides": ["organiser", "to organize"]},
+		{"sides": ["blanc", "white"]},
+		{"sides": ["une origine", "a source"]},
+		{"sides": ["vendre", "to sell"]},
+		{"sides": ["vite", "fast, quickly"]},
+		{"sides": ["un signe", "sign"]},
+		{"sides": ["dangereux", "dangerous"]},
+		{"sides": ["déplacer", "to move, displace"]},
+		{"sides": ["une importance", "importance"]},
+		{"sides": ["suffire", "to suffice"]},
+		{"sides": ["un espoir", "hope"]},
+		{"sides": ["davantage", "more"]},
+		{"sides": ["une langue", "a language"]},
+		{"sides": ["une énergie", "an energy"]},
+		{"sides": ["un réseau", "a network"]},
+		{"sides": ["mourir", "to die"]},
+		{"sides": ["faible", "weak"]},
+		{"sides": ["employer", "to use"]},
+		{"sides": ["saisir", "to grab"]},
+		{"sides": ["spécial", "special"]},
+		{"sides": ["accompagner", "to accompany"]},
+		{"sides": ["actuellement", "at present"]},
+		{"sides": ["une union", "a union"]},
+		{"sides": ["supposer", "to suppose"]},
+		{"sides": ["une possibilité", "a possibility"]},
+		{"sides": ["ceci", "this"]},
+		{"sides": ["exiger", "to require"]},
+		{"sides": ["intervenir", "to intervene"]},
+		{"sides": ["un fils", "a son"]},
+		{"sides": ["d'accord", "alright"]},
+		{"sides": ["fournir", "to supply"]},
+		{"sides": ["une différence", "a difference"]},
+		{"sides": ["protéger", "to protect"]},
+		{"sides": ["abandonner", "to give up"]},
+		{"sides": ["discuter", "to discuss"]},
+		{"sides": ["battre", "to beat, hit"]},
+		{"sides": ["pire", "worse, worst"]},
+		{"sides": ["adresser", "to address, send"]},
+		{"sides": ["préciser", "to specify"]},
+		{"sides": ["une intervention", "an intervention"]},
+		{"sides": ["un avis", "an opinion, mind"]},
+		{"sides": ["demeurer", "to remain, live"]},
+		{"sides": ["un chiffre", "a figure, number"]},
+		{"sides": ["consacrer", "to devote, consecrate"]},
+		{"sides": ["attirer", "to attract"]},
+		{"sides": ["divers", "diverse, various"]},
+		{"sides": ["appliquer", "to apply"]},
+		{"sides": ["frapper", "to hit"]},
+		{"sides": ["une peur", "a fear [p]"]},
+		{"sides": ["un parlement", "a parliament"]},
+		{"sides": ["remplir", "to fill, fulfill"]},
+		{"sides": ["forcer", "to force"]},
+		{"sides": ["une lutte", "a struggle"]},
+		{"sides": ["naturel", "natural"]},
+		{"sides": ["un air", "an appearance"]},
+		{"sides": ["un(e) auteur", "a author"]},
+		{"sides": ["fermer", "to close, shut"]},
+		{"sides": ["heureux", "happy, fortunate"]},
+		{"sides": ["une crise", "a crisis"]},
+		{"sides": ["un numéro", "a number"]},
+		{"sides": ["résoudre", "to solve, resolve"]},
+		{"sides": ["publier", "to publish"]},
+		{"sides": ["une opération", "a operation"]},
+		{"sides": ["toutefois", "however"]},
+		{"sides": ["pousser", "to push"]},
+		{"sides": ["quelqu'un", "somebody, someone"]},
+		{"sides": ["un discours", "a speech"]},
+		{"sides": ["une banque", "a bank"]},
+		{"sides": ["un instant", "a instant, moment"]},
+		{"sides": ["reposer", "to rest"]},
+		{"sides": ["une opinion", "an opinion"]},
+		{"sides": ["une classe", "a class"]},
+		{"sides": ["particulièrement", "a particularly"]},
+		{"sides": ["commun", "common"]},
+		{"sides": ["une compagnie", "a company"]},
+		{"sides": ["une intention", "an intention"]},
+		{"sides": ["une autorité", "an authority"]},
+		{"sides": ["anglais", "English"]},
+		{"sides": ["un échange", "an exchange"]},
 		{"sides": ["un feu", "a fire
 		{"sides": ["satisfaire", "to satisfy
 		{"sides": ["observer", "to observe
