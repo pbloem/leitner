@@ -849,264 +849,139 @@
 		une enquête	an investigation
 		un terrain	a terrain
 		mars	March
-		tellement
-		so much [not "tant" / "autant"]
-		un usage
-		use, usage [not "utilisation"]
-		demain
-		tomorrow
-		hier
-		yesterday
-		confier
-		to entrust
-		remarquer
-		to remark; to notice, point out
-		un égard
-		consideration, respect, regard [not "consideration"]
-		supérieur
-		superior
-		un espace
-		space [not "écart"]
-		condamner
-		to condemn
-		capital
-		major, chief, principal; (capital, assets)
-		un lien
-		link, bond
-		une voiture
-		car [not "auto"]
-		une discussion
-		discussion
-		huit
-		eight
-		justifier
-		to justify
-		un agent
-		agent
-		un sentiment
-		feeling
-		une tâche
-		task [not "travail" / "oeuvre" / "ouvrage"]
-		directement
-		directly
-		limiter
-		to limit [not "borner"]
-		raconter
-		to tell, recount
-		décembre
-		December
-		développer
-		to develop
-		honorable
-		honorable
-		un contact
-		contact
-		conclure
-		to conclude
-		euh
-		er, um, uh
-		ouvert
-		open
+		tellement	so much [t]
+		un usage	a use
+		demain	tomorrow
+		hier	yesterday
+		confier	to entrust
+		remarquer	to remark
+		un égard	an aspect, regard
+		supérieur	superior
+		un espace	a space 
+		condamner	to condemn
+		capital	major
+		un lien	a bond
+		une voiture	a car
+		une discussion	a discussion
+		huit	eight
+		justifier	to justify
+		un agent	an agent
+		un sentiment	a feeling
+		une tâche	a task
+		directement	directly
+		limiter		to limit
+		raconter	to tell, recount
+		décembre	December
+		développer	to develop
+		honorable	honorable
+		un contact	a contact
+		conclure	to conclude
+		euh	er
+		ouvert	open
 		un investissement	investment
 		insister	to insist
 		un fruit	fruit
 		un avantage	advantage
-		historique
-		historical
-		probablement
-		probably
-		un voyage
-		trip, journey, voyage [not "trajet" / "parcours"]
-		sept
-		seven
-		une marche
-		walk, step, march
-		un garde
-		guard
-		commercial
-		commercial
-		critique
-		(criticism, critic), critical
-		un ministère
-		ministry
-		baisser
-		to lower, turn down, bend down
-		une vérité
-		truth
-		une culture
-		culture
-		cacher
-		to hide
-		prêter
-		to lend
-		définir
-		to define
-		une somme
-		amount, sum; (nap) [not "dose"]
-		exposer
-		to display, exhibit, expose [not "manifester" / "afficher" / "étaler"]
-		un progrès
-		progress
-		un/une secrétaire
-		secretary
-		une mer
-		sea
-		rapporter
-		to bring back, report [not "ramener"]
-		appuyer
-		to lean, support [not "pencher"]
-		un client
-		client
-		rentrer
-		to go in, come in, come back, return
-		une mémoire
-		memory
-		un caractère
-		nature, character [not "nature"]
-		détruire
-		to destroy
-		un civil
-		civil; civilian
-		une liste
-		list
-		juin
-		June
-		un danger
-		danger
-		complexe
-		complex
-		un commerce
-		commerce, trade
-		un transport
-		transportation
-		une nécessité
-		necessity, need
-		une institution
-		institution
-		une défense
-		defense
-		janvier
-		January
-		échapper
-		to escape
-		une négociation
-		negotiation [not "pourparlers"]
-		une attente
-		wait
-		mai
-		May
-		septembre
-		September
-		un environnement
-		environment
-		séparer
-		to separate [not "écarter"]
-		une réaction
-		reaction
-		franc
-		frank, straightforward; (franc)
-		positif
-		positive
-		scientifique
-		scientific
-		un papier
-		paper
-		une expression
-		expression
-		une disposition
-		arrangement, disposition [not "arrangement"]
-		indépendant
-		independent
-		une carte
-		card
-		une association
-		association
-		régler
-		to pay, adjust, settle, regulate
-		un modèle
-		model
-		une protection
-		protection
-		étudier
-		to study
-		déterminer
-		to determine, find out, specify
-		un budget
-		budget
-		fonder
-		to found, set
-		une structure
-		structure
-		commander
-		to order, command [not "ordonner"]
-		exercer
-		to exercise, exert, practise, carry out
-		un amour
-		love
-		manifester
-		to show, demonstrate, display [not "exposer" / "afficher" / "étaler"]
-		menacer
-		to threaten
-		conseiller
-		(adviser), to advise [not "aviser"]
-		complet
-		full, complete; (suit)
-		une opposition
-		opposition
-		une maladie
-		illness, disease
-		outre
-		besides
-		tandis
-		while
-		une construction
-		construction, building
-		une bande
-		band, strip
-		un signal
-		signal
-		une réunion
-		meeting [not "rencontre" / "assemblée" / "concertation"]
-		une réforme
-		reform
-		rejeter
-		to reject
-		novembre
-		November
-		un fonds
-		funds
-		coûter
-		to cost
-		un voisin
-		neighbor
-		une presse
-		press
-		rouge
-		red
-		une majorité
-		majority
-		autoriser
-		to authorize
-		effectuer
-		to carry out, undergo [not "subir"]
-		une reprise
-		resumption, renewal; time
-		central
-		central
-		une procédure
-		procedure [not "méthode"]
-		une faveur
-		favor
-		une éducation
-		education
-		officiel
-		official
-		un document
-		document
-		un bord	edge, side, board
+		historique	historical
+		probablement	probably
+		un voyage	a voyage
+		sept	seven
+		une marche	walk, step, march
+		un garde	guard
+		commercial	commercial
+		critique	critical
+		un ministère	a ministry
+		baisser		to lower
+		une vérité	a truth
+		une culture	a culture
+		cacher	to hide
+		prêter	to lend
+		définir	to define
+		une somme	a amount
+		exposer	to display
+		un progrès	progress
+		un(e) secrétaire	secretary
+		une mer	a sea
+		rapporter	to bring back, report
+		appuyer		to lean, support
+		un client	a client
+		rentrer	to go in, come back
+		une mémoire	a memory
+		un caractère	character
+		détruire	to destroy
+		un civil	a civilian
+		une liste	a list
+		juin	June
+		un danger	danger
+		complexe	complex
+		un commerce	commerce
+		un transport	transportation
+		une nécessité	a necessity
+		une institution	an institution
+		une défense	a defense
+		janvier	January
+		échapper	to escape
+		une négociation	negotiation
+		une attente	a wait
+		mai	May
+		septembre	September
+		un environnement	an environment
+		séparer		to separate [not "écarter"]
+		une réaction	a reaction
+		franc	straightforward
+		positif	positive
+		scientifique	scientific
+		un papier	a paper
+		une expression	an expression
+		une disposition		an arrangement, disposition
+		indépendant	independent
+		une carte	a card
+		une association		an association
+		régler	to pay
+		un modèle	a model
+		une protection	a protection
+		étudier	to study
+		déterminer	to determine
+		un budget	a budget
+		fonder	to found, set
+		une structure	a structure
+		commander	to order, command
+		exercer	to exercise, carry out
+		un amour	love
+		manifester	to demonstrate, display
+		menacer		to threaten
+		conseiller	to advise
+		complet		complete
+		une opposition	an opposition
+		une maladie	an illness, disease
+		outre	besides
+		tandis	while
+		une construction	a construction, building
+		une bande	a band, strip
+		un signal	a signal
+		une réunion	a meeting
+		une réforme	reform
+		rejeter		to reject
+		novembre	November
+		un fonds	funds
+		coûter		to cost
+		un voisin	neighbor
+		une presse	press
+		rouge	red
+		une majorité	majority
+		autoriser	to authorize
+		effectuer	to carry out, undergo [not "subir"]
+		une reprise	resumption, renewal; time
+		central		central
+		une procédure	procedure
+		une faveur	a favor
+		une éducation	an education
+		officiel	official
+		un document	a document
+		un bord		an edge, side, board
 		retourner	to return, go back
 		professionnel	professional
-		un aspect	aspect
+		un aspect	an aspect
 	],
 	"comments": ["https://app.memrise.com/course/131111/5000-most-common-french-words/"]
 }
