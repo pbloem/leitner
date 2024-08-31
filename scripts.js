@@ -69,7 +69,7 @@ var lt = { // * top-level namespace
 	// Add new decks here
 	deck_files : [
 		['../decks/norwegian01.json', 0],
-		['../decks/nor-phrases.json', 1]
+		['../decks/nor-phrases.json', 1],
 		['../decks/capitals.json', 2],
 		['../decks/us-states.json', 3],		
 		['../decks/countries.json', 4],
