@@ -69,19 +69,20 @@ var lt = { // * top-level namespace
 	// Add new decks here
 	deck_files : [
 		['../decks/norwegian01.json', 0],
-		['../decks/capitals.json', 1],
-		['../decks/us-states.json', 2],		
-		['../decks/countries.json', 3],
-		['../decks/flags.json', 4],		
-		['../decks/hanzi01.json', 5],	
-		['../decks/esperanto01.json', 6],
-		['../decks/invictus.json', 7],
-		['../decks/hanzi02.json', 8],
-		['../decks/morse.json', 9],
-		['../decks/german01.json', 10],
-		['../decks/spanish01.json', 11],
-		['../decks/hanzi03.json', 12],
-		['../decks/frisbee.json', 13],
+		['../decks/nor-phrases.json', 1]
+		['../decks/capitals.json', 2],
+		['../decks/us-states.json', 3],		
+		['../decks/countries.json', 4],
+		['../decks/flags.json', 5],		
+		['../decks/hanzi01.json', 6],	
+		['../decks/esperanto01.json', 7],
+		['../decks/invictus.json', 8],
+		['../decks/hanzi02.json', 9],
+		['../decks/morse.json', 10],
+		['../decks/german01.json', 11],
+		['../decks/spanish01.json', 12],
+		['../decks/hanzi03.json', 13],
+		['../decks/frisbee.json', 14],
 	],
 
 	/**
