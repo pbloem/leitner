@@ -10,15 +10,15 @@ String.prototype.hash = function() {
 
 /**
  * TODO:
+ *  - Move from dropbox to RS
  *  - Add a preloading spinner (the load tag has a callback function).
  *  ! Non-uniform side selection: look at the sequence of corrects that determines the score
  *    and pick the front/back inversely proportional to how often it occurs.
- *  - Load personal decks from linked dropbox account
+ *  - Load personal decks from linked account
  *  - Show multiple sides for the question multi-side cards?
  *  - Mark specific cards as difficult manually
- *   - Increases decay rate?
+ *  - Increases decay rate?
  *  - Pause decks for a week manually
- *
  */
 
 var lt = { // * top-level namespace
@@ -68,23 +68,27 @@ var lt = { // * top-level namespace
 
 	// Add new decks here
 	deck_files : [
-		['../decks/norwegian01.json', 0],
-		// ['../decks/nor-phrases.json', 1],
-		['../decks/norwegian02.json', 2],
-		['../decks/capitals.json', 3],
-		['../decks/us-states.json', 4],
-		['../decks/pops.json', 5],		
-		['../decks/countries.json', 6],
-		['../decks/flags.json', 7],		
-		['../decks/hanzi01.json', 8],	
-		['../decks/esperanto01.json', 9],
-		['../decks/invictus.json', 10],
-		['../decks/hanzi02.json', 11],
-		['../decks/morse.json', 12],
-		['../decks/german01.json', 13],
-		['../decks/spanish01.json', 14],
-		['../decks/hanzi03.json', 15],
-		['../decks/frisbee.json', 16],
+        ['../decks/icelandic01.json', 0],
+        ['../decks/icelandic02.json', 1],
+        ['../decks/icelandic03.json', 2],
+        ['../decks/icelandic_numbers.json', 3],
+        ['../decks/icelandic_times.json', 4],
+		['../decks/capitals.json', 10],
+		['../decks/us-states.json', 11],
+		['../decks/countries.json', 12],
+		['../decks/flags.json', 13],
+		['../decks/hanzi01.json', 14],
+		['../decks/esperanto01.json', 15],
+		['../decks/invictus.json', 16],
+		['../decks/hanzi02.json', 17],
+		['../decks/pops.json', 18],
+		['../decks/morse.json', 19],
+		['../decks/german01.json', 20],
+		['../decks/spanish01.json', 21],
+		['../decks/hanzi03.json', 22],
+		['../decks/frisbee.json', 23],
+		['../decks/norwegian02.json', 30],
+		['../decks/norwegian01.json', 31],
 	],
 
 	/**
@@ -298,24 +302,24 @@ var lt = { // * top-level namespace
 	 */
 	computeScores : async function(deck)
 	{
-		// * How much each sequential correct answer decays the probability of a an incorrect one.
+		// * How much each sequential correct answer decays the probability of an incorrect one.
 		let base = 0.15;
 		// -- The closer to zero, the more quickly the engine moves on to new cards.
 
 		// * How slowly scores decay over time when not refreshed (higher is slower 1-10 are reasonable)
-		let decayMult = 5.0
+		let decayMult = 5.0;
 
 		// * How many milliseconds in a day.
 		let msPerDay = 8.64e+7;
 
 		let min = Number.POSITIVE_INFINITY
-		deck.numOver99 = 0
+		deck.numOver99 = 0;
 
 		// * The higher this value, the more repetitions required before moving on
 		//   (that is, the score increases less with increasing corrects)
 		let rb = deck.repetitionBoost;
 
-    console.log('loading deck', deck)
+        console.log('loading deck', deck)
 
 		for (let card of deck.cards)
 		{
@@ -335,9 +339,9 @@ var lt = { // * top-level namespace
 
  					let ns = card.sides.length
  					let sidesCorrection = ((ns * ns - ns) / 2)
- 					// --Cards with more sides take longer to learn. We divide the successes
- 					//   by the number of pairs of sides to master. For a three-side card
- 					//   3 successed counts as much as one would in a 2-side card.
+ 					// -- Cards with more sides take longer to learn. We divide the successes
+ 					//    by the number of pairs of sides to master. For a three-side card
+ 					//    3 successes counts as much as one would in a 2-side card.
 
  					k /= sidesCorrection
  					k /= rb
@@ -369,7 +373,6 @@ var lt = { // * top-level namespace
  						deck.numOver99 += 1;
  				});
  		}
-
 	},
 
 	/**
@@ -617,7 +620,7 @@ var lt = { // * top-level namespace
 			lt.session.recent.push(res.id)
 			while(lt.session.recent.length > lt.session.recentMax)
 				lt.session.recent.shift()
-			//--  dequeue until buffer is at max size
+			// --  dequeue until buffer is at max size
 
 			console.log(res.sides[0])
 			console.log('consecutive corrects', res.k);
@@ -631,7 +634,6 @@ var lt = { // * top-level namespace
 		},
 
 		mcProb : 0.5,
-
 
 		/**
 		 * Pick a card and generate a question.
@@ -704,7 +706,7 @@ var lt = { // * top-level namespace
 				}
 			}
 			// -- The idea here is that if a card with similars drops to a low score, you
-			//    can still pick it out form its similars, since that's always the card
+			//    can still pick it out from its similars, since that's always the card
 			//    you've been seeing recently. By switching a sampled card to
 			//    its similars we prevent this tactic, without needing to augment the score
 			//    for the similars.
@@ -720,7 +722,6 @@ var lt = { // * top-level namespace
 			else
 				lt.session.generateText(card);
 
-
 			// -- MC questions are drawn with probability inversely proportional to the
 			//    score, unless that probability drops below a given threshold
 
@@ -730,7 +731,6 @@ var lt = { // * top-level namespace
 		/**
 		 * Generate a text field question. One of the sides of the card is shown, and the
 		 * user is asked to type in the content of one of the other sides.
-		 *
 		 */
 		generateText : function(card)
 		{
@@ -795,6 +795,11 @@ var lt = { // * top-level namespace
 		 */
 		distAllowed: 0.3,
 
+        /**
+         * Nonstandard characters and some more easily typed equivalents
+         */
+        typingChars : { 'ð' : 'd', 'þ' : 't'},
+
 		/**
 		 * Check if a given answer is close enough to the correct answer to count as correct
 		 *
@@ -813,6 +818,12 @@ var lt = { // * top-level namespace
 			// - Normalize diacritics
 			correct = correct.normalize("NFD").replace(/\p{Diacritic}/gu, "");
 			answered = answered.normalize("NFD").replace(/\p{Diacritic}/gu, "");
+
+            for (const [oc, nc] of Object.entries(lt.session.typingChars))
+            {
+                correct = correct.replace(oc, nc);
+                answered = answered.replace(oc, nc);
+            }
 
 			let distance = lt.levDistance(correct, answered);
 

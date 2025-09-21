@@ -1,0 +1,52 @@
+{
+	"name": "Icelandic Time & Dates",
+	"typableSides": [0, 1],
+	"sides": ["Icelandic", "English"],
+	"cards": [
+		{"sides": ["dagur", "day"]},
+		{"sides": ["vika", "week"]},
+		{"sides": ["mánuður", "month"]},
+		{"sides": ["ár", "year"]},
+
+		{"sides": ["í dag", "today"]},
+		{"sides": ["á morgun", "tomorrow"]},
+		{"sides": ["í gær", "yesterday"]},
+		{"sides": ["núna", "now"]},
+		{"sides": ["seinna", "later"]},
+		{"sides": ["strax", "immediately"]},
+
+		{"sides": ["morgunn", "morning"]},
+		{"sides": ["hádegi", "noon"]},
+		{"sides": ["síðdegi", "afternoon"]},
+		{"sides": ["kvöld", "evening"]},
+		{"sides": ["nótt", "night"]},
+		{"sides": ["miðnætti", "midnight"]},
+
+		{"sides": ["hvað er klukkan?", "what time is it?"]},
+		{"sides": ["klukkan er...", "it is... o’clock"]},
+		{"sides": ["korter yfir", "quarter past"]},
+		{"sides": ["korter í", "quarter to"]},
+		{"sides": ["hálf", "half past"]},
+
+		{"sides": ["mánudagur", "Monday"]},
+		{"sides": ["þriðjudagur", "Tuesday"]},
+		{"sides": ["miðvikudagur", "Wednesday"]},
+		{"sides": ["fimmtudagur", "Thursday"]},
+		{"sides": ["föstudagur", "Friday"]},
+		{"sides": ["laugardagur", "Saturday"]},
+		{"sides": ["sunnudagur", "Sunday"]},
+
+		{"sides": ["janúar", "January"]},
+		{"sides": ["febrúar", "February"]},
+		{"sides": ["mars", "March"]},
+		{"sides": ["apríl", "April"]},
+		{"sides": ["maí", "May"]},
+		{"sides": ["júní", "June"]},
+		{"sides": ["júlí", "July"]},
+		{"sides": ["ágúst", "August"]},
+		{"sides": ["september", "September"]},
+		{"sides": ["október", "October"]},
+		{"sides": ["nóvember", "November"]},
+		{"sides": ["desember", "December"]}
+	]
+}
