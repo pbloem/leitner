@@ -137,28 +137,10 @@ nav .hidden
 	display: none;
 }
 
-nav #dropbox {
+nav #rs {
 	top: 1.6em;
 	right: 0;
 }
-
-nav #dropbox a {
-	font-weight: bold;
-	border: none;
-}
-
-nav #dropbox a:hover {
-	border: none;
-}
-
-nav #dropbox span {
-	padding-right: 1em;
-}
-
-nav #dropbox ul, nav #dropbox li, nav #dropbox span {
-	display: inline;
-}
-
 
 #body nav a,
 #body nav a:hover  {

@@ -11,6 +11,7 @@ String.prototype.hash = function() {
 /**
  * TODO:
  *  - Move from dropbox to RS
+ *  - Get rid of jQuery
  *  - Add a preloading spinner (the load tag has a callback function).
  *  ! Non-uniform side selection: look at the sequence of corrects that determines the score
  *    and pick the front/back inversely proportional to how often it occurs.
@@ -27,7 +28,7 @@ var lt = { // * top-level namespace
 	 * Initialize the Leitner environment by initializing the database, and loading all
 	 * card decks.
 	 *
-	 * Returns a defer promise (?) that concluded when the environment is properly loaded.
+	 * Returns a defer promise (?) that concludes when the environment is properly loaded.
 	 */
 	init : async function()
 	{
@@ -37,7 +38,7 @@ var lt = { // * top-level namespace
 
 		lt.db.version(1).stores({
               events: 'id++, timestamp, deck, card, alt1, alt2, correct, [deck+card], [deck+card+correct]'
-        });
+        });  
 
 		// - load all decks
 		let rqs = [];
@@ -64,36 +65,44 @@ var lt = { // * top-level namespace
 			}
 		);
 
+		// Add RS object
+		lt.rs = new RemoteStorage({logging: true, cache: false});
+    	lt.rs.access.claim('leitner', 'rw');
+		// -- This does not immediately connect the RS object to the backend. That is handled by the widget.
+
+		// * Create a connection widget, so the user can connect their account
+    	const widget = new Widget(lt.rs);
+    	widget.attach('rs')
+
 	},
 
 	// Add new decks here
 	deck_files : [
-        ['../decks/icelandic01.json', 0],
-        ['../decks/icelandic02.json', 1],
-        ['../decks/icelandic03.json', 2],
-        ['../decks/icelandic_numbers.json', 3],
-        ['../decks/icelandic_times.json', 4],
-		['../decks/capitals.json', 10],
-		['../decks/us-states.json', 11],
-		['../decks/countries.json', 12],
-		['../decks/flags.json', 13],
-		['../decks/hanzi01.json', 14],
-		['../decks/esperanto01.json', 15],
-		['../decks/invictus.json', 16],
-		['../decks/hanzi02.json', 17],
-		['../decks/pops.json', 18],
-		['../decks/morse.json', 19],
-		['../decks/german01.json', 20],
-		['../decks/spanish01.json', 21],
-		['../decks/hanzi03.json', 22],
+		['../decks/capitals.json', 0],
+		['../decks/us-states.json', 1],
+		['../decks/countries.json', 2],
+		['../decks/flags.json', 3],
+		['../decks/hanzi01.json', 4],
+		['../decks/esperanto01.json', 5],
+		['../decks/invictus.json', 6],
+		['../decks/hanzi02.json', 7],
+		['../decks/pops.json', 8],
+		['../decks/morse.json', 9],
+		['../decks/german01.json', 10],
+		['../decks/spanish01.json', 11],
+		['../decks/hanzi03.json', 12],
+		['../decks/norwegian02.json', 13],
+		['../decks/norwegian01.json', 14],
+		['../decks/icelandic01.json', 15],
+        ['../decks/icelandic02.json', 16],
+        ['../decks/icelandic03.json', 17],
+        ['../decks/icelandic_numbers.json', 18],
+        ['../decks/icelandic_times.json', 19],
 		['../decks/frisbee.json', 23],
-		['../decks/norwegian02.json', 30],
-		['../decks/norwegian01.json', 31],
 	],
 
 	/**
 	 * Default number of cards per session (equals about 7 minutes for the average deck)
-	 *
 	 */
 	defaultLimit : 100,
 
@@ -1206,16 +1215,106 @@ var lt = { // * top-level namespace
 	 /**
 	  * Dropbox
 	  */
-	 dbx : {
-	 	clientID : 'hu8kdrkpke73lhq',
-	 	redirectURI : window.location.origin + '/?dbx=auth'
-	 },
+	//  dbx : {
+	//  	clientID : 'hu8kdrkpke73lhq',
+	//  	redirectURI : window.location.origin + '/?dbx=auth'
+	//  },
+
+
+	/**
+	 * Synchronize the local Dexie store with the RS backend.
+	 * 
+	 * This is currently initiated manually, but once it works robustly, it can be done 
+	 * automatically every so often. 
+	 * 
+	 * For now, we just read all events from RS and dump the whole DB. If we want to do this regularly,
+	 * it needs to be a bit more clever.
+	 * 
+	 * (Possibly witha full sync as a backup.)
+	 */
+	rsSync: function() {
+		lt.rsImport()
+	},
+
+	rsImport: function() {
+
+		const client = lt.rs.scope('/leitner/');
+
+		$('article').append(`Client created. <br/>`);
+		$('article').append(`Loading new events from RS <br/>`);
+
+		let ct = lt.db.events.count().then(count =>
+		{
+			$('article').append(`Before, number of events in database: ${count}. <br/>`);
+		}).then( () => {
+
+			client.getFile('events.db.json', false).then(file => {
+				if (!file) {
+					$('article').append('No backup file found.<br/>');
+					return;
+				}
+
+  				const blob = new Blob([file.data], { type: file.mimeType || 'application/json' });
+
+				console.log('blob size: ', blob.size);
+
+				return blob.text().then(txt => {
+			    	$('article').append('Download finished. Parsing.');
+
+					let json = JSON.parse(txt);
+					let rows = json.data.data[0].rows;
+
+					lt.db.events.bulkAdd(rows).then(lastKey =>
+					{
+						console.log('Added.');
+
+						// TODO: The bulkAdd triggers a failure for all rows that already exists. It's 
+						//       faster to filter these out first with a bulkGet.
+					}).catch(Dexie.BulkError, function (e) {
+						// Explicitly catching the bulkAdd() operation makes those successful
+						// additions commit despite that there were errors.
+
+						console.error('Failures', e.failures);
+					});
+				});
+			}).then(() => {
+
+				let ct = lt.db.events.count().then(count =>
+				{
+					$('article').append(`<br/>After, number of events in database: ${count}.`);
+				});
+			}); // getFile 
+		});
+	},
+
+	rsExport: function() {
+
+		const client = lt.rs.scope('/leitner/');
+
+		// Export events to RS
+		lt.db.export({ prettyJson: true , function (arg) {console.log(arg); } })
+			.then(blob =>
+			{
+				client.storeFile(
+					'application/json',   
+					'events.db.json',  
+					blob
+				);
+				
+			}).then((response) => {
+					$('article').append('Database successfully backed up to RS');
+					// setTimeout(function(){window.location.replace('/');} , 750);
+			}).catch((error) => {
+					$('article').append('Database export could not be uploaded.');
+					console.log(error);
+		});
+
+	},
 }
 
-$(function()
+addEventListener('DOMContentLoaded', (event) =>
 {
-
-	// * Load page
+	// ** Load page **
 	lt.init().then(function()
 	{
 
@@ -1290,192 +1389,19 @@ $(function()
 				$('article').append(`Number of events ${count}.`);
 			});
 
+		} else if (params.has('rs')) { // Sync with the RS backend
 
-		} else if (params.has('dbx'))
-		{
-			// ** Dropbox connection
+			if (params.get('rs') == 'import')
+				lt.rsImport();
 
+			if (params.get('rs') == 'export')
+				lt.rsExport();
 
-			lt.dbx.auth = new Dropbox.DropboxAuth(
-			{
-				clientId: lt.dbx.clientID
-			});
-
-			if (params.get('dbx') == 'connect') // start dropbox connection
-			{
-				// no longer used
-
-			} else if (params.get('dbx') == 'auth') // finish dropbox connection
-			{
-			    lt.dbx.auth.setCodeVerifier(window.sessionStorage.getItem('codeVerifier'));
-
-				lt.dbx.auth.getAccessTokenFromCode(lt.dbx.redirectURI, params.get('code'))
-        		.then((response) =>
-                {
-//                     lt.dbx.auth.setAccessToken(response.result.access_token);
-
-//                     lt.dbx.con = new Dropbox.Dropbox({
-//                         auth: lt.dbx.auth
-//                     })
-
-                    // -- store the acces token
-                    window.localStorage.setItem('lt.dbx.accessToken', response.result.access_token);
-
-//                     $('article').append('Succesfully acquired Dropbox access token.');
-                	window.location.replace('/')
-
-	            }).catch((error) =>
-                {
-                    console.error('Failed to connect to dropbox', error);
-					lt.dbx.con == null;
-               });
-
-        	} else if (params.get('dbx') == 'backup') // use dropbox connection
-        	{
-
-                if (! window.localStorage.getItem('lt.dbx.accessToken'))
-                {
-                	console.log(window.localStorage.getItem('lt.dbx.accessToken'));
-
-                	let msg = 'Database backup failed. No dropbox access token found (make sure you\'re connected to dropbox).'
-                	console.error(msg);
-                	$('article').append(msg);
-
-                } else {
-
-                    lt.dbx.auth.setAccessToken(window.localStorage.getItem('lt.dbx.accessToken'));
-
-                	lt.dbx.con = new Dropbox.Dropbox({
-                		auth: lt.dbx.auth
-                    });
-
-					lt.db.export({ prettyJson: true , function (arg) {console.log(arg); } })
-					.then(blob =>
-					{
-						lt.dbx.con.filesUpload({
-							path: '/db_backup.json',
-							contents: blob,
-							 mode:'overwrite'
-						})
-						.then((response) => {
-							$('article').append('Database successfully backed up to Dropbox');
-							setTimeout(function(){window.location.replace('/');} , 750);
-						})
-						.catch((error) => {
-							$('article').append('Database export could not be uploaded.');
-							console.log(error);
-						});
-
-					}).catch((error) =>
-					{
-						console.log('Database could not be exported.')
-						console.error(error);
-
-					});
-				}
-
-			} else if (params.get('dbx') == 'load') // load information from backup
-        	{
-        		// - TO DO: move this boilerplate to a function that sets up the connection
-        	    if (! window.localStorage.getItem('lt.dbx.accessToken'))
-                {
-                	let msg = 'No dropbox access token found (make sure you\'re connected to dropbox).'
-                	console.error(msg);
-                	$('article').append(msg);
-
-                } else {
-
-					let ct = lt.db.events.count().then(count =>
-					{
-						$('article').append(`Number of events in database: ${count}. <br/>`);
-					});
-
-                    lt.dbx.auth.setAccessToken(window.localStorage.getItem('lt.dbx.accessToken'));
-
-                	lt.dbx.con = new Dropbox.Dropbox({
-                		auth: lt.dbx.auth
-                    });
-
-					$('article').append('Connected. Downloading backup.');
-
-                    lt.dbx.con.filesDownload({ path: '/db_backup.json' })
-                    .then(function(response)
-                    {
-						console.log(response.result.fileBlob.size)
-
-						response.result.fileBlob.text().then(txt =>
-						{
-
-							$('article').append('Download finished. Parsing.');
-
-	  						let json = JSON.parse(txt);
-
-	  						let numRows = json.data.data[0].rows.length
-
-							lt.db.events.bulkAdd(json.data.data[0].rows).then(lastKey =>
-								{
-									console.log('Added.');
-								}
-							).catch(Dexie.BulkError, function (e) {
-							    // Explicitely catching the bulkAdd() operation makes those successful
-							    // additions commit despite that there were errors.
-
-							    console.error('Failures', e.failures.length );
-							});
-
-	  						// for (const [i, row] of json.data.data[0].rows.entries())
-	  						// {
-	  						// 	if (i % 5000 == 0)
-	  						// 	{
-	  						// 		console.log(i, row)
-	  						// 		$('article').append(`${i} rows processed </br>`);
-	  						// 	}
-							//
-	  						// 	lt.db.events.add(row).then (result =>
-	  						// 	{
-	  						// 		// console.log(row);
-							// 		// console.log(result)
-							//
-	  						// 	}).catch('ConstraintError', er =>
-	  						// 	{
-	  						// 		console.error ("Constraint error: " + er.message);
-	  						// 		console.error(row);
-	  						// 	});
-  							// }
-
-							$('article').append(`Finished.</br>`);
-
-							let ct = lt.db.events.count().then(count =>
-							{
-								$('article').append(`<br/>Number of events in database: ${count}.`);
-							});
-
-						});
-
-					}).catch(function (error) {
-						console.error(error);
-					});
-
-                }
-
-
-        	} else if (params.get('dbx') == 'disconnect') // use dropbox connection
-        	{
-        		window.localStorage.removeItem('lt.dbx.accessToken');
-				window.location.replace('/');
-
-        	}else
-			{
-				let msg = 'Not a valid state in the dropbox flow: ' + params.get('dbx')
-				$('article').append(msg)
-				console.error(msg);
-			}
 
 		} else
 		{
 			$('nav #session-info').addClass('hidden')
 			$('nav #train').removeClass('hidden')
-
 
 			// - Print the list of decks
 			$("article").append('<p>No deck specified. Available decks:</p>')
@@ -1511,7 +1437,7 @@ $(function()
 			{
 
 				let numMult = _.random(1.0, 3.0); // The number of cards to practice
-				                                  //is the number under 99, times this.
+				                                  // is the number under 99, times this.
 
 				// If the deck has more than two sides (or the first card in a deck with
 				//          variable sides), we increase the required number of practices.
@@ -1560,51 +1486,22 @@ $(function()
 
 		}
 
-		// -- Render the dropbox controls
-		if (! (params.has('dbx') || params.has('deck')))
-			if (window.localStorage.getItem('lt.dbx.accessToken'))
+		$('nav #full-screen').on('click', function(e){
+			if (!document.fullscreenElement)
 			{
-				// - if connected to dropbox
-				$("nav").append(
-					lt.templates.dbxon.render({})
-				);
-			} else
-			{	// - if not connected
-				$('nav').append(
-					lt.templates.dbxoff.render()
-				);
-
-				$('#dbx-connect').on('click', function()
-				{
-					lt.dbx.auth = new Dropbox.DropboxAuth(
+					$('body')[0].requestFullscreen()
+					.catch(err =>
 					{
-						clientId: lt.dbx.clientID
+						console.log(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
 					});
-
-					lt.dbx.auth.getAuthenticationUrl(lt.dbx.redirectURI, undefined, 'code', 'offline', undefined, undefined, true)
-					.then(authUrl => {
-						window.sessionStorage.clear();
-						window.sessionStorage.setItem("codeVerifier", lt.dbx.auth.codeVerifier);
-						window.location.href = authUrl;
-					})
-					.catch((error) => console.error(error));
-				});
-			}
-	});
-
-	$('nav #full-screen').on('click', function(e){
-	  if (!document.fullscreenElement)
-	  {
-			$('body')[0].requestFullscreen()
-			.catch(err =>
+			} else
 			{
-				console.log(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
-			});
-	  } else
-	  {
-			document.exitFullscreen();
-	  }
-	});
+					document.exitFullscreen();
+			}
+		});
+
+	}); // init.then()
+
 
 
 
