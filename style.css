@@ -28,7 +28,7 @@ body {
 article {
 
 	margin: 0 auto;
-	padding: 1em 0 0 1em;
+	padding: 0em;
 
 	font-size: 18px;
 	line-height: 1.6em;
@@ -69,7 +69,7 @@ h2 {
 
 nav {
 	background: black;
-	padding: 1.6em 1em 1.6em 1em;
+	padding: 1.6em 64px 1.6em 1em;
 	margin: 0;
 
 	color: white;
@@ -107,7 +107,6 @@ nav ul li.home {
 nav button {
 	border: none;
 	background: transparent;
-	font-family: Georgia, serif;
 	color: white;
 	font-weight: bold;
 }
@@ -123,13 +122,21 @@ nav h1 {
 }
 
 
-nav #train a {
+nav a {
 	font-weight: bold;
 	border: none;
 }
 
-nav #train a:hover {
+#body nav a:hover, #body nav button:hover {
 	border: none;
+	/* filter: drop-shadow(0em 0.5em 0.6em #f8f7ae); */
+	color: #f8f7ae;
+}
+
+nav a, nav button {
+	font-size: 1em;
+	font-weight: bold;
+	font-family: Ubuntu, Helvetica, sans-serif;
 }
 
 nav .hidden
@@ -138,8 +145,13 @@ nav .hidden
 }
 
 nav #rs {
-	top: 1.6em;
-	right: 0;
+	display: flex;
+}
+
+nav #rs #remotestorage-widget {
+	position: absolute;
+	top: 0;
+	right: 4px;
 }
 
 #body nav a,
@@ -234,8 +246,6 @@ ul.stories li a {
 
 
 .progress {
-	width: 80%;
-	margin: 2em auto auto auto;
 	padding: 1px;
 
 	background: white;
@@ -254,12 +264,12 @@ ul.stories li a {
 	justify-content: space-between;
 	align-items: flex-start;
 
-	width: 75%;
+	width: 100%;
 	min-width: 340px;
 
 	aspect-ratio: 1.83/1;
 
-	margin: 2em auto auto auto;
+	margin: 0;
 	background: white;
 }
 
@@ -288,6 +298,9 @@ ul.stories li a {
 
 .frame .question {
 	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .frame .question h4 {
@@ -386,6 +399,12 @@ ul.stories li a {
 
 .frame .question {
 	overflow: scroll;
+}
+
+.frame .question.image {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .frame .question.image span {
@@ -575,16 +594,16 @@ ul.stories li a {
 }
 
 .frame.image-answers form {
+	position: relative;
 	width: 60%;
 	flex-direction: row;
 	justify-content: space-around;
 }
 
 .frame.image-answers form h4 {
-	position: absolute;
-	top: 0;
-	left: 0;
-
+	display: block;
+	width: 100%;
+	flex-shrink: 0;
 }
 
 .frame.image-answers button {
@@ -602,13 +621,16 @@ ul.decks {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
+
+	align-items: center;
+	justify-content: center;
 }
 
 ul.decks li {
-	position: relative;
-
 	width: 200px;
 	height: 200px;
+	
+	position: relative;
 
 	background: white;
 
@@ -618,14 +640,15 @@ ul.decks li {
 
 ul.decks li a.main {
 
-	display: block;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+
 	width: 100%;
 	height: 100%;
 
-	padding: 0;
-
-	text-align: center;
-	line-height: 150px;
+	line-height: 1.2em;
 
 	border: none;
 }

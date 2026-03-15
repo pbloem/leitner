@@ -8,18 +8,37 @@ String.prototype.hash = function() {
     return hash;
 };
 
+var misc_deck = {
+	"name": "Miscellaneous",
+	"typableSides": [0, 1],
+	"sides": ["Side A", "Aide B"],
+	"cards": [
+		{"sides": ["Stevie Wonder", "Stevland Hardaway Morris"]},
+		{"sides": ["Gauss' birthday", '30 April 1977']},
+		{"sides": ["Igor Ivanovich Sikorsky", '1889-1972']},	
+	]
+}
+
 /**
  * TODO:
- *  - Move from dropbox to RS
+ *  - Automate syn syncing once RS is connected
+ *  - remove atricle tag from non-article pages.
+ *  - Set up a welcome screen and some nice easy starter decks. 
  *  - Get rid of jQuery
- *  - Add a preloading spinner (the load tag has a callback function).
+ *  - Cache images. The preload doesn't guarantee it properly. 
  *  ! Non-uniform side selection: look at the sequence of corrects that determines the score
  *    and pick the front/back inversely proportional to how often it occurs.
- *  - Load personal decks from linked account
  *  - Show multiple sides for the question multi-side cards?
  *  - Mark specific cards as difficult manually
- *  - Increases decay rate?
+ *   -- Increases decay rate?
  *  - Pause decks for a week manually
+ *  - Group decks
+ *    - This is going to be a bit tricky, but worthwhile for languages.
+ *  - Settings
+ *    - Store these as an RS _object_.
+ *    - Per deck settings.
+ *  - Re-arrange decks by dragging (sortableJS).
+
  */
 
 var lt = { // * top-level namespace
@@ -40,6 +59,46 @@ var lt = { // * top-level namespace
               events: 'id++, timestamp, deck, card, alt1, alt2, correct, [deck+card], [deck+card+correct]'
         });  
 
+		// Add RS object
+		lt.rs = new RemoteStorage({logging: true, cache: false});
+    	lt.rs.access.claim('leitner', 'rw');
+		// -- This does not immediately connect the RS object to the backend. That is handled by the widget.
+
+		// * Create a connection widget, so the user can connect their account
+    	const widget = new Widget(lt.rs);
+    	widget.attach('rs')
+
+		
+		// Check if the RS environment needs to be initialized 
+		const client = lt.rs.scope('/leitner/');
+
+		async function checkInit(){
+			const listing = await client.getListing('/');
+			return ('leitner.json' in listing)
+		}
+		
+		const inited = await checkInit()
+		if (! inited)
+		{
+			// -- Store the default decks
+			var json = JSON.stringify(lt.default_decks, null, 2);
+  			await client.storeFile('application/json', '/leitner.json', json);
+
+			// -- Store the misc deck to create the decks dir
+			json = JSON.stringify(misc_deck, null, 2);
+  			await client.storeFile('application/json', '/decks/misc.json', json);
+		}
+
+		const file = await client.getFile('/leitner.json');
+
+		if (file && file.data) {
+			lt.deck_files = JSON.parse(file.data);
+
+			console.log('Decks loaded from RS.', lt.deck_files)
+		} else {
+			console.log('Could not load decks.')
+		}		
+
 		// - load all decks
 		let rqs = [];
 		for (let pair of lt.deck_files)
@@ -47,7 +106,18 @@ var lt = { // * top-level namespace
 			let df, order;
 			[df, order] = pair
 
-			let prm = $.getJSON(df).then(async function(deck) {await lt.loadDeck(deck, order);});
+			let prm;
+			if (df.startsWith('rs:')) { //load from RS
+				const file = await client.getFile(df.slice(3));
+				if (file && file.data) {
+					var deck = JSON.parse(file.data);
+				} else console.log('Failed to load', df)
+				prm = lt.loadDeck(deck, order)
+
+			} else { //load locally
+				prm = $.getJSON(df).then(async function(deck) {await lt.loadDeck(deck, order);});
+			}
+
 			rqs.push(prm);
 		}
 
@@ -65,40 +135,33 @@ var lt = { // * top-level namespace
 			}
 		);
 
-		// Add RS object
-		lt.rs = new RemoteStorage({logging: true, cache: false});
-    	lt.rs.access.claim('leitner', 'rw');
-		// -- This does not immediately connect the RS object to the backend. That is handled by the widget.
-
-		// * Create a connection widget, so the user can connect their account
-    	const widget = new Widget(lt.rs);
-    	widget.attach('rs')
-
 	},
 
-	// Add new decks here
-	deck_files : [
+	deck_files : [], // loaded from RS
+	
+	default_decks: [ // the deck list is initialized with these when the app is first used
 		['../decks/capitals.json', 0],
 		['../decks/us-states.json', 1],
 		['../decks/countries.json', 2],
 		['../decks/flags.json', 3],
 		['../decks/hanzi01.json', 4],
 		['../decks/esperanto01.json', 5],
-		['../decks/invictus.json', 6],
-		['../decks/hanzi02.json', 7],
-		['../decks/pops.json', 8],
-		['../decks/morse.json', 9],
-		['../decks/german01.json', 10],
-		['../decks/spanish01.json', 11],
-		['../decks/hanzi03.json', 12],
-		['../decks/norwegian02.json', 13],
-		['../decks/norwegian01.json', 14],
-		['../decks/icelandic01.json', 15],
-        ['../decks/icelandic02.json', 16],
-        ['../decks/icelandic03.json', 17],
-        ['../decks/icelandic_numbers.json', 18],
-        ['../decks/icelandic_times.json', 19],
-		['../decks/frisbee.json', 23],
+		// ['rs:/decks/misc.json', 6]
+		['../decks/invictus.json', 7],
+		['../decks/hanzi02.json', 8],
+		['../decks/pops.json', 9],
+		['../decks/morse.json', 10],
+		['../decks/german01.json', 11],
+		['../decks/spanish01.json', 12],
+		['../decks/hanzi03.json', 13],
+		['../decks/norwegian02.json', 14],
+		['../decks/norwegian01.json', 15],
+		['../decks/icelandic01.json', 16],
+        ['../decks/icelandic02.json', 17],
+        ['../decks/icelandic03.json', 18],
+        ['../decks/icelandic_numbers.json', 19],
+        ['../decks/icelandic_times.json', 20],
+		['../decks/frisbee.json', 21],
 	],
 
 	/**
@@ -1209,19 +1272,6 @@ var lt = { // * top-level namespace
 	},
 
 	/**
-	 * Data stores.
-	 */
-
-	 /**
-	  * Dropbox
-	  */
-	//  dbx : {
-	//  	clientID : 'hu8kdrkpke73lhq',
-	//  	redirectURI : window.location.origin + '/?dbx=auth'
-	//  },
-
-
-	/**
 	 * Synchronize the local Dexie store with the RS backend.
 	 * 
 	 * This is currently initiated manually, but once it works robustly, it can be done 
@@ -1230,7 +1280,7 @@ var lt = { // * top-level namespace
 	 * For now, we just read all events from RS and dump the whole DB. If we want to do this regularly,
 	 * it needs to be a bit more clever.
 	 * 
-	 * (Possibly witha full sync as a backup.)
+	 * (Possibly with a full sync as a backup.)
 	 */
 	rsSync: function() {
 		lt.rsImport()
