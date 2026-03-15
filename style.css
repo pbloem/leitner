@@ -689,13 +689,20 @@ ul.decks li div.handle:before {
 	font-size: 2em;
 
 	color: white;
-	filter: drop-shadow(0.5px 0.5px 0px rgb(88, 88, 88)); */
+	filter: drop-shadow(0.5px 0.5px 0px rgb(177, 177, 177));
 }
 
 ul.decks li div.handle {
 	display: block;
 	height: 3em;
 	flex-grow: 0;
+
+	cursor: move;
+	cursor: grab;
+}
+
+ul.decks .sortable-chosen div.handle {
+	cursor: grabbing;
 }
 
 
