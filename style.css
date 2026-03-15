@@ -631,6 +631,8 @@ ul.decks li {
 	height: 200px;
 	
 	position: relative;
+	display: flex;
+	flex-direction: column;
 
 	background: white;
 
@@ -645,8 +647,9 @@ ul.decks li a.main {
 	justify-content: center;
 	text-align: center;
 
+	flex-grow: 1;
+
 	width: 100%;
-	height: 100%;
 
 	line-height: 1.2em;
 
@@ -677,12 +680,32 @@ ul.decks li a.list {
 	border: none;
 }
 
+ul.decks li div.handle:before {
+	content: "…";
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 2em;
+
+	color: white;
+	filter: drop-shadow(0.5px 0.5px 0px rgb(88, 88, 88)); */
+}
+
+ul.decks li div.handle {
+	display: block;
+	height: 3em;
+	flex-grow: 0;
+}
+
+
 ul.decks li div.progress {
 	position: absolute;
 	min-height: 3px;
 	bottom: 0;
 	width: 200px;
 	padding: 0;
+	flex-grow: 0;
 }
 
 ul.decks li div.progress svg {

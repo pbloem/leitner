@@ -1,3 +1,5 @@
+import Sortable from 'https://cdn.jsdelivr.net/npm/sortablejs/+esm';
+
 'use strict';
 
 String.prototype.hash = function() {
@@ -23,6 +25,7 @@ var misc_deck = {
  * TODO:
  *  - Automate syn syncing once RS is connected
  *  - remove atricle tag from non-article pages.
+ *  - Move to flash.tiny.frl
  *  - Set up a welcome screen and some nice easy starter decks. 
  *  - Get rid of jQuery
  *  - Cache images. The preload doesn't guarantee it properly. 
@@ -1339,6 +1342,11 @@ var lt = { // * top-level namespace
 
 	rsExport: function() {
 
+		// TODO: * Make this safe by downloading first, merging and then storing. 
+		//       * Add occasional backups
+		//       * Compress after merging (unless settings say not to compress)
+
+
 		const client = lt.rs.scope('/leitner/');
 
 		// Export events to RS
@@ -1364,7 +1372,9 @@ var lt = { // * top-level namespace
 
 addEventListener('DOMContentLoaded', (event) =>
 {
-	// ** Load page **
+	/**
+	 * Page load, entry point. 
+	 **/
 	lt.init().then(function()
 	{
 
@@ -1372,7 +1382,7 @@ addEventListener('DOMContentLoaded', (event) =>
 
 		if (params.has('deck'))
 		{
-			if (params.has('list')) // list the cards in the deck (for purposes of debuggineg etc)
+			if (params.has('list')) // list the cards in the deck (for purposes of debugging etc)
 			{
 				// List all cards in the deck together with any information
 
@@ -1450,6 +1460,8 @@ addEventListener('DOMContentLoaded', (event) =>
 
 		} else
 		{
+			// * Home screen, show the decks.
+
 			$('nav #session-info').addClass('hidden')
 			$('nav #train').removeClass('hidden')
 
@@ -1534,6 +1546,22 @@ addEventListener('DOMContentLoaded', (event) =>
 
 			$('nav #train').attr('href', `/?deck=${next[0]}&limit=${next[1]}&queue=${queue.join(',')}&startTime=now`);
 
+			// - Make the decks sortable
+
+			$("ul.decks li").append($('div', {class: 'handle'}));
+
+			const el = document.getElementById('decks');
+
+			Sortable.create(el, {
+				animation: 150,
+				onEnd() {
+					const ids = [...el.children].map(li => li.dataset.id);
+					console.log(ids); // new order
+				}, 
+				handle: '.handle'
+			});
+
+			// TODO: store new order, and update to RS. 
 		}
 
 		$('nav #full-screen').on('click', function(e){
