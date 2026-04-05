@@ -247,8 +247,11 @@ ul.stories li a {
 
 .progress {
 	padding: 1px;
-
 	background: white;
+}
+
+.frame .progress {
+	flex: 0 0 100%; 
 }
 
 .progress svg {
@@ -271,6 +274,8 @@ ul.stories li a {
 
 	margin: 0;
 	background: white;
+
+	padding-bottom: 2vw;
 }
 
 .frame div, .frame button {
@@ -352,7 +357,7 @@ ul.stories li a {
 
 .frame .question {
 
-	width: 45%;
+	width: 40%;
 	margin-left: 3vw;
 	margin-top: 3vw;
 	background: #87cbe6;

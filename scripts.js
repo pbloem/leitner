@@ -71,7 +71,6 @@ var lt = { // * top-level namespace
     	const widget = new Widget(lt.rs);
     	widget.attach('rs')
 
-		
 		// Check if the RS environment needs to be initialized 
 		const client = lt.rs.scope('/leitner/');
 
@@ -93,6 +92,8 @@ var lt = { // * top-level namespace
 		}
 
 		const file = await client.getFile('/leitner.json');
+
+		// TODO: Show default decks if not connected yet (can RS just use local storage and sync later?)
 
 		if (file && file.data) {
 			lt.deck_files = JSON.parse(file.data);
@@ -374,6 +375,9 @@ var lt = { // * top-level namespace
 	 * passed since the card was last seen. We assume, for now that the probability of
 	 * remembering a card decays uniformly by .95 per day.
 	 *
+	 * TODO: Factor in the longest gap between corrects in the sequence. If the use answers correct right 
+	 *       away after a long time of not seeing the card, we can reduce the decay. This allows us to set 
+	 *       the decay quite high at first. The user needs to prove that their memory is stable over time.   
 	 */
 	computeScores : async function(deck)
 	{
@@ -405,7 +409,7 @@ var lt = { // * top-level namespace
  				{
  					// Compute length of most recent contiguous sequence of successes
  					let k = 0
- 					for (event of events)
+ 					for (const event of events)
  						if (event.correct)
  							k ++;
  						else
@@ -416,7 +420,7 @@ var lt = { // * top-level namespace
  					let sidesCorrection = ((ns * ns - ns) / 2)
  					// -- Cards with more sides take longer to learn. We divide the successes
  					//    by the number of pairs of sides to master. For a three-side card
- 					//    3 successes counts as much as one would in a 2-side card.
+ 					//    3 successes counts as much as 1 success would in a 2-side card.
 
  					k /= sidesCorrection
  					k /= rb
@@ -1460,7 +1464,7 @@ addEventListener('DOMContentLoaded', (event) =>
 
 		} else
 		{
-			// * Home screen, show the decks.
+			// ** Home screen, show the decks.
 
 			$('nav #session-info').addClass('hidden')
 			$('nav #train').removeClass('hidden')
